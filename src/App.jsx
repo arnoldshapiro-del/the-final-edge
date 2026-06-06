@@ -1,13 +1,27 @@
 import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import Home from './pages/Home.jsx'
 import Learn from './pages/Learn.jsx'
 import LessonView from './pages/LessonView.jsx'
 import Trainer from './pages/Trainer.jsx'
 import Flashcards from './pages/Flashcards.jsx'
 import Trade from './pages/Trade.jsx'
-import Stats from './pages/Stats.jsx'
 import Settings from './pages/Settings.jsx'
 import { Icon } from './components/Icon.jsx'
+
+// Stats is the only Recharts consumer — code-split it so Recharts doesn't sit in the initial bundle.
+const Stats = lazy(() => import('./pages/Stats.jsx'))
+
+function StatsFallback() {
+  return (
+    <div className="min-h-[40vh] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-10 h-10 rounded-full border-2 border-border border-t-emerald2 animate-spin" style={{ borderTopColor: '#1FE0A0' }} />
+        <div className="font-display tracking-wide text-texts text-[13px]">Loading stats…</div>
+      </div>
+    </div>
+  )
+}
 
 const NAV = [
   { to: '/', label: 'Home', icon: 'home' },
@@ -137,7 +151,7 @@ export default function App() {
               <Route path="/trainer" element={<Trainer />} />
               <Route path="/flashcards" element={<Flashcards />} />
               <Route path="/trade" element={<Trade />} />
-              <Route path="/stats" element={<Stats />} />
+              <Route path="/stats" element={<Suspense fallback={<StatsFallback />}><Stats /></Suspense>} />
               <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
