@@ -9,6 +9,7 @@ import Flashcards from './pages/Flashcards.jsx'
 import Gallery from './pages/Gallery.jsx'
 import TradePlan from './pages/TradePlan.jsx'
 import Discipline from './pages/Discipline.jsx'
+import Manual from './pages/Manual.jsx'
 import Trade from './pages/Trade.jsx'
 import Settings from './pages/Settings.jsx'
 import { Icon } from './components/Icon.jsx'
@@ -166,6 +167,7 @@ export default function App() {
               <Route path="/stats" element={<Suspense fallback={<StatsFallback />}><Stats /></Suspense>} />
               <Route path="/plan" element={<TradePlan />} />
               <Route path="/discipline" element={<Discipline />} />
+              <Route path="/manual" element={<Manual />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
