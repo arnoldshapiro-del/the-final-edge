@@ -105,8 +105,28 @@ function Distribution({ items, label, accentKey }) {
   )
 }
 
+function buildByDayCurve(trades) {
+  // Group by local date, cumulative sum, output [{label: 'YYYY-MM-DD', short: 'MM/DD', r}]
+  if (!trades.length) return []
+  const byDate = new Map()
+  for (const t of trades) {
+    const d = new Date(t.datetime)
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const r = typeof t.totalR === 'number' ? t.totalR : 0
+    byDate.set(key, (byDate.get(key) || 0) + r)
+  }
+  const dates = Array.from(byDate.keys()).sort()
+  let acc = 0
+  return dates.map(d => {
+    acc += byDate.get(d)
+    const [_, m, day] = d.split('-')
+    return { label: d, short: `${m}/${day}`, r: Math.round(acc * 100) / 100, dayR: Math.round(byDate.get(d) * 100) / 100 }
+  })
+}
+
 export default function Stats() {
   const [mode, setMode] = useState('sim')
+  const [curveView, setCurveView] = useState('trade') // 'trade' | 'day'
   const trades = useTrades()
   const progress = useProgress()
   const stats = getDerivedStats(mode)
@@ -158,25 +178,72 @@ export default function Stats() {
 
           {/* Equity curve */}
           <section className="card p-5">
-            <h3 className="font-display font-semibold text-textp text-lg mb-3 flex items-center gap-2">
-              <Icon name="chart" className="w-5 h-5 text-emerald2"/> Cumulative R · {mode.toUpperCase()}
-            </h3>
+            <div className="flex items-center justify-between flex-wrap gap-3 mb-3">
+              <h3 className="font-display font-semibold text-textp text-lg flex items-center gap-2">
+                <Icon name="chart" className="w-5 h-5 text-emerald2"/> Cumulative R · {mode.toUpperCase()}
+              </h3>
+              <div className="flex gap-1 p-1 rounded-lg border border-border bg-bg" role="tablist" aria-label="Equity curve view">
+                {[
+                  { k: 'trade', l: 'By trade' },
+                  { k: 'day', l: 'By day' },
+                ].map(o => (
+                  <button
+                    key={o.k}
+                    role="tab"
+                    aria-selected={curveView === o.k}
+                    className={`font-display tracking-wide text-[12px] py-1.5 px-3 rounded-md transition ${curveView === o.k ? 'bg-emerald2 text-bg shadow-glow' : 'text-texts hover:text-textp'}`}
+                    onClick={() => setCurveView(o.k)}
+                  >
+                    {o.l}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="w-full h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={stats.cum} margin={{ top: 10, right: 16, left: -10, bottom: 0 }}>
-                  <CartesianGrid stroke="#252C44" strokeDasharray="3 5" />
-                  <XAxis dataKey="idx" stroke="#5E6884" tick={{ fontSize: 11, fontFamily: 'Space Mono' }} />
-                  <YAxis stroke="#5E6884" tick={{ fontSize: 11, fontFamily: 'Space Mono' }} />
-                  <Tooltip
-                    contentStyle={{ background: '#121829', border: '1px solid #252C44', borderRadius: 8, fontFamily: 'Space Mono', color: '#E8ECF4' }}
-                    labelStyle={{ color: '#9BA6BE' }}
-                    formatter={(v) => [`${v >= 0 ? '+' : ''}${v}R`, 'Cumulative']}
-                    labelFormatter={(l) => `Trade #${l}`}
-                  />
-                  <ReferenceLine y={0} stroke="#5E6884" strokeDasharray="3 3" />
-                  <Line type="monotone" dataKey="r" stroke="#1FE0A0" strokeWidth={2.2} dot={false} activeDot={{ r: 5, fill: '#1FE0A0' }} />
-                </LineChart>
-              </ResponsiveContainer>
+              {(() => {
+                if (curveView === 'trade') {
+                  return (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={stats.cum} margin={{ top: 10, right: 16, left: -10, bottom: 0 }}>
+                        <CartesianGrid stroke="#252C44" strokeDasharray="3 5" />
+                        <XAxis dataKey="idx" stroke="#5E6884" tick={{ fontSize: 11, fontFamily: 'Space Mono' }} />
+                        <YAxis stroke="#5E6884" tick={{ fontSize: 11, fontFamily: 'Space Mono' }} />
+                        <Tooltip
+                          contentStyle={{ background: '#121829', border: '1px solid #252C44', borderRadius: 8, fontFamily: 'Space Mono', color: '#E8ECF4' }}
+                          labelStyle={{ color: '#9BA6BE' }}
+                          formatter={(v) => [`${v >= 0 ? '+' : ''}${v}R`, 'Cumulative']}
+                          labelFormatter={(l) => `Trade #${l}`}
+                        />
+                        <ReferenceLine y={0} stroke="#5E6884" strokeDasharray="3 3" />
+                        <Line type="monotone" dataKey="r" stroke="#1FE0A0" strokeWidth={2.2} dot={false} activeDot={{ r: 5, fill: '#1FE0A0' }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  )
+                }
+                const byDay = buildByDayCurve(stats.trades)
+                if (!byDay.length) return <div className="h-full flex items-center justify-center text-texts text-[13px]">No completed days yet.</div>
+                return (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={byDay} margin={{ top: 10, right: 16, left: -10, bottom: 0 }}>
+                      <CartesianGrid stroke="#252C44" strokeDasharray="3 5" />
+                      <XAxis dataKey="short" stroke="#5E6884" tick={{ fontSize: 11, fontFamily: 'Space Mono' }} />
+                      <YAxis stroke="#5E6884" tick={{ fontSize: 11, fontFamily: 'Space Mono' }} />
+                      <Tooltip
+                        contentStyle={{ background: '#121829', border: '1px solid #252C44', borderRadius: 8, fontFamily: 'Space Mono', color: '#E8ECF4' }}
+                        labelStyle={{ color: '#9BA6BE' }}
+                        formatter={(v, _n, ctx) => [`${v >= 0 ? '+' : ''}${v}R`, ctx?.dataKey === 'dayR' ? 'That day' : 'Cumulative']}
+                        labelFormatter={(l, items) => {
+                          const full = items?.[0]?.payload?.label
+                          return full ? `Day · ${full}` : `Day · ${l}`
+                        }}
+                      />
+                      <ReferenceLine y={0} stroke="#5E6884" strokeDasharray="3 3" />
+                      <Line type="monotone" dataKey="r" name="Cumulative" stroke="#1FE0A0" strokeWidth={2.2} dot={{ r: 3, fill: '#1FE0A0' }} activeDot={{ r: 5, fill: '#1FE0A0' }} />
+                      <Line type="monotone" dataKey="dayR" name="That day" stroke="#9B8CFF" strokeWidth={1.4} strokeDasharray="4 4" dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                )
+              })()}
             </div>
           </section>
 
