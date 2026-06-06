@@ -130,17 +130,42 @@ export default function Home() {
         <Link to="/learn" className="card card-hover p-5 group">
           <Icon name="book" className="w-6 h-6 text-gold mb-3"/>
           <h3 className="font-display font-semibold text-textp text-lg">Open the playbook</h3>
-          <p className="text-texts text-[14px] mt-1">10 lessons. One edge. Study like a master.</p>
+          <p className="text-texts text-[14px] mt-1">10 lessons + visual library. Study like a master.</p>
         </Link>
         <Link to="/trainer" className="card card-hover p-5 group">
           <Icon name="target" className="w-6 h-6 text-cyan2 mb-3"/>
           <h3 className="font-display font-semibold text-textp text-lg">Drill the setup</h3>
-          <p className="text-texts text-[14px] mt-1">Trade or skip. Build the reflex.</p>
+          <p className="text-texts text-[14px] mt-1">18 scenarios. Instant · play · step.</p>
         </Link>
         <Link to="/trade" className="card card-hover p-5 group">
           <Icon name="chart" className="w-6 h-6 text-emerald2 mb-3"/>
           <h3 className="font-display font-semibold text-textp text-lg">Trade with the cockpit</h3>
           <p className="text-texts text-[14px] mt-1">Checklist gate. Stay honest.</p>
+        </Link>
+      </section>
+
+      {/* Trader's toolkit row */}
+      <section className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <Link to="/plan" className="card card-hover p-4 group flex items-center gap-3">
+          <Icon name="shield" className="w-5 h-5 text-gold shrink-0"/>
+          <div className="min-w-0">
+            <div className="font-display font-semibold text-textp text-[14px]">Trade plan</div>
+            <div className="text-texts text-[12px]">The system on one page.</div>
+          </div>
+        </Link>
+        <Link to="/discipline" className="card card-hover p-4 group flex items-center gap-3">
+          <Icon name="compass" className="w-5 h-5 text-violet2 shrink-0"/>
+          <div className="min-w-0">
+            <div className="font-display font-semibold text-textp text-[14px]">Discipline</div>
+            <div className="text-texts text-[12px]">Plan-following score.</div>
+          </div>
+        </Link>
+        <Link to="/learn/gallery" className="card card-hover p-4 group flex items-center gap-3 col-span-2 md:col-span-1">
+          <Icon name="spark" className="w-5 h-5 text-cyan2 shrink-0"/>
+          <div className="min-w-0">
+            <div className="font-display font-semibold text-textp text-[14px]">Visual library</div>
+            <div className="text-texts text-[12px]">21 annotated charts.</div>
+          </div>
         </Link>
       </section>
 

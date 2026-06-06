@@ -265,7 +265,7 @@ export default function SetupChart({
       {typeof triggerY === 'number' && (
         <g>
           <line x1={padL} x2={w - padR} y1={yFromVal(triggerY)} y2={yFromVal(triggerY)} stroke={COLORS.gold} strokeWidth="1.7" strokeDasharray="7 5" opacity="0.95" filter="url(#sc-glow-gold)"/>
-          <text x={w - padR - 6} y={yFromVal(triggerY) - 6} textAnchor="end" fill={COLORS.gold} fontFamily="Space Mono" fontSize="11">{triggerLabel}</text>
+          <text x={w - padR - 6} y={yFromVal(triggerY) - 6} textAnchor="end" fill={COLORS.gold} fontFamily="Space Mono" fontSize="11" style={{ paintOrder: 'stroke', stroke: COLORS.bg, strokeWidth: 3 }}>{triggerLabel}</text>
         </g>
       )}
 
@@ -273,7 +273,7 @@ export default function SetupChart({
       {typeof crowdStopY === 'number' && (
         <g opacity="0.7">
           <line x1={padL} x2={w - padR} y1={yFromVal(crowdStopY)} y2={yFromVal(crowdStopY)} stroke={COLORS.coral} strokeWidth="1.0" strokeDasharray="2 5"/>
-          <text x={padL + 6} y={yFromVal(crowdStopY) - 4} fill={COLORS.coral} fontFamily="Space Mono" fontSize="10" opacity="0.85">{crowdStopLabel}</text>
+          <text x={padL + 6} y={yFromVal(crowdStopY) - 4} fill={COLORS.coral} fontFamily="Space Mono" fontSize="10" opacity="0.85" style={{ paintOrder: 'stroke', stroke: COLORS.bg, strokeWidth: 3 }}>{crowdStopLabel}</text>
         </g>
       )}
 
@@ -281,7 +281,7 @@ export default function SetupChart({
       {typeof stopY === 'number' && (
         <g>
           <line x1={padL} x2={w - padR} y1={yFromVal(stopY)} y2={yFromVal(stopY)} stroke={COLORS.coral} strokeWidth="1.5" strokeDasharray="3 4"/>
-          <text x={padL + 6} y={yFromVal(stopY) + 14} fill={COLORS.coral} fontFamily="Space Mono" fontSize="11">{stopLabel}</text>
+          <text x={padL + 6} y={yFromVal(stopY) + 14} fill={COLORS.coral} fontFamily="Space Mono" fontSize="11" style={{ paintOrder: 'stroke', stroke: COLORS.bg, strokeWidth: 3 }}>{stopLabel}</text>
         </g>
       )}
 
