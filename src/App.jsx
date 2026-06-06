@@ -17,6 +17,10 @@ const NAV = [
   { to: '/stats', label: 'Stats', icon: 'stats' },
 ]
 
+const DESKTOP_EXTRAS = [
+  { to: '/flashcards', label: 'Flashcards', icon: 'spark' },
+]
+
 function Sidebar() {
   return (
     <aside className="hidden md:flex flex-col w-60 shrink-0 border-r border-border bg-panel/70 backdrop-blur min-h-screen">
@@ -45,6 +49,23 @@ function Sidebar() {
                 isActive
                   ? 'bg-elevated text-textp border border-border shadow-[inset_0_0_0_1px_rgba(155,140,255,0.18)]'
                   : 'text-texts hover:text-textp hover:bg-elevated/60 border border-transparent'
+              }`
+            }
+          >
+            <Icon name={n.icon} className="w-4 h-4" />
+            <span>{n.label}</span>
+          </NavLink>
+        ))}
+        <div className="h-px mx-3 my-2 bg-border" />
+        {DESKTOP_EXTRAS.map(n => (
+          <NavLink
+            key={n.to}
+            to={n.to}
+            className={({ isActive }) =>
+              `group flex items-center gap-3 px-3 py-2 rounded-lg font-display text-[13px] tracking-wide transition ${
+                isActive
+                  ? 'bg-elevated text-textp border border-border'
+                  : 'text-textt hover:text-textp hover:bg-elevated/60 border border-transparent'
               }`
             }
           >

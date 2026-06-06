@@ -1,15 +1,31 @@
 import { useState, useEffect } from 'react'
-import { useSettings } from '../hooks.js'
-import { setSettings } from '../storage.js'
+import { useSettings, useTrades } from '../hooks.js'
+import { setSettings, setTrades, setProgress, setSession } from '../storage.js'
 import { Icon } from '../components/Icon.jsx'
 
 export default function Settings() {
   const s = useSettings()
+  const trades = useTrades()
   const [draft, setDraft] = useState(s)
+  const [askReset, setAskReset] = useState(null) // 'trades' | 'all' | null
+  const [saved, setSaved] = useState(false)
   useEffect(() => setDraft(s), [s.contracts, s.maxTradesPerSession, s.maxLossPerSession, s.mode])
 
-  const save = () => setSettings(draft)
+  const save = () => { setSettings(draft); setSaved(true); setTimeout(() => setSaved(false), 1800) }
   const change = (k, v) => setDraft({ ...draft, [k]: v })
+
+  const resetTrades = () => {
+    setTrades([])
+    setSession({ date: null, tradesToday: 0, rToday: 0, locked: false })
+    setAskReset(null)
+  }
+  const resetAll = () => {
+    setTrades([])
+    setSettings({ contracts: 6, maxTradesPerSession: 3, maxLossPerSession: 3, mode: 'sim', mission: s.mission })
+    setProgress({ lessonsCompleted: [], trainerAttempts: 0, trainerCorrect: 0, trainerSessionTotal: 0, trainerSessionCorrect: 0, trainerTrapsAvoided: 0, flashcardKnown: {}, flashcardSeen: {}, simGreenStreak: 0, daysPracticed: 0, lastSessionDate: null })
+    setSession({ date: null, tradesToday: 0, rToday: 0, locked: false })
+    setAskReset(null)
+  }
 
   return (
     <div className="space-y-6 max-w-2xl">
@@ -53,8 +69,44 @@ export default function Settings() {
           <p className="text-textt text-[12px] mt-1 font-body">In R units. When the day's net hits −Max, the cockpit locks until tomorrow.</p>
         </div>
 
-        <button className="btn btn-primary" onClick={save}><Icon name="check" className="w-4 h-4"/> Save settings</button>
+        <div className="flex gap-3 items-center">
+          <button className="btn btn-primary" onClick={save}><Icon name="check" className="w-4 h-4"/> Save settings</button>
+          {saved && <span className="pill pill-emerald animate-fadeup"><Icon name="check" className="w-3 h-3"/> Saved</span>}
+        </div>
       </div>
+
+      <div className="card p-5 space-y-3 border-l-4" style={{ borderLeftColor: '#FF5C72' }}>
+        <h2 className="font-display font-semibold text-textp text-lg">Danger zone</h2>
+        <p className="text-textt text-[13px] font-body">{trades.length} trade(s) logged. Resetting deletes your sample — usually you don’t want to.</p>
+        <div className="flex flex-wrap gap-2">
+          <button className="btn btn-ghost border-coral/40 text-coral hover:bg-coral/10" onClick={() => setAskReset('trades')}>
+            <Icon name="trash" className="w-4 h-4"/> Reset trade journal
+          </button>
+          <button className="btn btn-ghost border-coral/40 text-coral hover:bg-coral/10" onClick={() => setAskReset('all')}>
+            <Icon name="refresh" className="w-4 h-4"/> Reset everything
+          </button>
+        </div>
+      </div>
+
+      {askReset && (
+        <div className="fixed inset-0 z-50 bg-bg/85 backdrop-blur flex items-center justify-center p-4">
+          <div className="card p-6 max-w-md text-center">
+            <Icon name="lock" className="w-9 h-9 text-coral mx-auto mb-2"/>
+            <h3 className="font-display font-semibold text-textp text-xl">{askReset === 'all' ? 'Reset everything?' : 'Reset trade journal?'}</h3>
+            <p className="text-texts text-[14px] mt-2">
+              {askReset === 'all'
+                ? 'Deletes all trades, lesson progress, trainer stats, flashcards, and session counters. Mission text is kept. This can\'t be undone.'
+                : 'Deletes all logged trades and resets today\'s session counter. Lesson progress and trainer stats are kept. This can\'t be undone.'}
+            </p>
+            <div className="flex justify-center gap-2 mt-5">
+              <button className="btn btn-ghost" onClick={() => setAskReset(null)}>Cancel</button>
+              <button className="btn btn-danger" onClick={() => askReset === 'all' ? resetAll() : resetTrades()}>
+                Yes, reset
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

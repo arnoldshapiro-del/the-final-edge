@@ -109,7 +109,7 @@ export default function Trainer() {
 
   if (showSummary) {
     const trapsTotal = SCENARIOS.filter(s => s.trap).length
-    const pct = Math.round((sessionCorrect / sessionAnswered) * 100)
+    const pct = sessionAnswered > 0 ? Math.round((sessionCorrect / sessionAnswered) * 100) : 0
     return (
       <div className="space-y-6 max-w-3xl mx-auto">
         <header>
