@@ -7,6 +7,8 @@ import LessonView from './pages/LessonView.jsx'
 import Trainer from './pages/Trainer.jsx'
 import Flashcards from './pages/Flashcards.jsx'
 import Gallery from './pages/Gallery.jsx'
+import TradePlan from './pages/TradePlan.jsx'
+import Discipline from './pages/Discipline.jsx'
 import Trade from './pages/Trade.jsx'
 import Settings from './pages/Settings.jsx'
 import { Icon } from './components/Icon.jsx'
@@ -34,7 +36,10 @@ const NAV = [
 ]
 
 const DESKTOP_EXTRAS = [
-  { to: '/flashcards', label: 'Flashcards', icon: 'spark' },
+  { to: '/learn/gallery', label: 'Visual library', icon: 'spark' },
+  { to: '/flashcards', label: 'Flashcards', icon: 'flame' },
+  { to: '/plan', label: 'Trade plan', icon: 'shield' },
+  { to: '/discipline', label: 'Discipline', icon: 'compass' },
 ]
 
 function Sidebar() {
@@ -159,6 +164,8 @@ export default function App() {
               <Route path="/flashcards" element={<Flashcards />} />
               <Route path="/trade" element={<Trade />} />
               <Route path="/stats" element={<Suspense fallback={<StatsFallback />}><Stats /></Suspense>} />
+              <Route path="/plan" element={<TradePlan />} />
+              <Route path="/discipline" element={<Discipline />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

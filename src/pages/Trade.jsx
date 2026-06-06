@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '../components/Icon.jsx'
 import {
@@ -118,6 +118,48 @@ export default function Trade() {
 
   const sortedTrades = useMemo(() => trades.slice(), [trades])
 
+  // Keyboard shortcuts for fast logging:
+  //   1-7 → toggle that checklist step
+  //   e   → focus the Entry price input
+  //   s   → log the trade (save) if all 7 pass + valid prices
+  //   ?   → toggle the help panel
+  const entryInputRef = useRef(null)
+  const [shortcutsOpen, setShortcutsOpen] = useState(false)
+  // latest refs so the keydown handler always sees current state
+  const checksRef = useRef(checks); checksRef.current = checks
+  const canLogRef = useRef(canLog); canLogRef.current = canLog
+  const logTradeRef = useRef(logTrade); logTradeRef.current = logTrade
+  useEffect(() => {
+    const onKey = (e) => {
+      // Don't hijack typing in inputs/textarea/select
+      const tgt = e.target
+      const inField = tgt && (tgt.tagName === 'INPUT' || tgt.tagName === 'TEXTAREA' || tgt.tagName === 'SELECT' || tgt.isContentEditable)
+      if (inField && e.key !== 'Escape') return
+      if (e.metaKey || e.ctrlKey || e.altKey) return
+
+      if (/^[1-7]$/.test(e.key)) {
+        const idx = parseInt(e.key, 10) - 1
+        const step = CHECKLIST_STEPS[idx]
+        if (step) {
+          setChecks(c => ({ ...c, [step.id]: !c[step.id] }))
+          e.preventDefault()
+        }
+      } else if (e.key === 'e' || e.key === 'E') {
+        if (entryInputRef.current) { entryInputRef.current.focus(); entryInputRef.current.select?.() }
+        e.preventDefault()
+      } else if (e.key === 's' || e.key === 'S') {
+        if (canLogRef.current) { logTradeRef.current(); e.preventDefault() }
+      } else if (e.key === '?') {
+        setShortcutsOpen(o => !o)
+        e.preventDefault()
+      } else if (e.key === 'Escape') {
+        setShortcutsOpen(false)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       <header className="flex items-end justify-between gap-3 flex-wrap">
@@ -127,7 +169,17 @@ export default function Trade() {
           <p className="text-texts mt-2">Pass the 7-step gate. Log the trade. Stay honest.</p>
         </div>
         <div className="text-right">
-          <div className="pill pill-muted mb-1">Mode · {settings.mode.toUpperCase()}</div>
+          <div className="flex items-center gap-2 justify-end mb-1">
+            <button
+              className="hidden md:inline-flex items-center gap-1 text-[11px] font-display tracking-wide py-1 px-2 rounded border border-border bg-bg text-texts hover:text-textp transition"
+              onClick={() => setShortcutsOpen(true)}
+              aria-label="Keyboard shortcuts"
+              title="Keyboard shortcuts (?)"
+            >
+              <span className="font-mono">?</span> Shortcuts
+            </button>
+            <div className="pill pill-muted">Mode · {settings.mode.toUpperCase()}</div>
+          </div>
           <div className="font-mono text-textt text-[12px]">Today: {session.tradesToday}/{settings.maxTradesPerSession} · {session.rToday >= 0 ? '+' : ''}{r2(session.rToday)}R</div>
         </div>
       </header>
@@ -241,7 +293,7 @@ export default function Trade() {
 
           <div>
             <label className="field-label">Entry price</label>
-            <input type="number" step="0.01" value={form.entry} onChange={e => change('entry', e.target.value)} placeholder="e.g. 2185.30" />
+            <input ref={entryInputRef} type="number" step="0.01" value={form.entry} onChange={e => change('entry', e.target.value)} placeholder="e.g. 2185.30" />
           </div>
 
           <div>
@@ -324,6 +376,41 @@ export default function Trade() {
       {confirmDelete && (
         <ConfirmDelete onCancel={() => setConfirmDelete(null)} onConfirm={() => { removeTrade(confirmDelete); setConfirmDelete(null) }} />
       )}
+
+      {shortcutsOpen && <ShortcutsHelp onClose={() => setShortcutsOpen(false)} />}
+    </div>
+  )
+}
+
+function ShortcutsHelp({ onClose }) {
+  const ROWS = [
+    { keys: ['1', '2', '3', '4', '5', '6', '7'], label: 'Toggle each checklist step' },
+    { keys: ['E'], label: 'Focus the Entry price input' },
+    { keys: ['S'], label: 'Save / log the trade (if all 7 + valid prices)' },
+    { keys: ['?'], label: 'Open / close this help' },
+    { keys: ['Esc'], label: 'Close dialogs' },
+  ]
+  return (
+    <div className="fixed inset-0 z-50 bg-bg/85 backdrop-blur flex items-center justify-center p-4" onClick={onClose}>
+      <div className="card p-6 max-w-md w-full" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-display font-semibold text-textp text-lg">Keyboard shortcuts</h3>
+          <button className="text-texts hover:text-textp" onClick={onClose} aria-label="Close"><Icon name="x" className="w-4 h-4"/></button>
+        </div>
+        <ul className="space-y-2">
+          {ROWS.map((row, i) => (
+            <li key={i} className="flex items-center justify-between gap-3">
+              <span className="text-textp text-[14px]">{row.label}</span>
+              <span className="flex gap-1">
+                {row.keys.map(k => (
+                  <kbd key={k} className="font-mono text-[12px] px-2 py-0.5 rounded border border-border bg-bg text-textp">{k}</kbd>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="text-textt text-[12px] mt-4 font-body">Shortcuts work whenever you're not typing in an input.</p>
+      </div>
     </div>
   )
 }

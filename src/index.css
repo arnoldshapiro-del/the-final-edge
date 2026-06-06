@@ -205,3 +205,20 @@ label.field-label {
   50% { box-shadow: 0 0 28px rgba(31, 224, 160, 0.4); }
 }
 .glow-pulse { animation: glowPulse 2.4s ease-in-out infinite; }
+
+/* Print — used by the Trade Plan card. White paper, black ink, hide nav chrome. */
+@media print {
+  body { background: #fff; color: #000; }
+  .print\:hidden { display: none !important; }
+  aside, nav { display: none !important; }
+  .card { background: #fff !important; color: #000 !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+  .card-elev { background: #fff !important; border: 1px solid #ccc !important; }
+  .text-textp, .text-texts, .text-textt { color: #000 !important; }
+  .text-emerald2, .text-glow-emerald { color: #096b3a !important; text-shadow: none !important; }
+  .text-coral, .text-glow-coral { color: #b81830 !important; text-shadow: none !important; }
+  .text-gold, .text-glow-gold { color: #7a5305 !important; text-shadow: none !important; }
+  .text-violet2, .text-glow-violet { color: #4a3da8 !important; text-shadow: none !important; }
+  .text-cyan2, .text-glow-cyan { color: #045a72 !important; text-shadow: none !important; }
+  .pill { background: #f3f3f3 !important; color: #000 !important; border-color: #999 !important; }
+  main { padding: 0 !important; }
+}
