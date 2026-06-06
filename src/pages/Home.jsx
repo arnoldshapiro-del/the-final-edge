@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSettings, useProgress, useTrades } from '../hooks.js'
 import { setSettings, getDerivedStats } from '../storage.js'
 import { Icon } from '../components/Icon.jsx'
+import { PreMarket, EndOfDay } from '../components/Routines.jsx'
 import { useState, useEffect } from 'react'
 
 function StatTile({ label, value, sub, accent = 'emerald', to, big = false }) {
@@ -141,6 +142,13 @@ export default function Home() {
           <h3 className="font-display font-semibold text-textp text-lg">Trade with the cockpit</h3>
           <p className="text-texts text-[14px] mt-1">Checklist gate. Stay honest.</p>
         </Link>
+      </section>
+
+      {/* Routines */}
+      <section className="space-y-3">
+        <h2 className="font-display font-semibold text-xl text-textp tracking-wide">Daily routines</h2>
+        <PreMarket />
+        <EndOfDay />
       </section>
 
       <section className="card p-5 border-l-4" style={{ borderLeftColor: '#FFB347' }}>
