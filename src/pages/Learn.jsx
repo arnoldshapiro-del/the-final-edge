@@ -26,6 +26,25 @@ export default function Learn() {
         </div>
       </div>
 
+      <Link
+        to="/learn/gallery"
+        className="card card-hover p-4 md:p-5 flex items-center gap-4 group relative overflow-hidden"
+        style={{ borderColor: 'rgba(155, 140, 255, 0.35)' }}
+      >
+        <div aria-hidden className="pointer-events-none absolute -right-12 -top-12 w-44 h-44 rounded-full" style={{ background: 'radial-gradient(circle, rgba(155, 140, 255, 0.18), transparent 65%)' }}/>
+        <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-violet2/10 border border-violet2/40 shrink-0">
+          <Icon name="spark" className="w-5 h-5 text-violet2"/>
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <span className="pill pill-violet text-[10px]">New</span>
+            <div className="font-display font-semibold text-textp text-[16px] md:text-[17px]">Visual library</div>
+          </div>
+          <div className="text-texts text-[13px] md:text-sm mt-0.5">10 setup charts · candle anatomy · 6 patterns we never trade.</div>
+        </div>
+        <Icon name="arrow" className="w-4 h-4 text-texts group-hover:text-textp shrink-0" />
+      </Link>
+
       <ol className="space-y-3">
         {LESSONS.map(l => {
           const isDone = done.has(l.id)

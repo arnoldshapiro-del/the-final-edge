@@ -6,6 +6,7 @@ import Learn from './pages/Learn.jsx'
 import LessonView from './pages/LessonView.jsx'
 import Trainer from './pages/Trainer.jsx'
 import Flashcards from './pages/Flashcards.jsx'
+import Gallery from './pages/Gallery.jsx'
 import Trade from './pages/Trade.jsx'
 import Settings from './pages/Settings.jsx'
 import { Icon } from './components/Icon.jsx'
@@ -152,6 +153,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/learn" element={<Learn />} />
+              <Route path="/learn/gallery" element={<Gallery />} />
               <Route path="/learn/:id" element={<LessonView />} />
               <Route path="/trainer" element={<Trainer />} />
               <Route path="/flashcards" element={<Flashcards />} />
