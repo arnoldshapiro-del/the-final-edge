@@ -1,5 +1,6 @@
 import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
+import { processGreenStreak } from './storage.js'
 import Home from './pages/Home.jsx'
 import Learn from './pages/Learn.jsx'
 import LessonView from './pages/LessonView.jsx'
@@ -137,6 +138,10 @@ function DisciplineBanner() {
 
 export default function App() {
   const loc = useLocation()
+  useEffect(() => {
+    // Roll the green-day streak forward once per app open (idempotent).
+    processGreenStreak()
+  }, [])
   return (
     <div className="min-h-screen flex flex-col">
       <DisciplineBanner />

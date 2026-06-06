@@ -130,6 +130,47 @@ export function addEOD(entry) {
   const all = getEOD(); all.unshift(entry); write(KEY_EOD, all)
 }
 
+// Walk completed sim-trading days (strictly before today) that haven't been graded yet.
+// For each: net R > 0 → streak++, net R < 0 → streak resets to 0, net R = 0 → no change.
+// Idempotent: stores lastStreakDate (YYYY-MM-DD) of the most-recently-graded day; uncounted days roll forward only.
+// Returns the (possibly updated) progress.
+export function processGreenStreak() {
+  const progress = getProgress()
+  const trades = getTrades().filter(t => t.mode === 'sim')
+  if (!trades.length) return progress
+
+  // Group sim trades by local date (YYYY-MM-DD)
+  const byDate = new Map()
+  for (const t of trades) {
+    const d = new Date(t.datetime)
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const r = typeof t.totalR === 'number' ? t.totalR : tradeTotalR(t)
+    byDate.set(key, (byDate.get(key) || 0) + r)
+  }
+
+  const today = todayStr()
+  // Days that are STRICTLY BEFORE today (today's PnL is still live), in chronological order
+  const completedDays = Array.from(byDate.keys()).filter(d => d < today).sort()
+  if (!completedDays.length) return progress
+
+  const lastGraded = progress.lastStreakDate || ''
+  const toGrade = completedDays.filter(d => d > lastGraded)
+  if (!toGrade.length) return progress
+
+  let streak = progress.simGreenStreak || 0
+  let lastStreakDate = lastGraded
+  for (const day of toGrade) {
+    const netR = byDate.get(day)
+    if (netR > 0) streak += 1
+    else if (netR < 0) streak = 0
+    // netR === 0 → no change
+    lastStreakDate = day
+  }
+  const next = { ...progress, simGreenStreak: streak, lastStreakDate }
+  setProgress(next)
+  return next
+}
+
 // Mark day practiced (today)
 export function markDayPracticed() {
   const p = getProgress()
