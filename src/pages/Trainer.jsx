@@ -45,18 +45,56 @@ function ChoiceButton({ choice, onClick, disabled, isCorrect, picked }) {
   )
 }
 
+const MODES = [
+  { key: 'instant', label: 'Instant', icon: 'spark', desc: 'Show the whole picture, call it.' },
+  { key: 'play',    label: 'Watch it form', icon: 'play', desc: 'Bar by bar — then call it.' },
+  { key: 'step',    label: 'Step through', icon: 'arrow', desc: 'Reveal a bar at a time; call when ready.' },
+]
+
+function defaultPerType() {
+  return {
+    long:  { correct: 0, total: 0 },
+    short: { correct: 0, total: 0 },
+    wait:  { correct: 0, total: 0 },
+    trap:  { correct: 0, total: 0 },
+  }
+}
+
 export default function Trainer() {
+  const [trainMode, setTrainMode] = useState('instant')
   const [deck, setDeck] = useState(() => shuffle(SCENARIOS))
   const [pos, setPos] = useState(0)
   const [picked, setPicked] = useState(null)
   const [sessionAnswered, setSessionAnswered] = useState(0)
   const [sessionCorrect, setSessionCorrect] = useState(0)
   const [sessionTrapsAvoided, setSessionTrapsAvoided] = useState(0)
+  const [perType, setPerType] = useState(() => defaultPerType())
   const [showSummary, setShowSummary] = useState(false)
+  const [stepIdx, setStepIdx] = useState(0)            // bars revealed in step mode
+  const [playReady, setPlayReady] = useState(false)    // play mode: animation finished?
   const scenario = deck[pos]
   const done = picked !== null
   const isCorrect = picked === scenario?.expected
   const progress = getProgress()
+
+  // Reset per-card state when card changes or mode changes
+  useEffect(() => {
+    if (!scenario) return
+    if (trainMode === 'step') {
+      setStepIdx(Math.min(3, scenario.values.length))   // start with 3 bars
+    } else {
+      setStepIdx(scenario.values.length)
+    }
+    setPlayReady(trainMode !== 'play')
+  }, [pos, trainMode, scenario])
+
+  // Play mode: when the chart finishes animating (~1.6s), unlock choices
+  useEffect(() => {
+    if (trainMode !== 'play' || done) return
+    setPlayReady(false)
+    const t = setTimeout(() => setPlayReady(true), 1700)
+    return () => clearTimeout(t)
+  }, [pos, trainMode, done])
 
   const overallAcc = progress.trainerAttempts > 0
     ? Math.round((progress.trainerCorrect / progress.trainerAttempts) * 100)
@@ -65,14 +103,30 @@ export default function Trainer() {
   const markers = useMemo(() => {
     if (!scenario) return []
     const ms = []
-    if (typeof scenario.dip1Idx === 'number') ms.push({ idx: scenario.dip1Idx, kind: 'dip1', label: scenario.expected === 'SHORT' ? 'Rally high' : 'Dip 1' })
-    if (typeof scenario.dip2Idx === 'number') ms.push({ idx: scenario.dip2Idx, kind: 'dip2', label: scenario.expected === 'SHORT' ? 'Lower high' : 'Dip 2' })
-    if (done && typeof scenario.entryIdx === 'number') ms.push({ idx: scenario.entryIdx, kind: 'enter', label: 'Enter on close' })
+    const showAll = done   // show all annotations once an answer is committed
+    if (typeof scenario.dip1Idx === 'number' && (showAll || stepIdx > scenario.dip1Idx)) {
+      ms.push({ idx: scenario.dip1Idx, kind: 'dip1', label: scenario.expected === 'SHORT' ? 'Rally high' : 'Dip 1' })
+    }
+    if (typeof scenario.dip2Idx === 'number' && (showAll || stepIdx > scenario.dip2Idx)) {
+      ms.push({ idx: scenario.dip2Idx, kind: 'dip2', label: scenario.expected === 'SHORT' ? 'Lower high' : 'Dip 2' })
+    }
+    if (done && typeof scenario.entryIdx === 'number') {
+      ms.push({ idx: scenario.entryIdx, kind: 'enter', label: 'Enter on close' })
+    }
     return ms
-  }, [scenario, done])
+  }, [scenario, done, stepIdx])
+
+  const visibleValues = useMemo(() => {
+    if (!scenario) return []
+    if (trainMode === 'step' && !done) return scenario.values.slice(0, stepIdx)
+    return scenario.values
+  }, [scenario, trainMode, stepIdx, done])
+
+  const canRevealMore = trainMode === 'step' && !done && stepIdx < (scenario?.values?.length || 0)
+  const choicesEnabled = !done && (trainMode === 'instant' || (trainMode === 'play' && playReady) || trainMode === 'step')
 
   const handlePick = (choiceKey) => {
-    if (done) return
+    if (done || !choicesEnabled) return
     setPicked(choiceKey)
     const correct = choiceKey === scenario.expected
     const newAnswered = sessionAnswered + 1
@@ -81,6 +135,15 @@ export default function Trainer() {
     setSessionAnswered(newAnswered)
     setSessionCorrect(newCorrect)
     setSessionTrapsAvoided(trapsAvoided)
+
+    // Per-type tracking (per the round)
+    const next = { ...perType, long: { ...perType.long }, short: { ...perType.short }, wait: { ...perType.wait }, trap: { ...perType.trap } }
+    if (scenario.expected === 'LONG')  { next.long.total++;  if (correct) next.long.correct++ }
+    if (scenario.expected === 'SHORT') { next.short.total++; if (correct) next.short.correct++ }
+    if (scenario.expected === 'WAIT')  { next.wait.total++;  if (correct) next.wait.correct++ }
+    if (scenario.trap)                 { next.trap.total++;  if (correct) next.trap.correct++ }
+    setPerType(next)
+
     patchProgress({
       trainerAttempts: (progress.trainerAttempts || 0) + 1,
       trainerCorrect: (progress.trainerCorrect || 0) + (correct ? 1 : 0),
@@ -104,6 +167,7 @@ export default function Trainer() {
     setSessionAnswered(0)
     setSessionCorrect(0)
     setSessionTrapsAvoided(0)
+    setPerType(defaultPerType())
     setShowSummary(false)
   }
 
@@ -135,6 +199,32 @@ export default function Trainer() {
             <div className="font-mono text-texts text-[12px] mt-1">{progress.trainerCorrect}/{progress.trainerAttempts}</div>
           </div>
         </div>
+        <div className="card p-5">
+          <h3 className="font-display font-semibold text-textp text-lg mb-3 flex items-center gap-2">
+            <Icon name="stats" className="w-5 h-5 text-violet2"/> Accuracy by type
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { k: 'long',  label: 'Valid longs',  color: 'emerald' },
+              { k: 'short', label: 'Valid shorts', color: 'coral'   },
+              { k: 'wait',  label: 'Wait calls',   color: 'gold'    },
+              { k: 'trap',  label: 'Traps avoided', color: 'violet' },
+            ].map(row => {
+              const v = perType[row.k]
+              const p = v.total > 0 ? Math.round((v.correct / v.total) * 100) : null
+              const bar = v.total > 0 ? `${v.correct}/${v.total}` : '0/0'
+              const color = row.color === 'emerald' ? '#1FE0A0' : row.color === 'coral' ? '#FF5C72' : row.color === 'gold' ? '#FFB347' : '#9B8CFF'
+              return (
+                <div key={row.k} className="card-elev p-3 rounded-card border border-border">
+                  <div className="font-display text-[10px] uppercase tracking-[0.16em] text-textt">{row.label}</div>
+                  <div className="font-display font-semibold text-2xl mt-1" style={{ color }}>{p == null ? '—' : `${p}%`}</div>
+                  <div className="font-mono text-texts text-[12px]">{bar}</div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
         <div className="card p-5">
           <h3 className="font-display font-semibold text-textp text-lg mb-3 flex items-center gap-2">
             <Icon name="shield" className="w-5 h-5 text-gold"/> Traps you saw
@@ -174,6 +264,27 @@ export default function Trainer() {
         </div>
       </header>
 
+      {/* Mode picker */}
+      <div className="card p-3 md:p-4">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <span className="font-display tracking-[0.16em] text-textt text-[11px] uppercase">Training mode</span>
+          <div className="inline-flex p-0.5 rounded-lg border border-border bg-bg" role="tablist" aria-label="Training mode">
+            {MODES.map(m => (
+              <button
+                key={m.key}
+                role="tab"
+                aria-selected={trainMode === m.key}
+                className={`inline-flex items-center gap-1 font-display tracking-wide text-[12px] py-1.5 px-3 rounded transition ${trainMode === m.key ? 'bg-cyan2 text-bg shadow-glowCyan' : 'text-texts hover:text-textp'}`}
+                onClick={() => { setTrainMode(m.key); setPicked(null) }}
+              >
+                <Icon name={m.icon} className="w-3.5 h-3.5"/> {m.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <p className="text-textt text-[12px] mt-2 font-body">{MODES.find(m => m.key === trainMode)?.desc}</p>
+      </div>
+
       <div className="card p-4 md:p-5 space-y-4">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <span className={`pill ${
@@ -186,20 +297,38 @@ export default function Trainer() {
         </div>
 
         <SetupChart
-          values={scenario.values}
+          key={`${pos}-${trainMode}-${stepIdx}-${done}`}
+          values={visibleValues}
           triggerY={scenario.triggerY}
           markers={markers}
           stopY={done && (scenario.expected === 'LONG' || scenario.expected === 'SHORT') ? scenario.stopY : undefined}
           stopLabel={scenario.stopLabel || 'Your stop'}
-          ema20={scenario.ema20}
+          ema20={scenario.ema20 ? scenario.ema20.slice(0, visibleValues.length) : undefined}
           height={280}
-          mode={done ? 'reveal' : 'static'}
+          mode={!done && trainMode === 'play' ? 'play' : (done ? 'reveal' : 'static')}
+          autoPlay={!done && trainMode === 'play'}
+          axisLabels
         />
+
+        {canRevealMore && (
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <span className="font-mono text-texts text-[12px]">Bars revealed: {stepIdx} / {scenario.values.length}</span>
+            <button
+              className="btn btn-ghost border-cyan2/40 text-cyan2 hover:bg-cyan2/10 text-[12px] py-2 px-3"
+              onClick={() => setStepIdx(i => Math.min(scenario.values.length, i + 1))}
+            >
+              <Icon name="arrow" className="w-3.5 h-3.5"/> Reveal next bar
+            </button>
+          </div>
+        )}
+        {trainMode === 'play' && !playReady && !done && (
+          <div className="font-mono text-texts text-[12px] text-center">Watching it form…</div>
+        )}
 
         {!done ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {CHOICES.map(c => (
-              <ChoiceButton key={c.key} choice={c} onClick={() => handlePick(c.key)} disabled={false} />
+              <ChoiceButton key={c.key} choice={c} onClick={() => handlePick(c.key)} disabled={!choicesEnabled} />
             ))}
           </div>
         ) : (
