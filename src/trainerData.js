@@ -1,4 +1,4 @@
-// 8 scenarios for the "Trade or Skip" trainer.
+// 18 scenarios for the "Trade or Skip" trainer.
 // Each scenario: id, expected ('LONG'|'SHORT'|'SKIP'|'WAIT'), trap (boolean — was this a classic trap to avoid?),
 // ctx (15-min context label), ctxColor, candle, values (y-array 0..100), trigger, dip1Idx, dip2Idx, entryIdx (optional),
 // stopY (optional), why (teaching), title.
@@ -231,17 +231,17 @@ export const SCENARIOS = [
     id: 's17',
     expected: 'LONG',
     trap: false,
-    title: 'Dragonfly at Dip 2 (B-grade)',
+    title: 'Morning star at Dip 2 (Strong, not A+)',
     ctx: '15-min: higher highs & higher lows',
     ctxColor: 'emerald',
-    candle: 'dragonfly',
+    candle: 'morning star',
     values: [24, 40, 56, 46, 56, 48, 60, 70],
     triggerY: 56,
     dip1Idx: 3,
     dip2Idx: 5,
     entryIdx: 6,
     stopY: 41,
-    why: 'Valid second entry with a strong (not A+) candle. Take it.',
+    why: 'Valid with-trend second entry confirmed by a morning star — a Strong (not A+) candle. Rare when you get it. Take it.',
   },
   {
     id: 's18',

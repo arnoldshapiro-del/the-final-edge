@@ -180,22 +180,45 @@ export function markDayPracticed() {
   }
 }
 
-// Trade math
+// Trade math — 6-contract 2/2/2 ladder reported as a sum of per-contract R.
+// Pair A: 2 contracts at T1 (+1R each = +2R won, or −1R each = −2R lost).
+// Pair B: 2 contracts at T2 (+2R each = +4R won; 0R at BE after T1; −2R if stopped before T1).
+// Pair C: 2 runner contracts (+runnerR × 2 if T1 hit; −2R if stopped before T1).
+// Full stop-out (no T1) = −2 − 2 − 2 = −6R per contract count of 6.
 export function tradeTotalR(t) {
-  // 2-2-2: 2 contracts at T1 (1R), 2 at T2 (2R), 2 runner.
-  // If t1Hit false → all 6 stopped = -3R (entire trade is -1R per contract, 6/2 = -3R worth of contracts)
-  // Actually convention: report R per contract pair. Use R-multiples in 2/2/2 pieces.
-  if (t.t1Hit === false) return -3 // all 6 contracts stopped at -1R each => -6R per-contract = -3R in 2-2-2 pair terms? Use simpler: report sum R across pairs
-  // 2 ct @ T1=+1R = +2R; 2 ct @ T2=+2R = +4R; 2 ct runner = +2*runnerR
   let total = 0
-  if (t.t1Hit) total += 2  // 2 ct * 1R
-  else total += -2          // 2 ct * -1R
-  if (t.t2Hit) total += 4  // 2 ct * 2R
-  else if (t.t1Hit) total += 0 // BE: 2 ct * 0R (stop moved to BE after T1)
-  else total += -2          // never reached T1: 2 ct stopped -1R
+  // Pair A — T1
+  if (t.t1Hit) total += 2
+  else        total += -2
+  // Pair B — T2 (BE if T1 hit but T2 missed; full stop if T1 never reached)
+  if (t.t2Hit)        total += 4
+  else if (t.t1Hit)   total += 0
+  else                total += -2
+  // Pair C — runner (free roll if T1 hit; stopped at original −1R if T1 never reached)
   if (t.t1Hit) total += 2 * (Number(t.runnerR) || 0)
-  else total += -2          // runner stopped at original stop -1R * 2 ct
+  else         total += -2
   return total
+}
+
+// One-time migration: existing journals stored with the legacy "-3R full stop"
+// convention need to be re-keyed to the correct -6R. Idempotent via _r6Fixed flag.
+export function migrateTradeRValues() {
+  const trades = getTrades()
+  if (!trades.length) return false
+  let changed = false
+  const next = trades.map(t => {
+    if (t._r6Fixed) return t
+    const correct = tradeTotalR(t)
+    const stored = typeof t.totalR === 'number' ? t.totalR : correct
+    if (stored !== correct) {
+      changed = true
+      return { ...t, totalR: Math.round(correct * 100) / 100, _r6Fixed: true }
+    }
+    return { ...t, _r6Fixed: true }
+  })
+  if (changed) setTrades(next)
+  else write(KEY_TRADES, next) // persist the flag so we don't rescan
+  return changed
 }
 
 export function getDerivedStats(filterMode = 'all') {

@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
-import { processGreenStreak } from './storage.js'
+import { processGreenStreak, migrateTradeRValues } from './storage.js'
 import Home from './pages/Home.jsx'
 import Learn from './pages/Learn.jsx'
 import LessonView from './pages/LessonView.jsx'
@@ -46,7 +46,7 @@ const DESKTOP_EXTRAS = [
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex flex-col w-60 shrink-0 border-r border-border bg-panel/70 backdrop-blur min-h-screen">
+    <aside className="hidden md:flex flex-col w-60 shrink-0 border-r border-border bg-panel/85 backdrop-blur sticky top-0 h-screen overflow-y-auto print:hidden">
       <div className="px-5 pt-6 pb-4">
         <div className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-lg bg-bg border border-border flex items-center justify-center shadow-glow">
@@ -85,10 +85,10 @@ function Sidebar() {
             key={n.to}
             to={n.to}
             className={({ isActive }) =>
-              `group flex items-center gap-3 px-3 py-2 rounded-lg font-display text-[13px] tracking-wide transition ${
+              `group flex items-center gap-3 px-3 py-2 rounded-lg font-display font-medium text-[13px] tracking-wide transition ${
                 isActive
                   ? 'bg-elevated text-textp border border-border'
-                  : 'text-textt hover:text-textp hover:bg-elevated/60 border border-transparent'
+                  : 'text-texts hover:text-textp hover:bg-elevated/60 border border-transparent'
               }`
             }
           >
@@ -99,7 +99,7 @@ function Sidebar() {
       </nav>
       <div className="mt-auto p-4">
         <NavLink to="/settings" className={({ isActive }) =>
-          `flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] font-display border ${isActive ? 'border-border bg-elevated text-textp' : 'border-transparent text-texts hover:text-textp'}`
+          `flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] font-display font-medium border ${isActive ? 'border-border bg-elevated text-textp' : 'border-transparent text-texts hover:text-textp'}`
         }>
           <Icon name="gear" className="w-4 h-4" />
           Settings
@@ -147,6 +147,9 @@ function DisciplineBanner() {
 export default function App() {
   const loc = useLocation()
   useEffect(() => {
+    // One-time migration of legacy journals whose full-stop trades were stored as
+    // −3R (pre-audit) instead of the correct −6R. Idempotent, no-op for fresh data.
+    migrateTradeRValues()
     // Roll the green-day streak forward once per app open (idempotent).
     processGreenStreak()
   }, [])

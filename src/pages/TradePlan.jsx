@@ -67,7 +67,7 @@ export default function TradePlan() {
           Below the FIRST dip — a few ticks <strong>lower than the crowd</strong>. Mechanical, same placement every time. Wider-but-behind beats tight-and-clipped.
         </Block>
         <Block title="The exits — 2 / 2 / 2" color="emerald" icon="check">
-          6 contracts. <strong>2 at T1 (1R)</strong>, then stop → breakeven. <strong>2 at T2 (2R)</strong>. <strong>2 runner</strong> trailing the 9 EMA to the measured-move target.
+          {settings.contracts} contracts in thirds. <strong>Scale at T1 (1R)</strong>, then stop → breakeven the instant T1 fills. <strong>Scale at T2 (2R)</strong>. <strong>Final third</strong> trails the 9 EMA to the measured-move target.
         </Block>
 
         <Block title="Candle grade at Dip 2" color="gold" icon="flame">

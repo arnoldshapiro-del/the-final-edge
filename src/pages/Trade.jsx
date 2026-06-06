@@ -308,7 +308,13 @@ export default function Trade() {
           <CalcCell label="T1 (1R)" value={validNums && directionSigned ? r2(t1) : '—'} color="emerald" />
           <CalcCell label="T2 (2R)" value={validNums && directionSigned ? r2(t2) : '—'} color="emerald" />
           <CalcCell label="R:R to T1" value={validNums && directionSigned ? '1 : 1' : '—'} color="violet" small />
-          <CalcCell label="2-2-2 split" value={`${settings.contracts/3*1}/${settings.contracts/3*1}/${settings.contracts/3*1}`} color="gold" small />
+          <CalcCell label="2-2-2 split" value={(() => {
+            const per = Math.floor((settings.contracts || 6) / 3)
+            const remainder = (settings.contracts || 6) - per * 3
+            // Distribute any leftover to the runner so T1/T2/Runner sums to total.
+            const a = per, b = per, c = per + remainder
+            return `${a}/${b}/${c}`
+          })()} color="gold" small />
         </div>
         <p className="text-textt text-[12px] mt-3 font-body">
           Targets beyond T1 are bonus — never recalculated. <span className="text-gold">The instant T1 fills, move stop to breakeven.</span>
