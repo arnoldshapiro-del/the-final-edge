@@ -153,13 +153,18 @@ export default function Manual() {
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto print:max-w-none">
-      <header className="print:hidden">
-        <div className="pill pill-gold inline-flex mb-3"><Icon name="book" className="w-3.5 h-3.5"/> Field manual</div>
-        <h1 className="font-display font-semibold text-3xl md:text-4xl text-textp tracking-tight">THE FINAL EDGE — Field Manual &amp; Trader’s Briefing</h1>
-        <p className="font-display text-texts text-lg mt-2">One setup. With the trend. Mastered.</p>
-        <p className="text-texts text-[14px] mt-3 max-w-3xl leading-relaxed">
-          <strong className="text-textp font-medium">How to use this manual:</strong> Read <a href="#p1" onClick={onTocClick('p1')} className="text-gold underline decoration-gold/40 underline-offset-2 hover:decoration-gold">PART ONE — THE GAME PLAN</a> every morning before the bell. It’s the exact playbook: the final plan in one breath, then step by step through the whole day, what to do and what to think, from pre-market to the close and after. Use the Contents menu to jump to any other part as reference — the system in full, every screen explained, your daily loop, your first three weeks, what to do when it gets hard, and a plain-language glossary.
-        </p>
+      <header className="print:hidden flex items-start justify-between gap-4 flex-wrap">
+        <div className="min-w-0 flex-1">
+          <div className="pill pill-gold inline-flex mb-3"><Icon name="book" className="w-3.5 h-3.5"/> Field manual</div>
+          <h1 className="font-display font-semibold text-3xl md:text-4xl text-textp tracking-tight">THE FINAL EDGE — Field Manual &amp; Trader’s Briefing</h1>
+          <p className="font-display text-texts text-lg mt-2">One setup. With the trend. Mastered.</p>
+          <p className="text-texts text-[14px] mt-3 max-w-3xl leading-relaxed">
+            <strong className="text-textp font-medium">How to use this manual:</strong> Read <a href="#p1" onClick={onTocClick('p1')} className="text-gold underline decoration-gold/40 underline-offset-2 hover:decoration-gold">PART ONE — THE GAME PLAN</a> every morning before the bell. It’s the exact playbook: the final plan in one breath, then step by step through the whole day, what to do and what to think, from pre-market to the close and after. Use the Contents menu to jump to any other part as reference — the system in full, every screen explained, your daily loop, your first three weeks, what to do when it gets hard, and a plain-language glossary.
+          </p>
+        </div>
+        <button className="btn btn-ghost shrink-0" onClick={() => window.print()} aria-label="Print field manual">
+          <Icon name="edit" className="w-4 h-4"/> Print
+        </button>
       </header>
 
       {/* Mobile contents dropdown */}

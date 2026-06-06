@@ -145,7 +145,22 @@ export default function Home() {
       </section>
 
       {/* Trader's toolkit row */}
-      <section className="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <Link
+          to="/manual"
+          className="card card-hover p-4 group flex items-center gap-3 col-span-2 md:col-span-1 relative overflow-hidden"
+          style={{ borderColor: 'rgba(255,179,71,0.4)' }}
+        >
+          <div aria-hidden className="pointer-events-none absolute -right-8 -top-8 w-32 h-32 rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,179,71,0.18), transparent 65%)' }}/>
+          <Icon name="book" className="w-5 h-5 text-gold shrink-0 relative"/>
+          <div className="min-w-0 relative">
+            <div className="flex items-center gap-1.5">
+              <div className="font-display font-semibold text-textp text-[14px]">Field manual</div>
+              <span className="pill pill-gold text-[9px]">Start here</span>
+            </div>
+            <div className="text-texts text-[12px]">Read every morning.</div>
+          </div>
+        </Link>
         <Link to="/plan" className="card card-hover p-4 group flex items-center gap-3">
           <Icon name="shield" className="w-5 h-5 text-gold shrink-0"/>
           <div className="min-w-0">

@@ -37,6 +37,7 @@ const NAV = [
 ]
 
 const DESKTOP_EXTRAS = [
+  { to: '/manual', label: 'Field manual', icon: 'book' },
   { to: '/learn/gallery', label: 'Visual library', icon: 'spark' },
   { to: '/flashcards', label: 'Flashcards', icon: 'flame' },
   { to: '/plan', label: 'Trade plan', icon: 'shield' },
