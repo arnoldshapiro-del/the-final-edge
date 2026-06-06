@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { SCENARIOS } from '../trainerData.js'
-import { ChartFromPath } from '../components/Charts.jsx'
+import SetupChart from '../components/SetupChart.jsx'
 import { Icon } from '../components/Icon.jsx'
 import { getProgress, patchProgress } from '../storage.js'
 
@@ -65,9 +65,9 @@ export default function Trainer() {
   const markers = useMemo(() => {
     if (!scenario) return []
     const ms = []
-    if (typeof scenario.dip1Idx === 'number') ms.push({ idx: scenario.dip1Idx, label: 'Dip 1', color: '#FF5C72' })
-    if (typeof scenario.dip2Idx === 'number') ms.push({ idx: scenario.dip2Idx, label: scenario.expected === 'SHORT' ? 'Lower high' : 'Dip 2', color: '#FFB347' })
-    if (done && typeof scenario.entryIdx === 'number') ms.push({ idx: scenario.entryIdx, label: 'Entry', color: '#1FE0A0' })
+    if (typeof scenario.dip1Idx === 'number') ms.push({ idx: scenario.dip1Idx, kind: 'dip1', label: scenario.expected === 'SHORT' ? 'Rally high' : 'Dip 1' })
+    if (typeof scenario.dip2Idx === 'number') ms.push({ idx: scenario.dip2Idx, kind: 'dip2', label: scenario.expected === 'SHORT' ? 'Lower high' : 'Dip 2' })
+    if (done && typeof scenario.entryIdx === 'number') ms.push({ idx: scenario.entryIdx, kind: 'enter', label: 'Enter on close' })
     return ms
   }, [scenario, done])
 
@@ -185,14 +185,15 @@ export default function Trainer() {
           <span className="pill pill-violet">2-min · candle: {scenario.candle}</span>
         </div>
 
-        <ChartFromPath
+        <SetupChart
           values={scenario.values}
           triggerY={scenario.triggerY}
           markers={markers}
           stopY={done && (scenario.expected === 'LONG' || scenario.expected === 'SHORT') ? scenario.stopY : undefined}
-          stopLabel={scenario.stopLabel || 'Stop (a few ticks below Dip 1)'}
+          stopLabel={scenario.stopLabel || 'Your stop'}
           ema20={scenario.ema20}
-          height={260}
+          height={280}
+          mode={done ? 'reveal' : 'static'}
         />
 
         {!done ? (

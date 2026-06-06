@@ -1,4 +1,4 @@
-import { ChartFromPath, LadderChart } from './components/Charts.jsx'
+import SetupChart, { LadderChart } from './components/SetupChart.jsx'
 
 // Each lesson: { id, n, title, oneLine, render() -> JSX, lockIt }
 // Body uses .prose-edge CSS for typography (Inter).
@@ -60,18 +60,21 @@ export const LESSONS = [
         </ol>
         <p>Wait for the close. Never jump on a wick. Never anticipate. The close is the contract.</p>
 
-        <ChartFromPath
+        <SetupChart
           values={[20, 38, 56, 46, 56, 50, 64, 76]}
+          showKindToggle
+          playable
           triggerY={56}
           triggerLabel="Trigger line"
           markers={[
-            { idx: 3, label: 'Dip 1', color: '#FF5C72' },
-            { idx: 5, label: 'Dip 2 (higher low)', color: '#FFB347' },
-            { idx: 6, label: 'Entry (close above trigger)', color: '#1FE0A0' },
+            { idx: 3, kind: 'dip1', label: 'Dip 1' },
+            { idx: 5, kind: 'dip2', label: 'Dip 2 — higher low' },
+            { idx: 6, kind: 'enter', label: 'Enter on close' },
           ]}
           stopY={42}
-          stopLabel="Stop (a few ticks below Dip 1)"
-          caption="The flagship 2-min picture. Dip 1, bounce up through the trigger, second dip that holds higher, entry candle closes above the trigger. Stop sits below the first dip."
+          crowdStopY={45}
+          stopLabel="Your stop"
+          caption="The flagship 2-min picture. Dip 1, bounce up through the trigger, second dip that holds higher, entry candle closes above the trigger. Your stop sits a few ticks below the crowd."
           contextLabel="2-min trigger chart · 15-min HH/HL"
           contextColor="emerald"
         />
@@ -93,23 +96,23 @@ export const LESSONS = [
         <p>You do <em>not</em> need two bounces off the EMA. Every normal pullback gives you the dip-bounce-dip. The EMA's only job is to tell you whether the pullback is healthy.</p>
         <p><strong>The 9 EMA — your runner's trail.</strong> The 9 EMA is momentum context, and the line behind which your runner trails. It is <em>not</em> a separate strategy. You don't fade it, ride it, or wait for "9 EMA crosses." The decision line is the 20.</p>
 
-        <ChartFromPath
+        <SetupChart
           values={[18, 30, 44, 38, 50, 44, 58, 70]}
           ema20={[16, 22, 30, 32, 38, 40, 46, 54]}
           ema9={[18, 28, 40, 38, 46, 44, 54, 66]}
           markers={[
-            { idx: 3, label: 'Pullback holds 20 EMA = healthy', color: '#2DD4F0', anchor: 'start' },
+            { idx: 3, kind: 'dot', label: 'Holds the 20 EMA — healthy', color: '#2DD4F0' },
           ]}
           caption="Cyan dashed = 20 EMA (health). Gold dashed = 9 EMA (runner trail). The pullback holds the 20 EMA → green light to look for Dip 2."
           contextLabel="Healthy pullback"
           contextColor="cyan"
         />
 
-        <ChartFromPath
+        <SetupChart
           values={[30, 48, 60, 42, 32, 26, 30, 35]}
           ema20={[26, 32, 40, 40, 38, 34, 32, 32]}
           markers={[
-            { idx: 4, label: 'Knifed BELOW 20 → stand aside', color: '#FF5C72', anchor: 'start' },
+            { idx: 4, kind: 'dot', label: 'Knifed below 20 — stand aside', color: '#FF5C72' },
           ]}
           caption="Same outline of price, very different story. This pullback knifed well below the 20 EMA and stayed there. Change of character. Skip."
           contextLabel="Unhealthy — character change"
@@ -151,15 +154,16 @@ export const LESSONS = [
         <p><strong>Where.</strong> Below the first dip — the lower of the two. Place it a few ticks <em>lower</em> than the obvious level the crowd uses.</p>
         <p><strong>Why.</strong> The market hunts the obvious stop. Sitting a few ticks behind the crowd puts you behind the hunt, not its first target. Wider-but-behind beats tighter-and-clipped.</p>
         <p><strong>How.</strong> Mechanical. Same placement every trade. No judging liquidity sweeps live, no nudging it in, no "feel." The discretion is in <em>whether</em> you take the trade — not in where the stop goes.</p>
-        <ChartFromPath
+        <SetupChart
           values={[22, 40, 56, 44, 56, 48, 62, 72]}
           markers={[
-            { idx: 3, label: 'Dip 1 (the lower dip)', color: '#FF5C72' },
-            { idx: 5, label: 'Dip 2', color: '#FFB347' },
+            { idx: 3, kind: 'dip1', label: 'Dip 1 (the lower dip)' },
+            { idx: 5, kind: 'dip2', label: 'Dip 2' },
           ]}
           stopY={37}
-          stopLabel="Stop — a few ticks below Dip 1"
-          caption="The stop sits below the first dip, lower than the obvious level. You are behind the crowd, not in front of it."
+          crowdStopY={41}
+          stopLabel="Your stop"
+          caption="Your stop sits a few ticks below the obvious level — behind the crowd, not in front of it."
           contextLabel="Where the stop goes"
           contextColor="coral"
         />
@@ -183,7 +187,7 @@ export const LESSONS = [
           <li><strong>T1 hits → stop to breakeven.</strong> Immediately. Not "after the candle closes," not "after a second confirmation." The instant the fill hits, the trade is risk-off. It can no longer lose.</li>
         </ul>
         <p><strong>R:R is a glance, not a calculation.</strong> T1 is 1R by definition. Before entry, the only question is: <em>is there room above to reach my targets before obvious resistance?</em> Yes → take it. No → skip. You don't compute ratios on the fly.</p>
-        <LadderChart entry={100} riskPts={3} />
+        <LadderChart entry={100} riskPts={3} animate />
       </div>
     ),
   },
