@@ -57,12 +57,18 @@ export default function Home() {
       {/* Hero */}
       <header className="relative overflow-hidden">
         <div className="relative">
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald2/15 border border-emerald2/60 font-display font-bold tracking-[0.22em] text-emerald2 text-glow-emerald text-[13px]">
+              M2K
+            </span>
+            <span className="font-display tracking-wide text-[12px] text-texts">Micro Russell 2000 · NinjaTrader</span>
+          </div>
           <div className="pill pill-violet mb-4 inline-flex">
             <Icon name="flame" className="w-3.5 h-3.5" />
             The transformation
           </div>
           <h1 className="font-display font-semibold text-[40px] md:text-[58px] leading-[1.05] tracking-tight text-textp">
-            THE <span className="text-emerald2 text-glow-emerald">FINAL</span> EDGE
+            THE <span className="text-emerald2 text-glow-emerald">FINAL</span> EDGE <span className="text-emerald2 text-glow-emerald">· M2K</span>
           </h1>
           <p className="mt-3 text-texts font-display tracking-wide text-lg md:text-xl">
             One setup. <span className="text-gold">With the trend.</span> Mastered.

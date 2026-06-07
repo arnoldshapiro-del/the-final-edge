@@ -134,9 +134,14 @@ function MobileTabs() {
 
 function DisciplineBanner() {
   return (
-    <div className="w-full bg-bg border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-2 text-center">
-        <p className="font-display tracking-wide text-[12px] md:text-[13px] text-texts">
+    <div className="w-full bg-bg/95 backdrop-blur border-b border-border sticky top-0 z-40 print:hidden">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-2 flex items-center justify-center gap-3 flex-wrap">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald2/15 border border-emerald2/60 font-display font-bold tracking-[0.22em] text-emerald2 text-glow-emerald text-[12px] md:text-[13px]">
+          M2K
+        </span>
+        <span className="font-display tracking-wide text-[11px] md:text-[12px] text-textt hidden sm:inline">Micro Russell 2000</span>
+        <span className="text-border hidden sm:inline">·</span>
+        <p className="font-display tracking-wide text-[12px] md:text-[13px] text-texts m-0">
           Grade yourself on <span className="text-gold">following the plan</span>, not on winning.
         </p>
       </div>
