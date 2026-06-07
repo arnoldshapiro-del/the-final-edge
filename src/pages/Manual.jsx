@@ -320,7 +320,7 @@ export default function Manual() {
                 <li>A <Em>"few ticks"</Em> past the structure = <Str>0.20 – 0.50 pts</Str> of buffer.</li>
                 <li>A 2-point stop on 6 contracts = <Str>$60 risk</Str>. That is your <Str>1R</Str> — the unit everything else is measured in.</li>
               </ul>
-              <p className="text-texts font-body text-[13px] mt-3">$5/point is the same as MES — only the tick size and ticks-per-point change. R-math doesn't change. The mental count does: 1 point on M2K is <Str>10 ticks</Str>.</p>
+              <p className="text-texts font-body text-[13px] mt-3">M2K pays <Str>$5.00 per index point</Str>, and there are <Str>10 ticks to a point</Str> — so each tick is $0.50. Count your ticks in chunks of 10. Express stops in <Str>points</Str> or <Str>R</Str> whenever you can; ticks are just the fine grain.</p>
             </div>
 
             <Sub>The three timeframes — IF / WHERE / WHEN</Sub>

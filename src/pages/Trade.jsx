@@ -318,7 +318,7 @@ export default function Trade() {
           })()} color="gold" small />
         </div>
         <p className="text-textt text-[12px] mt-2 font-body text-center md:text-left">
-          <span className="text-violet2">M2K math:</span> 1 tick = 0.10 pts = $0.50/contract · 1 point = 10 ticks = $5/contract · same $5/pt as MES, more ticks per point.
+          <span className="text-violet2">M2K math:</span> $5.00 per point · 10 ticks per point · 1 tick = 0.10 pts = $0.50 / contract.
         </p>
         <p className="text-textt text-[12px] mt-2 font-body">
           Targets beyond T1 are bonus — never recalculated. <span className="text-gold">The instant T1 fills, move stop to breakeven.</span>

@@ -90,7 +90,7 @@ export default function TradePlan() {
             <li>"A few ticks" past structure = <strong>0.20 – 0.50 pts</strong> buffer</li>
             <li>2-pt stop × {settings.contracts} contracts = <strong>${settings.contracts * 10} risk</strong> = your 1R</li>
           </ul>
-          <p className="text-textt text-[12px] mt-2">Same $5/point as MES. Only the tick size changes — count in chunks of 10, not 4.</p>
+          <p className="text-textt text-[12px] mt-2">M2K is $5 per point, and 10 ticks make a point — count your ticks in chunks of 10. Express stops in points or R; ticks are the fine grain.</p>
         </Block>
 
         <Block title="Bull flag / bear flag = our setup" color="gold" icon="flame" span>
