@@ -305,6 +305,24 @@ export default function Manual() {
               <LI><Str>Session window:</Str> trade the part of the day with real directional movement — typically the strong push around and after the cash-session open — and stay out of the dead, choppy middle of the day. Set your own session limits in the routine and <X to="/settings">Settings</X>: a max number of trades and a max loss for the day. When you hit either, you’re done.</LI>
             </UL>
 
+            <div className="my-5 rounded-card border border-gold/40 bg-gold/5 p-5">
+              <div className="font-display font-semibold tracking-[0.12em] uppercase text-gold text-[12px] mb-2">Same setup, two names</div>
+              <p className="text-textp font-body text-[15px] leading-[1.75]">
+                Arnie — if you've called this a <Str>bull flag</Str> (in an uptrend) or a <Str>bear flag</Str> (in a downtrend), you've been calling our setup by its other name. The <Em>flagpole</Em> is the trend leg, the <Em>flag</Em> is the pullback, and a flag trader enters on the break of the flag. We trade the same picture — but with stricter timing. We skip the first push out (it's bait), and we only enter on the <Str>second push</Str> with a confirming candle. So this isn't a new system on top of what you already know. It is the disciplined version of it.
+              </p>
+            </div>
+
+            <div className="my-5 rounded-card border border-violet2/40 bg-violet2/5 p-5">
+              <div className="font-display font-semibold tracking-[0.12em] uppercase text-violet2 text-[12px] mb-2">M2K math at a glance</div>
+              <ul className="text-textp font-body text-[15px] leading-[1.75] space-y-1.5 list-disc pl-5 marker:text-violet2">
+                <li>1 tick = <Str>0.10 pts</Str> = <Str>$0.50 / contract</Str>.</li>
+                <li>1 point = <Str>10 ticks</Str> = <Str>$5 / contract</Str>.</li>
+                <li>A <Em>"few ticks"</Em> past the structure = <Str>0.20 – 0.50 pts</Str> of buffer.</li>
+                <li>A 2-point stop on 6 contracts = <Str>$60 risk</Str>. That is your <Str>1R</Str> — the unit everything else is measured in.</li>
+              </ul>
+              <p className="text-texts font-body text-[13px] mt-3">$5/point is the same as MES — only the tick size and ticks-per-point change. R-math doesn't change. The mental count does: 1 point on M2K is <Str>10 ticks</Str>.</p>
+            </div>
+
             <Sub>The three timeframes — IF / WHERE / WHEN</Sub>
             <UL>
               <LI><Str>15-minute = IF.</Str> Is there a trend at all? Higher highs <em>AND</em> higher lows → look only for longs. Lower highs <em>AND</em> lower lows → look only for shorts. Neither → no trade today on this name. <Em>This is the gate.</Em> Nothing happens until it’s green.</LI>

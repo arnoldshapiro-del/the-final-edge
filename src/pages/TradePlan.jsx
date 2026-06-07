@@ -83,6 +83,20 @@ export default function TradePlan() {
           Max loss <strong>{settings.maxLossPerSession}R</strong>. When either trips — done for the day.
         </Block>
 
+        <Block title="M2K tick / point / $" color="violet" icon="shield" span>
+          <ul className="grid md:grid-cols-2 gap-x-6 gap-y-1">
+            <li>1 tick = <strong>0.10 pts</strong> = <strong>$0.50 / contract</strong></li>
+            <li>1 point = <strong>10 ticks</strong> = <strong>$5 / contract</strong></li>
+            <li>"A few ticks" past structure = <strong>0.20 – 0.50 pts</strong> buffer</li>
+            <li>2-pt stop × {settings.contracts} contracts = <strong>${settings.contracts * 10} risk</strong> = your 1R</li>
+          </ul>
+          <p className="text-textt text-[12px] mt-2">Same $5/point as MES. Only the tick size changes — count in chunks of 10, not 4.</p>
+        </Block>
+
+        <Block title="Bull flag / bear flag — same setup" color="gold" icon="flame" span>
+          What you may have called a <strong>bull flag</strong> (uptrend) or a <strong>bear flag</strong> (downtrend) <strong>is this setup.</strong> The flagpole is the trend leg; the flag is the pullback. We just enter with stricter timing: skip the first push out (it's bait), wait for the second push and a confirming candle.
+        </Block>
+
         <Block title="The 7-step gate" color="cyan" icon="check" span>
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min trending my way (HH/HL · LH/LL)? <span className="text-coral">[Hard gate — if no, sit out.]</span></li>

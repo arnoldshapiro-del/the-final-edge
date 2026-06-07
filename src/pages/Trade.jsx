@@ -303,8 +303,9 @@ export default function Trade() {
         </div>
 
         {/* Calculator strip */}
-        <div className="mt-5 rounded-card border border-border bg-elevated p-4 grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="mt-5 rounded-card border border-border bg-elevated p-4 grid grid-cols-2 md:grid-cols-6 gap-3">
           <CalcCell label="Risk" value={validNums && directionSigned ? `${r2(riskPts)} pts` : '—'} color="coral" />
+          <CalcCell label="$ at risk" value={validNums && directionSigned ? `$${Math.round(riskPts * 5 * (settings.contracts || 6))}` : '—'} color="coral" />
           <CalcCell label="T1 (1R)" value={validNums && directionSigned ? r2(t1) : '—'} color="emerald" />
           <CalcCell label="T2 (2R)" value={validNums && directionSigned ? r2(t2) : '—'} color="emerald" />
           <CalcCell label="R:R to T1" value={validNums && directionSigned ? '1 : 1' : '—'} color="violet" small />
@@ -316,7 +317,10 @@ export default function Trade() {
             return `${a}/${b}/${c}`
           })()} color="gold" small />
         </div>
-        <p className="text-textt text-[12px] mt-3 font-body">
+        <p className="text-textt text-[12px] mt-2 font-body text-center md:text-left">
+          <span className="text-violet2">M2K math:</span> 1 tick = 0.10 pts = $0.50/contract · 1 point = 10 ticks = $5/contract · same $5/pt as MES, more ticks per point.
+        </p>
+        <p className="text-textt text-[12px] mt-2 font-body">
           Targets beyond T1 are bonus — never recalculated. <span className="text-gold">The instant T1 fills, move stop to breakeven.</span>
         </p>
         {validNums && !directionSigned && (
