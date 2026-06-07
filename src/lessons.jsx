@@ -46,40 +46,41 @@ export const LESSONS = [
     id: 'l3',
     n: 3,
     title: 'The Entry, Step by Step',
-    oneLine: 'Dip 1 → bounce → Dip 2 (higher low) → close above trigger.',
-    lockIt: 'Wait for the second dip. Enter on a 2-min CLOSE above the trigger line. Never jump early.',
+    oneLine: 'Dip 1 → failed rally at the neckline → Dip 2 (higher low) → first close above neckline.',
+    lockIt: 'After Dip 2 forms (higher low / double-bottom with the trend), enter on the FIRST 2-min candle that CLOSES above the neckline. No retest needed. No second close needed.',
     render: () => (
       <div className="prose-edge space-y-4">
-        <p>This is the flagship setup. Long version — shorts are the mirror image.</p>
+        <p>This is the flagship setup. It is a <em>with-trend double bottom</em> on the 2-minute — Dip 1, a failed rally at the neckline, then a higher-low Dip 2. Long version below; shorts are the mirror image (a with-trend double top).</p>
         <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
           <li><strong>15-min HH/HL confirmed.</strong> The gate is open.</li>
           <li><strong>Price pulls back on the 2-min: Dip 1.</strong> The crowd watches the low.</li>
-          <li><strong>Price bounces.</strong> The bounce high is the <em>trigger line</em> — the same spot you used to mistakenly call the "neckline."</li>
-          <li><strong>Price dips again to a HIGHER LOW: Dip 2.</strong> This is the second entry. The first bounce was the bait — skip it.</li>
-          <li><strong>ENTRY.</strong> A 2-min candle <em>closes</em> above the trigger line. Buy.</li>
+          <li><strong>Price rallies — and FAILS at the neckline.</strong> The neckline is the swing high between Dip 1 and Dip 2 (the high of the failed first rally). The rally <em>does not close above it</em>. That failed rally <em>is</em> the bait — there was never an entry to skip, because nothing ever closed through.</li>
+          <li><strong>Price dips again to a HIGHER LOW: Dip 2.</strong> The double-bottom is complete.</li>
+          <li><strong>ENTRY.</strong> The FIRST 2-min candle that <em>closes</em> above the neckline is your entry. Don't wait for a retest. Don't wait for a second close. The first close is the contract.</li>
         </ol>
-        <p>Wait for the close. Never jump on a wick. Never anticipate. The close is the contract.</p>
+        <p>Wait for the <em>close</em>. Never jump on a wick. Never anticipate. The close is the contract.</p>
 
         <SetupChart
           values={[20, 38, 56, 46, 56, 50, 64, 76]}
           showKindToggle
           playable
           triggerY={56}
-          triggerLabel="Trigger line"
+          triggerLabel="Neckline"
           markers={[
             { idx: 3, kind: 'dip1', label: 'Dip 1' },
+            { idx: 4, kind: 'dot', label: 'Failed rally — no close above', color: '#FF5C72' },
             { idx: 5, kind: 'dip2', label: 'Dip 2 — higher low' },
-            { idx: 6, kind: 'enter', label: 'Enter on close' },
+            { idx: 6, kind: 'enter', label: 'First close above — ENTER' },
           ]}
           stopY={42}
           crowdStopY={45}
           stopLabel="Your stop"
-          caption="The flagship 2-min picture. Dip 1, bounce up through the trigger, second dip that holds higher, entry candle closes above the trigger. Your stop sits a few ticks below the crowd."
-          contextLabel="2-min trigger chart · 15-min HH/HL"
+          caption="The flagship 2-min picture — a with-trend double bottom. Dip 1, failed rally at the neckline (no close above), higher-low Dip 2, then the first close above the neckline is the entry. Stop sits a few ticks below the crowd."
+          contextLabel="2-min · 15-min HH/HL"
           contextColor="emerald"
         />
 
-        <p>Five years of false starts came from steps 2 and 4. You acted on the first bounce, and you acted before the close. From now on: <em>second dip, then close, then buy</em>. Anything less is not the setup.</p>
+        <p>Five years of false starts came from steps 2 and 4. You acted on the <em>failed first rally</em> (one that never closed above the neckline) — anticipating instead of waiting — and you acted before the close. From now on: <em>wait for Dip 2, wait for the first close above the neckline, then buy.</em> Anything less is not the setup.</p>
       </div>
     ),
   },

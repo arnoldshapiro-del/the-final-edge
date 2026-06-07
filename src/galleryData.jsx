@@ -8,18 +8,19 @@ export const SETUP_GALLERY = [
   {
     id: 'g1',
     title: 'G1 · The long entry, fully annotated',
-    caption: 'Uptrend, Dip 1, bounce to trigger, higher-low Dip 2, bullish engulfing → enter on the close above. Stop a few ticks below the crowd.',
+    caption: 'A with-trend double bottom. Dip 1, failed rally at the neckline (no close above), higher-low Dip 2, bullish engulfing → enter on the FIRST close above the neckline. Stop a few ticks below the crowd.',
     render: () => (
       <SetupChart
         values={[18, 36, 56, 44, 56, 48, 62, 76]}
         ema20={[16, 24, 32, 34, 40, 42, 48, 56]}
         ema9={[18, 30, 44, 40, 50, 46, 58, 70]}
         triggerY={56}
-        triggerLabel="Trigger line"
+        triggerLabel="Neckline"
         markers={[
           { idx: 3, kind: 'dip1', label: 'Dip 1' },
+          { idx: 4, kind: 'dot', label: 'Failed rally — no close above', color: '#FF5C72' },
           { idx: 5, kind: 'dip2', label: 'Dip 2 — higher low' },
-          { idx: 6, kind: 'enter', label: 'Enter — close above' },
+          { idx: 6, kind: 'enter', label: 'First close above — ENTER' },
         ]}
         stopY={38}
         crowdStopY={42}
@@ -36,18 +37,19 @@ export const SETUP_GALLERY = [
   {
     id: 'g2',
     title: 'G2 · The short entry — mirror image',
-    caption: 'Downtrend (LH/LL), rally to trigger, lower-high pullback, bearish engulfing → enter on close below. Stop above the rally high.',
+    caption: 'A with-trend double top. Rally high (High 1), failed dip back to the neckline (no close below), lower-high High 2, bearish engulfing → enter on the FIRST close below the neckline. Stop above the rally high.',
     render: () => (
       <SetupChart
         values={[82, 64, 44, 56, 44, 52, 38, 24]}
         ema20={[84, 76, 68, 66, 60, 58, 52, 44]}
         ema9={[82, 70, 56, 60, 50, 54, 42, 30]}
         triggerY={44}
-        triggerLabel="Trigger line"
+        triggerLabel="Neckline"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'Rally high' },
-          { idx: 5, kind: 'dip2', label: 'Lower high' },
-          { idx: 6, kind: 'enter', label: 'Enter — close below' },
+          { idx: 3, kind: 'dip1', label: 'High 1' },
+          { idx: 4, kind: 'dot', label: 'Failed dip — no close below', color: '#1FE0A0' },
+          { idx: 5, kind: 'dip2', label: 'High 2 — lower high' },
+          { idx: 6, kind: 'enter', label: 'First close below — ENTER' },
         ]}
         stopY={62}
         crowdStopY={58}
@@ -108,19 +110,18 @@ export const SETUP_GALLERY = [
   },
   {
     id: 'g7',
-    title: 'G7 · First bounce is the bait',
-    caption: 'High 1 = the bait. Skip. High 2 = your entry.',
+    title: 'G7 · Why the failed first rally is the bait',
+    caption: 'The first rally up from Dip 1 FAILS at the neckline — never closes above. That failure is the bait; there is no entry to "skip." After Dip 2 (a higher low), the FIRST close above the neckline is the entry.',
     render: () => (
       <SetupChart
         values={[20, 36, 54, 44, 54, 48, 60, 72]}
         triggerY={54}
-        triggerLabel="Trigger"
+        triggerLabel="Neckline"
         markers={[
-          { idx: 2, kind: 'flag', label: '1', color: '#FF5C72' },
           { idx: 3, kind: 'dip1', label: 'Dip 1' },
-          { idx: 4, kind: 'dot', label: 'High 1 — bait (skip)', color: '#FF5C72' },
+          { idx: 4, kind: 'dot', label: 'Failed first rally — no close above', color: '#FF5C72' },
           { idx: 5, kind: 'dip2', label: 'Dip 2 — higher low' },
-          { idx: 6, kind: 'enter', label: 'High 2 — entry' },
+          { idx: 6, kind: 'enter', label: 'First close above — ENTER' },
         ]}
         contextLabel="The bait trap"
         contextColor="gold"

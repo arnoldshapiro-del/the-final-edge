@@ -57,9 +57,9 @@ export default function TradePlan() {
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min HH/HL confirmed.</li>
             <li>2-min prints Dip 1.</li>
-            <li>Price bounces — that high becomes the <span className="text-gold">trigger line</span>.</li>
-            <li>Price dips again to a <strong>higher low</strong> (Dip 2). Second entry — first bounce was the bait.</li>
-            <li>A 2-min candle <strong>closes</strong> above the trigger. <span className="text-emerald2">Buy.</span> Never jump on a wick.</li>
+            <li>Price rallies but <strong>FAILS at the <span className="text-gold">neckline</span></strong> — the swing high between the two dips. No close above. That failure IS the bait — no entry to skip.</li>
+            <li>Price falls back to a <strong>higher low</strong> (Dip 2). Double-bottom complete.</li>
+            <li>The <strong>FIRST</strong> 2-min candle that <strong>closes</strong> above the neckline. <span className="text-emerald2">Buy.</span> No retest. Never jump on a wick.</li>
           </ol>
         </Block>
 
@@ -93,28 +93,28 @@ export default function TradePlan() {
           <p className="text-textt text-[12px] mt-2">Same $5/point as MES. Only the tick size changes — count in chunks of 10, not 4.</p>
         </Block>
 
-        <Block title="Bull flag / bear flag — same setup" color="gold" icon="flame" span>
-          What you may have called a <strong>bull flag</strong> (uptrend) or a <strong>bear flag</strong> (downtrend) <strong>is this setup.</strong> The flagpole is the trend leg; the flag is the pullback. We just enter with stricter timing: skip the first push out (it's bait), wait for the second push and a confirming candle.
+        <Block title="Bull flag / bear flag = our setup" color="gold" icon="flame" span>
+          What you may have called a <strong>bull flag</strong> (uptrend) or a <strong>bear flag</strong> (downtrend) is the same picture as our <strong>with-trend double bottom / double top</strong>. The flagpole is the trend leg; the flag is the pullback that holds Dip 1, the failed rally at the neckline, and Dip 2. Our timing: wait for Dip 2, then enter on the <strong>FIRST</strong> 2-min candle that closes above the neckline (long) or below (short). The first rally never closed above — that failure WAS the bait; no entry was skipped.
         </Block>
 
         <Block title="The 7-step gate" color="cyan" icon="check" span>
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min trending my way (HH/HL · LH/LL)? <span className="text-coral">[Hard gate — if no, sit out.]</span></li>
             <li>With-trend pullback, not a counter-trend reversal?</li>
-            <li>Second dip formed (higher low / lower high)?</li>
-            <li>Pullback healthy — holding near/above the 20 EMA?</li>
+            <li>Second dip formed (higher low / lower high) — double-bottom / double-top complete?</li>
+            <li>Pullback healthy — holding near/above the 20 EMA, prior swing intact?</li>
             <li>Candle grade at the second dip? (A+ / Strong / weak → smaller or skip)</li>
             <li>Stop below the first dip (lower than the crowd) AND room above to T1/T2?</li>
-            <li>Taking this because it's the plan — not because I'm bored or chasing?</li>
+            <li>FIRST 2-min candle has CLOSED above the neckline (long) / below (short)? No retest needed.</li>
           </ol>
         </Block>
 
         <Block title="NEVER trade" color="coral" icon="x" span>
           <ul className="grid grid-cols-2 gap-x-3 gap-y-1">
-            <li>Reversals against the trend (DT/DB, H&amp;S, V).</li>
+            <li>Counter-trend reversals (DT in uptrend, DB in downtrend, H&amp;S, V).</li>
             <li>Ranges &amp; symmetrical triangles.</li>
             <li>Standalone candles, no context.</li>
-            <li>The first bounce — that's the bait.</li>
+            <li>Anticipating — entering before the FIRST close above the neckline.</li>
             <li>Wicks. Wait for the close.</li>
             <li>Chasing when there's no pullback.</li>
           </ul>

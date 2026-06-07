@@ -241,7 +241,7 @@ export default function Manual() {
             <div className="my-5 rounded-card border border-emerald2/40 bg-emerald2/5 p-5">
               <div className="font-display font-semibold tracking-[0.12em] uppercase text-emerald2 text-[12px] mb-2">The plan in one breath</div>
               <p className="text-textp font-body text-[15.5px] leading-[1.75]">
-                Keep this in your head all day: We trade the M2K, one setup only — the second entry, in the direction of the trend. The 15-minute tells us <Str>IF</Str> there’s a trend; the 5-minute shows us <Str>WHERE</Str> the pullback is; the 2-minute tells us <Str>WHEN</Str> to pull the trigger. We skip the first bounce because it’s bait, we wait for the second push and a confirming candle, and we enter only on the close beyond the trigger. Our stop goes a few ticks past where the crowd’s stop sits, so we survive the hunt. At our first target we take a third off and move the stop to breakeven so the trade can never hurt us again; we take more at the second target and let a runner ride to a measured move. We never trade a range, never fight the trend, and we stop the moment we hit our limit. That is the entire edge. Everything below is just living it, hour by hour.
+                Keep this in your head all day: We trade the M2K, one setup only — the with-trend double bottom (Dip 1, failed rally at the neckline, higher-low Dip 2), entered on the FIRST 2-minute candle that closes above the neckline. The 15-minute tells us <Str>IF</Str> there’s a trend; the 5-minute shows us <Str>WHERE</Str> the pullback is and whether it’s healthy; the 2-minute tells us <Str>WHEN</Str> — the first close above the neckline is the entry, with a confirming candle. The first rally up from Dip 1 fails at the neckline (never closes above) — that failure IS the bait; there was never an entry to skip. Our stop goes a few ticks past where the crowd’s stop sits, so we survive the hunt. At our first target we take a third off and move the stop to breakeven so the trade can never hurt us again; we take more at the second target and let a runner ride to a measured move. We never trade a range, never fight the trend, and we stop the moment we hit our limit. That is the entire edge. Everything below is just living it, hour by hour.
               </p>
             </div>
 
@@ -260,8 +260,8 @@ export default function Manual() {
 
             <If><IfTag/>there is no 15-minute trend <Arrow/> you do nothing. You watch. You do not “find something.” <Str>No trend, no trade. Full stop.</Str></If>
             <If><IfTag/>the trend is in place and price pulls back on the 5-minute <Arrow/> good. Now you wait. You do not act on the pullback itself.</If>
-            <If><IfTag/>price bounces and this is the <strong className="text-coral">FIRST</strong> push <Arrow/> that is bait. You do not take it. You wait for the second.</If>
-            <If><IfTag/>a <strong className="text-emerald2">SECOND</strong> push forms (a higher low in an uptrend, a lower high in a downtrend) <strong>AND</strong> a real confirming candle closes (bullish engulfing or dragonfly for a long, bearish engulfing for a short — not a weak doji) <strong>AND</strong> the pullback held just above a rising 20 EMA (healthy, not knifing through) <strong>AND</strong> the 2-minute <strong>CLOSES</strong> beyond your trigger <Arrow/> now you have a setup. Run the <X to="/trade">7-step checklist</X>. If all seven are true, you take it.</If>
+            <If><IfTag/>price rallies from Dip 1 up to the <strong className="text-gold">neckline</strong> (the swing high between the two lows) but <strong className="text-coral">does not close above it</strong> <Arrow/> that failed first rally is the bait. There was never an entry to skip. You wait for Dip 2.</If>
+            <If><IfTag/>a <strong className="text-emerald2">higher low</strong> forms (Dip 2 in an uptrend, a lower high in a downtrend — the double-bottom / double-top is complete) <strong>AND</strong> a real confirming candle prints there (bullish engulfing or dragonfly for a long, bearish engulfing for a short — not a weak doji) <strong>AND</strong> the pullback held just above a rising 20 EMA (healthy, not knifing through) <strong>AND</strong> the <strong>FIRST 2-minute candle CLOSES</strong> above the neckline (long) or below it (short) <Arrow/> now you have a setup. Run the <X to="/trade">7-step checklist</X>. If all seven are true, you take it. No retest needed. No second close needed.</If>
             <If><IfTag/>the candle is weak, or price only poked through without closing <Arrow/> you <Str>WAIT</Str>. A poke is not a close. <Em>No close, no trade.</Em></If>
             <If><IfTag/>you feel the pull to take a reversal, a counter-trend trade, a double top in an uptrend, or anything in a range <Arrow/> <strong className="text-coral">name it out loud as the trap it is</strong>, and do not take it. That exact urge is the thing that broke you. The plan says no. (See the <X to="/learn/gallery">Do-Not-Trade gallery</X> for pictures of each trap.)</If>
 
@@ -306,9 +306,9 @@ export default function Manual() {
             </UL>
 
             <div className="my-5 rounded-card border border-gold/40 bg-gold/5 p-5">
-              <div className="font-display font-semibold tracking-[0.12em] uppercase text-gold text-[12px] mb-2">Same setup, two names</div>
+              <div className="font-display font-semibold tracking-[0.12em] uppercase text-gold text-[12px] mb-2">Same setup, several names</div>
               <p className="text-textp font-body text-[15px] leading-[1.75]">
-                Arnie — if you've called this a <Str>bull flag</Str> (in an uptrend) or a <Str>bear flag</Str> (in a downtrend), you've been calling our setup by its other name. The <Em>flagpole</Em> is the trend leg, the <Em>flag</Em> is the pullback, and a flag trader enters on the break of the flag. We trade the same picture — but with stricter timing. We skip the first push out (it's bait), and we only enter on the <Str>second push</Str> with a confirming candle. So this isn't a new system on top of what you already know. It is the disciplined version of it.
+                Arnie — what you've called a <Str>bull flag</Str> (in an uptrend) or a <Str>bear flag</Str> (in a downtrend) is the same picture as what we call a <Str>with-trend double bottom</Str> (longs) or <Str>with-trend double top</Str> (shorts). The <Em>flagpole</Em> is the trend leg; the <Em>flag</Em> is the pullback that forms Dip 1, a failed rally at the neckline, and Dip 2. The flag's upper boundary IS the neckline — the swing high between the two dips. Our timing is the cleanest version of every name for this trade: we wait for Dip 2 to print, and we enter on the <Str>FIRST 2-minute candle that closes above the neckline</Str>. The first rally never closed above, so there was never an entry to skip — that failure was the bait. No retest. No second close. This isn't a new system. It's the disciplined version of the one you already know.
               </p>
             </div>
 
@@ -326,18 +326,18 @@ export default function Manual() {
             <Sub>The three timeframes — IF / WHERE / WHEN</Sub>
             <UL>
               <LI><Str>15-minute = IF.</Str> Is there a trend at all? Higher highs <em>AND</em> higher lows → look only for longs. Lower highs <em>AND</em> lower lows → look only for shorts. Neither → no trade today on this name. <Em>This is the gate.</Em> Nothing happens until it’s green.</LI>
-              <LI><Str>5-minute = WHERE.</Str> The pullback. Price pulls back against the trend but holds — it stays above the prior swing low (in an uptrend) and rides just above a rising average rather than knifing through it.</LI>
-              <LI><Str>2-minute = WHEN.</Str> The precise trigger — the bar that closes beyond the trigger level on the second push.</LI>
+              <LI><Str>5-minute = WHERE.</Str> The pullback, and whether it’s buyable. <Em>Healthy</Em> = holds above the prior swing low (longs) / below the prior swing high (shorts) AND rides just above a rising 20 EMA (longs) / just below a falling 20 EMA (shorts). <Em>Unhealthy</Em> = knifes well past the 20 EMA and keeps going, or breaks the prior swing point → skip.</LI>
+              <LI><Str>2-minute = WHEN.</Str> The trigger / the entry — the FIRST 2-minute candle that closes above the neckline (longs) or below it (shorts).</LI>
             </UL>
             <Mantra>The mantra: 15 says IF; 5 and 2 say WHEN and WHERE.</Mantra>
 
-            <Sub>The entry — Dip 1 → bounce → Dip 2 → the close</Sub>
+            <Sub>The entry — Dip 1 → failed rally → Dip 2 → first close above neckline</Sub>
             <OL>
               <NLI>In an established uptrend, price pulls back: that’s <Str>Dip 1</Str>.</NLI>
-              <NLI>Price bounces off Dip 1. The high of that bounce sets your <Str>trigger line</Str>.</NLI>
-              <NLI>Price pulls back again but makes a <Str>higher low</Str> — that’s <Str>Dip 2</Str> (in a short, it’s a lower high, “High 2”). The first bounce was bait; this second push is the trade.</NLI>
+              <NLI>Price rallies from Dip 1 but <Str>FAILS at the neckline</Str> — it does not close above the neckline. The neckline is the swing high between Dip 1 and Dip 2 (the high of the failed first rally). That failed rally IS the bait; there was never an entry to skip because nothing ever closed through.</NLI>
+              <NLI>Price falls back to a <Str>higher low</Str> — that’s <Str>Dip 2</Str> (in a short, a lower high, “High 2”). The double-bottom (longs) / double-top (shorts) is complete.</NLI>
               <NLI>A confirming candle prints at Dip 2 — ideally a <Em>bullish engulfing</Em> or a <Em>dragonfly doji</Em> (for longs), a <Em>bearish engulfing</Em> (for shorts). A weak little doji is not confirmation.</NLI>
-              <NLI>You enter on the 2-minute <Str>CLOSE</Str> beyond the trigger — above it for a long, below it for a short. <Em>No close, no trade — you WAIT.</Em> A poke through that doesn’t close through is nothing.</NLI>
+              <NLI>You enter on the <Str>FIRST</Str> 2-minute candle that <Str>CLOSES</Str> above the neckline (longs) or below it (shorts). <Em>No retest. No second close. The first close is the contract.</Em> A poke through that doesn’t close through is nothing.</NLI>
             </OL>
             <P className="mt-3 text-texts text-[13px]">See it drawn: the <X to="/learn/gallery">flagship long entry chart</X> and its short mirror in the Visual Library.</P>
 
@@ -403,9 +403,9 @@ export default function Manual() {
               <NLI><Str>Trend on the 15-minute</Str> (the hard gate). HH/HL or LH/LL. No trend → the screen blocks you and says <strong className="text-coral">NO TRADE — SIT OUT</strong>.</NLI>
               <NLI><Str>With-trend direction only.</Str> You’re going the way the 15-minute is going. Never against it.</NLI>
               <NLI>The 5-minute pullback is <Str>healthy</Str> — holding the prior swing, riding above/below the 20 EMA, not knifing through.</NLI>
-              <NLI>This is the <Str>second entry</Str> — Dip 2 / High 2, a higher low (long) or lower high (short). Not the first bounce.</NLI>
+              <NLI>This is the <Str>second entry</Str> — Dip 2 / High 2, a higher low (long) or lower high (short). The first rally already failed at the neckline.</NLI>
               <NLI>A <Str>confirming candle</Str> has printed (engulfing / dragonfly, not a weak doji).</NLI>
-              <NLI>The <Str>2-minute closed</Str> beyond the trigger. You waited for the close.</NLI>
+              <NLI>The <Str>FIRST 2-minute candle has closed</Str> above the neckline (long) or below it (short). You waited for the close.</NLI>
               <NLI><Str>Stop and risk are defined</Str> — placed beyond the crowd, R calculated, before you click.</NLI>
             </OL>
             <P>If all seven are true, you have a trade. If even one is false, you don’t. It really is that mechanical — and that’s the point.</P>
@@ -519,10 +519,10 @@ export default function Manual() {
                 ['With the trend', 'trading in the same direction the higher timeframe is already moving. The high-probability direction.'],
                 ['Higher highs & higher lows (HH/HL)', 'the signature of an uptrend. Lower highs & lower lows = a downtrend.'],
                 ['Pullback', 'a temporary move against the trend before it (usually) resumes. Where we look to enter.'],
-                ['Dip 1 / Dip 2', 'the first and second pullbacks in an uptrend. We trade the second one (a higher low). In a downtrend the equivalents are “High 1 / High 2” (a lower high).'],
-                ['The first bounce is bait', 'the first push off a pullback often fails. We wait for the second.'],
-                ['Trigger line', 'the price level (the high of the bounce) that, when closed beyond, gives the entry signal.'],
-                ['Close beyond the trigger', 'entry happens only when a 2-minute bar finishes past the trigger, not when it briefly pokes through.'],
+                ['Dip 1 / Dip 2', 'the first and second pullback lows in an uptrend. The double-bottom we trade is Dip 1 + a higher-low Dip 2. In a downtrend the equivalents are “High 1 / High 2” (a lower high) — the double-top.'],
+                ['Neckline', 'the swing high between Dip 1 and Dip 2 (longs) — the high of the failed first rally. For shorts, the swing low between High 1 and High 2. Same level the chart engine labels “Neckline.” Our entry is the FIRST 2-minute candle that closes through this level.'],
+                ['The failed first rally is the bait', 'price rallies from Dip 1 toward the neckline but does not close above it. That failure IS the bait — there was never an entry to skip, because nothing ever closed through. Wait for Dip 2 and the first close above the neckline.'],
+                ['First close above the neckline', 'the entry signal. The FIRST 2-minute bar that finishes past the neckline. No retest. No second close. A poke that doesn’t close through is nothing.'],
                 ['20 EMA / 9 EMA', 'exponential moving averages (smoothed average price). The 20 is your trend-health gauge; the 9 is what the runner trails.'],
                 ['Engulfing candle', 'a bar whose body fully swallows the prior bar’s body. Strong confirmation. Doji — a bar with almost no body (open ≈ close); indecision. Dragonfly doji — a doji with a long lower tail; buyers rejected lower prices (bullish).'],
                 ['Liquidity grab / stop hunt', 'the market dipping just far enough to trigger the obvious crowd stops, then reversing. We place our stop beyond the obvious spot to survive it.'],

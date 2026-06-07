@@ -9,12 +9,12 @@ import { useSettings, useTrades, useSession } from '../hooks.js'
 
 const CHECKLIST_STEPS = [
   { id: 'q1', hard: true, text: 'Is the 15-min trending my way? (HH/HL for longs, LH/LL for shorts)' },
-  { id: 'q2', text: 'With-trend pullback — not a counter-trend reversal?' },
-  { id: 'q3', text: 'Has the second dip formed? (higher low for longs / lower high for shorts)' },
-  { id: 'q4', text: 'Pullback healthy — holding near or above the 20 EMA?' },
-  { id: 'q5', text: 'Candle grade at the second dip? (A+ / Strong / Weak — if weak/none, smaller or skip)' },
-  { id: 'q6', text: 'Stop set below the first dip (lower than the crowd), AND room above to reach targets?' },
-  { id: 'q7', text: 'Taking this because it\'s the plan — not because I\'m bored or chasing?' },
+  { id: 'q2', text: 'With-trend direction only — not a counter-trend reversal?' },
+  { id: 'q3', text: 'Pullback healthy — holds the prior swing AND rides above/below the 20 EMA (not knifing)?' },
+  { id: 'q4', text: 'Dip 2 formed (higher low / lower high) — with-trend double-bottom or double-top complete?' },
+  { id: 'q5', text: 'Confirming candle at Dip 2? (A+ engulfing/dragonfly or Strong morning star — not a weak doji)' },
+  { id: 'q6', text: 'FIRST 2-min candle has CLOSED through the neckline? (Above for longs, below for shorts. No retest. No second close.)' },
+  { id: 'q7', text: 'Stop set a few ticks beyond Dip 1 / rally high (behind the crowd) AND room above to T1/T2?' },
 ]
 
 function blankForm() {

@@ -18,7 +18,7 @@ export const SCENARIOS = [
     dip2Idx: 5,
     entryIdx: 6,
     stopY: 37,
-    why: 'Textbook with-trend second entry: dip-bounce-dip-close. Enter on the close above the trigger, stop a few ticks below Dip 1.',
+    why: 'Textbook with-trend double bottom: Dip 1, failed rally at the neckline, higher-low Dip 2, FIRST close above the neckline. Take it. Stop a few ticks below Dip 1.',
   },
   {
     id: 's2',
@@ -35,7 +35,7 @@ export const SCENARIOS = [
     entryIdx: 6,
     stopY: 63,
     stopLabel: 'Stop (above rally high)',
-    why: 'Mirror of the long setup, with the downtrend. Rally-pullback-lower-high-close. Same edge, opposite direction.',
+    why: 'Mirror of the long setup, in a downtrend — a with-trend double top. High 1, failed dip back to the neckline, lower-high High 2, FIRST close below the neckline. Same edge, opposite direction.',
   },
   {
     id: 's3',
@@ -66,14 +66,14 @@ export const SCENARIOS = [
     id: 's5',
     expected: 'WAIT',
     trap: false,
-    title: 'Only the first bounce so far',
+    title: 'Only the failed first rally so far',
     ctx: '15-min: higher highs & higher lows',
     ctxColor: 'emerald',
     candle: 'forming',
     values: [20, 38, 55, 45, 55, 50, 52, 53],
     triggerY: 55,
     dip1Idx: 3,
-    why: 'This is the FIRST bounce — the bait. The structure is forming but the second dip hasn\'t printed yet. Wait. Patience IS the edge.',
+    why: 'The first rally up from Dip 1 has failed at the neckline — no close above. Dip 2 hasn\'t printed yet, and nothing has closed above the neckline. Wait. There is no entry until Dip 2 forms AND a 2-min candle CLOSES above the neckline. Patience IS the edge.',
   },
   {
     id: 's6',
@@ -133,7 +133,7 @@ export const SCENARIOS = [
     dip2Idx: 5,
     entryIdx: 6,
     stopY: 42,
-    why: 'Clean with-trend second entry — Dip 1, bounce to trigger, higher-low Dip 2, close above. Take it.',
+    why: 'Clean with-trend double bottom — Dip 1, failed rally at the neckline, higher-low Dip 2, FIRST close above the neckline. Take it.',
   },
   {
     id: 's10',
@@ -161,7 +161,7 @@ export const SCENARIOS = [
     entryIdx: 6,
     stopY: 60,
     stopLabel: 'Stop (above rally high)',
-    why: 'Mirror of the long setup. Rally to trigger, lower-high Dip 2, close below. Stop above the rally high.',
+    why: 'Mirror of the long setup. Failed dip back to the neckline, lower-high High 2, FIRST close below the neckline. Stop above the rally high.',
   },
   {
     id: 's12',
@@ -186,7 +186,7 @@ export const SCENARIOS = [
     triggerY: 55,
     dip1Idx: 3,
     dip2Idx: 5,
-    why: 'Structure is right, but the 2-min hasn\'t printed a close above the trigger yet. Wait. The close is the contract.',
+    why: 'Structure is right, but the 2-min hasn\'t printed the FIRST close above the neckline yet. Wait. The close is the contract.',
   },
   {
     id: 's14',

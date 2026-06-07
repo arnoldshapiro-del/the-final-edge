@@ -300,6 +300,7 @@ export default function Trainer() {
           key={`${pos}-${trainMode}-${stepIdx}-${done}`}
           values={visibleValues}
           triggerY={scenario.triggerY}
+          triggerLabel="Neckline"
           markers={markers}
           stopY={done && (scenario.expected === 'LONG' || scenario.expected === 'SHORT') ? scenario.stopY : undefined}
           stopLabel={scenario.stopLabel || 'Your stop'}
