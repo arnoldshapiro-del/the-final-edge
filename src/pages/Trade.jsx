@@ -13,8 +13,8 @@ const CHECKLIST_STEPS = [
   { id: 'q3', text: 'Pullback healthy — holds the prior swing AND rides above/below the 20 EMA (not knifing)?' },
   { id: 'q4', text: 'Dip 2 formed (higher low / lower high) — with-trend double-bottom or double-top complete?' },
   { id: 'q5', text: 'Confirming candle at Dip 2? (A+ engulfing/dragonfly or Strong morning star — not a weak doji)' },
-  { id: 'q6', text: 'FIRST 2-min candle has CLOSED through the neckline? (Above for longs, below for shorts. No retest. No second close.)' },
-  { id: 'q7', text: 'Stop set a few ticks beyond Dip 1 / rally high (behind the crowd) AND room above to T1/T2?' },
+  { id: 'q6', text: 'FIRST 2-min candle has CLOSED through the 2-min TRENDLINE? (Above the descending trendline for longs, below the ascending trendline for shorts. The W / M and the neckline are heads-up only — never the entry.)' },
+  { id: 'q7', text: 'Stop placed at the STRUCTURE (swing low of the flag / lower low of the W for longs; swing high of the bounce / higher high of the M for shorts) — tentative 4-6 ticks beyond the broken trendline, then moved to the structure?' },
 ]
 
 function blankForm() {
@@ -297,8 +297,8 @@ export default function Trade() {
           </div>
 
           <div>
-            <label className="field-label">Stop (below Dip 1 / above Rally High)</label>
-            <input type="number" step="0.01" value={form.stop} onChange={e => change('stop', e.target.value)} placeholder="a few ticks lower than the obvious level" />
+            <label className="field-label">Stop (at the STRUCTURE — flag swing low / lower W low for longs; flag swing high / higher M high for shorts)</label>
+            <input type="number" step="0.01" value={form.stop} onChange={e => change('stop', e.target.value)} placeholder="just past the structure — not below the breakout candle's close" />
           </div>
         </div>
 

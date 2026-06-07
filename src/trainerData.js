@@ -18,7 +18,7 @@ export const SCENARIOS = [
     dip2Idx: 5,
     entryIdx: 6,
     stopY: 37,
-    why: 'Textbook with-trend double bottom: Dip 1, failed rally at the neckline, higher-low Dip 2, FIRST close above the neckline. Take it. Stop a few ticks below Dip 1.',
+    why: 'Textbook with-trend bull flag. Dip 1 → failed rally (the neckline is heads-up only, NOT the entry) → higher-low Dip 2 (the W is complete — heads-up only). The TRIGGER is the FIRST 2-min candle that CLOSES above the descending 2-min trendline. Take it. Stop: tentative 4-6 ticks beyond the broken trendline, final at the structure (the swing low at the bottom of the flag / lower low of the W).',
   },
   {
     id: 's2',
@@ -35,7 +35,7 @@ export const SCENARIOS = [
     entryIdx: 6,
     stopY: 63,
     stopLabel: 'Stop (above rally high)',
-    why: 'Mirror of the long setup, in a downtrend — a with-trend double top. High 1, failed dip back to the neckline, lower-high High 2, FIRST close below the neckline. Same edge, opposite direction.',
+    why: 'With-trend BEAR FLAG. 15-min must be in downtrend (lower highs and lower lows — MANDATORY for shorts). High 1 → failed dip back (the neckline is heads-up only) → lower-high High 2 (the M is complete — heads-up only). TRIGGER: FIRST 2-min candle that CLOSES BELOW the ascending 2-min trendline (the line connecting the higher lows of the rising flag). Stop: tentative 4-6 ticks above the broken trendline, final at the structure (swing high at the top of the bounce / higher high of the M). Bear flags work fast — time stop is 2 candles (4 minutes), not 3.',
   },
   {
     id: 's3',
@@ -73,7 +73,7 @@ export const SCENARIOS = [
     values: [20, 38, 55, 45, 55, 50, 52, 53],
     triggerY: 55,
     dip1Idx: 3,
-    why: 'The first rally up from Dip 1 has failed at the neckline — no close above. Dip 2 hasn\'t printed yet, and nothing has closed above the neckline. Wait. There is no entry until Dip 2 forms AND a 2-min candle CLOSES above the neckline. Patience IS the edge.',
+    why: 'The first rally up from Dip 1 has failed. The neckline is a heads-up signal, not the entry. Dip 2 hasn\'t printed yet, and no 2-min candle has closed above the descending TRENDLINE — which is the only trigger. Wait. There is no entry until the 2-min candle CLOSES above the trendline. Patience IS the edge.',
   },
   {
     id: 's6',
@@ -133,7 +133,7 @@ export const SCENARIOS = [
     dip2Idx: 5,
     entryIdx: 6,
     stopY: 42,
-    why: 'Clean with-trend double bottom — Dip 1, failed rally at the neckline, higher-low Dip 2, FIRST close above the neckline. Take it.',
+    why: 'Clean with-trend bull flag. Dip 1 → failed rally (neckline is heads-up, not entry) → higher-low Dip 2 (W complete — heads-up only) → FIRST close above the descending 2-min trendline. Take it.',
   },
   {
     id: 's10',
@@ -161,7 +161,7 @@ export const SCENARIOS = [
     entryIdx: 6,
     stopY: 60,
     stopLabel: 'Stop (above rally high)',
-    why: 'Mirror of the long setup. Failed dip back to the neckline, lower-high High 2, FIRST close below the neckline. Stop above the rally high.',
+    why: 'Bear flag — exact mirror. 15-min downtrend (mandatory). Failed dip back (neckline = heads-up only) → lower-high High 2 (M complete — heads-up only) → FIRST close BELOW the ascending 2-min trendline (the line through the higher lows of the rising flag). Stop: tentative 4-6 ticks above the broken trendline, final at structure (top of bounce / higher high of the M). Time stop: 2 candles.',
   },
   {
     id: 's12',
@@ -186,7 +186,7 @@ export const SCENARIOS = [
     triggerY: 55,
     dip1Idx: 3,
     dip2Idx: 5,
-    why: 'Structure is right, but the 2-min hasn\'t printed the FIRST close above the neckline yet. Wait. The close is the contract.',
+    why: 'Structure is right and the W is complete (heads-up), but the 2-min hasn\'t printed the FIRST close above the descending TRENDLINE yet. Neckline = heads-up. Trendline close = trigger. Wait. The trendline close is the contract.',
   },
   {
     id: 's14',

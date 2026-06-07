@@ -7,24 +7,24 @@ import { DoNotChart, BreakevenChart, MultiTimeframeChart, StopHuntChart } from '
 export const SETUP_GALLERY = [
   {
     id: 'g1',
-    title: 'G1 · The long entry, fully annotated',
-    caption: 'A with-trend double bottom. Dip 1, failed rally at the neckline (no close above), higher-low Dip 2, bullish engulfing → enter on the FIRST close above the neckline. Stop a few ticks below the crowd.',
+    title: 'G1 · The long entry — bull flag, trendline trigger',
+    caption: 'A with-trend BULL FLAG. Dip 1 → failed rally (the neckline is heads-up only, NOT the entry) → higher-low Dip 2 (the W is complete — heads-up only, NOT the entry) → bullish engulfing → ENTER on the FIRST 2-min candle that CLOSES above the DESCENDING 2-min trendline (the diagonal connecting the lower highs of the pullback — shown here as a horizontal line for clarity; in practice it slopes down to where price breaks through). STOP — TWO STEPS: tentative 4-6 ticks beyond the broken trendline (the trendline level itself at the break — not below the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing low at the bottom of the flag / lower low of the W). My track record: trendline entries ~70% success; neckline entries ~20%. Trade the trendline.',
     render: () => (
       <SetupChart
         values={[18, 36, 56, 44, 56, 48, 62, 76]}
         ema20={[16, 24, 32, 34, 40, 42, 48, 56]}
         ema9={[18, 30, 44, 40, 50, 46, 58, 70]}
         triggerY={56}
-        triggerLabel="Neckline"
+        triggerLabel="2-min trendline (entry trigger)"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'Dip 1' },
-          { idx: 4, kind: 'dot', label: 'Failed rally — no close above', color: '#FF5C72' },
-          { idx: 5, kind: 'dip2', label: 'Dip 2 — higher low' },
-          { idx: 6, kind: 'enter', label: 'First close above — ENTER' },
+          { idx: 3, kind: 'dip1', label: 'Dip 1 (W forming)' },
+          { idx: 4, kind: 'dot', label: 'Failed rally — neckline is heads-up only', color: '#FF5C72' },
+          { idx: 5, kind: 'dip2', label: 'Dip 2 — W complete (heads-up only)' },
+          { idx: 6, kind: 'enter', label: 'First close above 2-min trendline — ENTER' },
         ]}
         stopY={38}
         crowdStopY={42}
-        stopLabel="Your stop"
+        stopLabel="Final stop — at the structure (flag swing low)"
         t1Y={64}
         t2Y={72}
         showKindToggle
@@ -36,24 +36,24 @@ export const SETUP_GALLERY = [
   },
   {
     id: 'g2',
-    title: 'G2 · The short entry — mirror image',
-    caption: 'A with-trend double top. Rally high (High 1), failed dip back to the neckline (no close below), lower-high High 2, bearish engulfing → enter on the FIRST close below the neckline. Stop above the rally high.',
+    title: 'G2 · The short entry — BEAR FLAG, trendline trigger',
+    caption: 'A with-trend BEAR FLAG — exact mirror of the bull flag. PERMISSION (MANDATORY): the 15-minute must be in a downtrend — lower highs AND lower lows. Pole = sharp drop. Flag = price drifting UP on lighter volume; a small rising channel against the downtrend (higher highs and higher lows of the bounce). DEFINING BOUNDARY = the ASCENDING trendline connecting the HIGHER LOWS (the lower edge of the rising flag). Early heads-up = an M (small double-top) at the TOP of the bounce — heads-up only, NEVER the entry. TRIGGER = FIRST 2-min candle that CLOSES BELOW the ascending trendline. Enter all 6 contracts short at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks ABOVE the broken trendline (the trendline level itself at the break — not above the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing HIGH at the top of the bounce / higher high of the M). TIME STOP IS TIGHTER: 2 candles (4 minutes), not 3 — bear flags work fast or they fail. Same logic as longs: trade the trendline, not the M\'s neckline (trendline ~70% success, neckline ~20%).',
     render: () => (
       <SetupChart
         values={[82, 64, 44, 56, 44, 52, 38, 24]}
         ema20={[84, 76, 68, 66, 60, 58, 52, 44]}
         ema9={[82, 70, 56, 60, 50, 54, 42, 30]}
         triggerY={44}
-        triggerLabel="Neckline"
+        triggerLabel="2-min trendline (entry trigger)"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'High 1' },
-          { idx: 4, kind: 'dot', label: 'Failed dip — no close below', color: '#1FE0A0' },
-          { idx: 5, kind: 'dip2', label: 'High 2 — lower high' },
-          { idx: 6, kind: 'enter', label: 'First close below — ENTER' },
+          { idx: 3, kind: 'dip1', label: 'High 1 (M forming)' },
+          { idx: 4, kind: 'dot', label: 'Failed dip — neckline is heads-up only', color: '#1FE0A0' },
+          { idx: 5, kind: 'dip2', label: 'High 2 — M complete (heads-up only)' },
+          { idx: 6, kind: 'enter', label: 'First close below 2-min trendline — ENTER' },
         ]}
         stopY={62}
         crowdStopY={58}
-        stopLabel="Your stop"
+        stopLabel="Final stop — at the structure (bounce swing high)"
         t1Y={36}
         t2Y={28}
         showKindToggle
@@ -110,20 +110,20 @@ export const SETUP_GALLERY = [
   },
   {
     id: 'g7',
-    title: 'G7 · Why the failed first rally is the bait',
-    caption: 'The first rally up from Dip 1 FAILS at the neckline — never closes above. That failure is the bait; there is no entry to "skip." After Dip 2 (a higher low), the FIRST close above the neckline is the entry.',
+    title: 'G7 · The W is heads-up only — the trendline is the entry',
+    caption: 'When the W begins to form at the base of the flag, treat it as an early heads-up only — it tells you price is likely to soon close above the 2-min trendline. Do NOT enter on the W. Do NOT enter on the neckline. Do NOT enter on a "price trigger." Wait for the 2-min candle to CLOSE above the descending trendline — that close is your one and only trigger. The trendline has run ~70% for me; the neckline ~20%.',
     render: () => (
       <SetupChart
         values={[20, 36, 54, 44, 54, 48, 60, 72]}
         triggerY={54}
-        triggerLabel="Neckline"
+        triggerLabel="2-min trendline (entry trigger)"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'Dip 1' },
-          { idx: 4, kind: 'dot', label: 'Failed first rally — no close above', color: '#FF5C72' },
-          { idx: 5, kind: 'dip2', label: 'Dip 2 — higher low' },
-          { idx: 6, kind: 'enter', label: 'First close above — ENTER' },
+          { idx: 3, kind: 'dip1', label: 'Dip 1 (W forming)' },
+          { idx: 4, kind: 'dot', label: 'Failed first rally — neckline is heads-up only', color: '#FF5C72' },
+          { idx: 5, kind: 'dip2', label: 'Dip 2 — W complete (heads-up only)' },
+          { idx: 6, kind: 'enter', label: 'First close above 2-min trendline — ENTER' },
         ]}
-        contextLabel="The bait trap"
+        contextLabel="Trendline beats neckline"
         contextColor="gold"
       />
     ),

@@ -38,6 +38,18 @@ export const LESSONS = [
         <p>The mantra. Carry it into every chart you open:</p>
         <p className="text-center font-display text-xl tracking-wide text-emerald2 text-glow-emerald my-4">"15 says <em>IF</em>; 5 and 2 say <em>WHEN</em> and <em>WHERE</em>."</p>
         <p>If the 15-min is sideways — no trend at all — <em>none</em> of the lower timeframes matter. Sitting out is the trade.</p>
+
+        <div className="my-4 rounded-lg border border-cyan2/40 bg-cyan2/5 p-4">
+          <p className="font-display tracking-wide text-cyan2 text-[14px] mb-2">THE THREE TIMEFRAMES — EACH DOES ONE JOB</p>
+          <p className="text-[13px] italic mb-2">(and the 5-minute "lower high" is NOT a contradiction)</p>
+          <ul className="list-disc pl-5 space-y-2 text-[14px]">
+            <li><strong>15-minute = THE TREND (the IF).</strong> This is the one that must be higher highs / higher lows. This is your permission to be long at all.</li>
+            <li><strong>5-minute = THE PULLBACK HEALTH (the WHERE).</strong> During a pullback, the 5-minute will print a lower high — that lower high IS the pullback. It's supposed to happen. It does not break the uptrend, as long as the pullback holds above the prior swing low and ideally rides the rising 20 EMA. What you reject is the 5-minute breaking BELOW its prior swing low — that's real trend damage, and you skip.</li>
+            <li><strong>2-minute = THE TRIGGER (the WHEN).</strong> The close above the flag trendline.</li>
+          </ul>
+        </div>
+
+        <p><strong>For shorts (bear flag): mirror.</strong> 15-minute downtrend is permission; the 5-minute will print a HIGHER LOW during the bounce (that higher low IS the bounce, not a reversal); reject only if the 5-minute breaks ABOVE its prior swing high; the 2-minute close BELOW the trendline is the trigger.</p>
       </div>
     ),
   },
@@ -45,42 +57,60 @@ export const LESSONS = [
   {
     id: 'l3',
     n: 3,
-    title: 'The Entry, Step by Step',
-    oneLine: 'Dip 1 → failed rally at the neckline → Dip 2 (higher low) → first close above neckline.',
-    lockIt: 'After Dip 2 forms (higher low / double-bottom with the trend), enter on the FIRST 2-min candle that CLOSES above the neckline. No retest needed. No second close needed.',
+    title: 'The Entry — The Only Trigger Is the 2-Min Trendline Close',
+    oneLine: 'W is heads-up only. Neckline is heads-up only. Enter on the close above the 2-min trendline.',
+    lockIt: 'When the W begins to form at the base of the flag, treat it as an early heads-up only — never as an entry. Wait for a 2-minute candle to CLOSE above the descending trendline. That close is your one and only trigger. Enter all 6 contracts at the open of the next candle.',
     render: () => (
       <div className="prose-edge space-y-4">
-        <p>This is the flagship setup. It is a <em>with-trend double bottom</em> on the 2-minute — Dip 1, a failed rally at the neckline, then a higher-low Dip 2. Long version below; shorts are the mirror image (a with-trend double top).</p>
+        <p>This is the flagship setup — the <strong>BULL FLAG</strong>, the one setup we trade with the trend. Long version below; the BEAR FLAG (shorts) is the exact mirror — see Lesson 9 and the Visual Library (G2).</p>
+
+        <p><strong>The picture.</strong> Pole = a sharp upmove. Flag = price drifting down on lighter volume; a small descending channel against the uptrend (lower highs and lower lows of the pullback). The <em>defining boundary</em> of the bull flag = the <strong>DESCENDING trendline</strong> connecting the lower highs of the pullback.</p>
+
+        <p><strong>The W is a heads-up — NOT the entry.</strong> When the W begins to form at the base of the flag (Dip 1 → small bounce → higher-low Dip 2), treat it as an early heads-up only. It tells you there is a high likelihood that price will soon close above the 2-min trendline. <em>Do NOT enter on the W.</em> <em>Do NOT enter on a neckline.</em> <em>Do NOT enter on a "price trigger."</em></p>
+
+        <p><strong>The trigger — the ONLY trigger.</strong> Wait for a 2-minute candle to <strong>CLOSE</strong> above the descending trendline. That close is your one and only trigger. The moment it closes above the line, enter all 6 contracts at the open of the next candle.</p>
+
+        <p><strong>Why the trendline beats the neckline.</strong> It is better to wait for the trendline close than to jump in at the neckline, because the trendline close has a meaningfully higher success rate. The trendline is the bull flag's <em>true defining boundary</em>; the neckline (the swing high between Dip 1 and Dip 2) is an earlier, weaker signal.</p>
+
+        <div className="my-4 rounded-lg border border-gold/40 bg-gold/5 p-4">
+          <p className="font-display tracking-wide text-gold text-[14px] mb-2">WHY THIS RULE EXISTS — MY OWN TRACK RECORD</p>
+          <ul className="list-disc pl-5 space-y-1 text-[14px]">
+            <li>Trendline entries have run about <strong>70% success</strong> for me.</li>
+            <li>Neckline entries have run about <strong>20% success</strong> for me.</li>
+            <li>In a bull flag, the neckline is a lower-probability signal than the trendline.</li>
+            <li><strong>Trade the trendline. Leave the neckline alone.</strong></li>
+          </ul>
+        </div>
+
         <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
           <li><strong>15-min HH/HL confirmed.</strong> The gate is open.</li>
-          <li><strong>Price pulls back on the 2-min: Dip 1.</strong> The crowd watches the low.</li>
-          <li><strong>Price rallies — and FAILS at the neckline.</strong> The neckline is the swing high between Dip 1 and Dip 2 (the high of the failed first rally). The rally <em>does not close above it</em>. That failed rally <em>is</em> the bait — there was never an entry to skip, because nothing ever closed through.</li>
-          <li><strong>Price dips again to a HIGHER LOW: Dip 2.</strong> The double-bottom is complete.</li>
-          <li><strong>ENTRY.</strong> The FIRST 2-min candle that <em>closes</em> above the neckline is your entry. Don't wait for a retest. Don't wait for a second close. The first close is the contract.</li>
+          <li><strong>Price pulls back on the 2-min and prints Dip 1.</strong> The W is starting to form.</li>
+          <li><strong>Price bounces, then prints a HIGHER LOW (Dip 2).</strong> The W is complete — heads-up only. <em>The neckline (the high between Dip 1 and Dip 2) is also heads-up only — never the entry.</em></li>
+          <li><strong>Wait for the 2-min candle that CLOSES above the descending trendline.</strong> No retest. No second close. The trendline close is the contract.</li>
+          <li><strong>ENTER all 6 contracts at the open of the next candle.</strong> Take your hands off the mouse.</li>
         </ol>
-        <p>Wait for the <em>close</em>. Never jump on a wick. Never anticipate. The close is the contract.</p>
 
         <SetupChart
           values={[20, 38, 56, 46, 56, 50, 64, 76]}
           showKindToggle
           playable
           triggerY={56}
-          triggerLabel="Neckline"
+          triggerLabel="2-min trendline (entry trigger)"
           markers={[
-            { idx: 3, kind: 'dip1', label: 'Dip 1' },
-            { idx: 4, kind: 'dot', label: 'Failed rally — no close above', color: '#FF5C72' },
-            { idx: 5, kind: 'dip2', label: 'Dip 2 — higher low' },
-            { idx: 6, kind: 'enter', label: 'First close above — ENTER' },
+            { idx: 3, kind: 'dip1', label: 'Dip 1 (W forming)' },
+            { idx: 4, kind: 'dot', label: 'Failed rally — neckline is heads-up only', color: '#FF5C72' },
+            { idx: 5, kind: 'dip2', label: 'Dip 2 — W complete (heads-up only)' },
+            { idx: 6, kind: 'enter', label: 'First close above 2-min trendline — ENTER' },
           ]}
           stopY={42}
           crowdStopY={45}
-          stopLabel="Your stop"
-          caption="The flagship 2-min picture — a with-trend double bottom. Dip 1, failed rally at the neckline (no close above), higher-low Dip 2, then the first close above the neckline is the entry. Stop sits a few ticks below the crowd."
+          stopLabel="Final stop — at the structure (flag swing low)"
+          caption="The flagship 2-min picture. The W (Dip 1 + Dip 2) is heads-up only — it tells you a trendline close is coming. The TRIGGER is the first close above the descending 2-min trendline. (In practice the trendline is a diagonal connecting the lower highs of the flag; shown here as a horizontal level for clarity.) Stop sits at the structure — the swing low at the bottom of the flag."
           contextLabel="2-min · 15-min HH/HL"
           contextColor="emerald"
         />
 
-        <p>Five years of false starts came from steps 2 and 4. You acted on the <em>failed first rally</em> (one that never closed above the neckline) — anticipating instead of waiting — and you acted before the close. From now on: <em>wait for Dip 2, wait for the first close above the neckline, then buy.</em> Anything less is not the setup.</p>
+        <p>Five years of false starts came from entering on the W or on the neckline. From now on: <em>see the W → know a trendline close is likely → wait for the close above the trendline → buy.</em> Anything less is not the setup.</p>
       </div>
     ),
   },
@@ -146,26 +176,35 @@ export const LESSONS = [
   {
     id: 'l6',
     n: 6,
-    title: 'The Stop — Behind the Crowd',
-    oneLine: 'A few ticks below the FIRST dip. Lower than the obvious level.',
-    lockIt: 'The stop goes below the first (lower) dip, a few ticks LOWER than where everyone else puts theirs. Mechanical. Same every time.',
+    title: 'The Stop — Two Steps: Tentative at the Trendline, Final at the Structure',
+    oneLine: 'TENTATIVE: 4-6 ticks beyond the broken trendline. FINAL: just past the STRUCTURE.',
+    lockIt: 'STEP 1 (tentative): 4 to 6 ticks beyond the broken trendline — the price level of the trendline itself at the break, NOT below the breakout candle\'s close. STEP 2 (final): move the stop to just past the STRUCTURE — the swing low at the bottom of the flag, or the lower low of the W. The structure is the anchor.',
     render: () => (
       <div className="prose-edge space-y-4">
-        <p>This single rule is the difference between getting stopped at the low tick of the move and surviving the hunt.</p>
-        <p><strong>Where.</strong> Below the first dip — the lower of the two. Place it a few ticks <em>lower</em> than the obvious level the crowd uses.</p>
-        <p><strong>Why.</strong> The market hunts the obvious stop. Sitting a few ticks behind the crowd puts you behind the hunt, not its first target. Wider-but-behind beats tighter-and-clipped.</p>
-        <p><strong>How.</strong> Mechanical. Same placement every trade. No judging liquidity sweeps live, no nudging it in, no "feel." The discretion is in <em>whether</em> you take the trade — not in where the stop goes.</p>
+        <p><strong>Read this carefully — the stop has TWO steps.</strong> Where the stop ends up is the difference between a normal retest taking you out and a real failure being the only thing that can.</p>
+
+        <p><strong>STEP 1 — TENTATIVE: 4 to 6 ticks below the broken trendline.</strong> "Below the broken trendline" means below the <em>price level of the trendline itself</em>, at the exact spot where price punched through it. It does <em>NOT</em> mean 4 to 6 ticks below where the breakout candle closed. The candle's close is only the trigger — it is never the stop reference. (A strong breakout candle closes far above the line; a weak one barely above. Your stop must not depend on that.)</p>
+
+        <p><strong>STEP 2 — FINAL (my adjustment): move the stop to just beyond the STRUCTURE.</strong> The structure is the swing low at the bottom of the flag, or the lower low of the W. Depending on the structure, this may land a few ticks higher or a few ticks lower than the tentative spot. I make that call.</p>
+
+        <p><strong>Why the structure is the better stop.</strong> A stop tucked tight under the diagonal trendline gets wicked out on a normal retest. A stop just beyond the structure only triggers if the pattern has actually failed. Because premature stop-outs have been the costliest leak in this trader's results, anchor the stop to the structure.</p>
+
+        <p><strong>For shorts (bear flag): mirror.</strong> Tentative: 4 to 6 ticks ABOVE the broken trendline. Final: just past the structure — the swing HIGH at the top of the bounce, or the higher high of the M.</p>
+
         <SetupChart
           values={[22, 40, 56, 44, 56, 48, 62, 72]}
+          triggerY={56}
+          triggerLabel="2-min trendline (broken at entry)"
           markers={[
-            { idx: 3, kind: 'dip1', label: 'Dip 1 (the lower dip)' },
-            { idx: 5, kind: 'dip2', label: 'Dip 2' },
+            { idx: 3, kind: 'dip1', label: 'Dip 1 (W forming)' },
+            { idx: 5, kind: 'dip2', label: 'Dip 2 — W complete' },
           ]}
           stopY={37}
-          crowdStopY={41}
-          stopLabel="Your stop"
-          caption="Your stop sits a few ticks below the obvious level — behind the crowd, not in front of it."
-          contextLabel="Where the stop goes"
+          crowdStopY={48}
+          stopLabel="Final stop — at the STRUCTURE (flag swing low)"
+          crowdStopLabel="Tentative (4-6 ticks past trendline level)"
+          caption="Two-step stop. Tentative: 4-6 ticks past where the trendline was broken (the trendline level itself, NOT the breakout candle's close). Final: anchor to the STRUCTURE — the swing low at the bottom of the flag / lower low of the W."
+          contextLabel="Stop = at the structure"
           contextColor="coral"
         />
       </div>

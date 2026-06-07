@@ -51,20 +51,22 @@ export default function TradePlan() {
           The 5-min is where the pullback forms. Allowed to pull back; <strong>must not break the prior swing low</strong>.
         </Block>
         <Block title="2 says WHEN" color="gold" icon="chart">
-          The 2-min gives the trigger: dip → bounce → second dip → close above (long) or below (short).
+          The 2-min gives the trigger: the close above the <strong>descending trendline</strong> (long) or below the <strong>ascending trendline</strong> (short). <em>Not</em> the neckline. <em>Not</em> the W or the M.
         </Block>
-        <Block title="The 5-step entry" color="emerald" icon="target" span>
+        <Block title="The 5-step entry — trendline close ONLY" color="emerald" icon="target" span>
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
-            <li>15-min HH/HL confirmed.</li>
-            <li>2-min prints Dip 1.</li>
-            <li>Price rallies but <strong>FAILS at the <span className="text-gold">neckline</span></strong> — the swing high between the two dips. No close above. That failure IS the bait — no entry to skip.</li>
-            <li>Price falls back to a <strong>higher low</strong> (Dip 2). Double-bottom complete.</li>
-            <li>The <strong>FIRST</strong> 2-min candle that <strong>closes</strong> above the neckline. <span className="text-emerald2">Buy.</span> No retest. Never jump on a wick.</li>
+            <li>15-min HH/HL confirmed. (Mandatory permission to be long.)</li>
+            <li>2-min prints Dip 1, bounces, then a higher-low Dip 2 — the <strong>W</strong> is complete. <em>Heads-up only. NOT the entry.</em></li>
+            <li>The <strong className="text-gold">neckline</strong> (swing high between Dip 1 and Dip 2) is <em>also heads-up only — NEVER the entry.</em></li>
+            <li>Wait for a 2-min candle to <strong>CLOSE above the descending 2-min trendline</strong> — the diagonal connecting the lower highs of the pullback. That close is your ONE and ONLY trigger.</li>
+            <li>Enter all 6 contracts at the open of the next candle. <span className="text-emerald2">Buy.</span></li>
           </ol>
+          <p className="text-textt text-[12px] mt-2"><strong>My track record:</strong> trendline entries ~70% success · neckline entries ~20% · <em>Trade the trendline. Leave the neckline alone.</em></p>
         </Block>
 
-        <Block title="The stop" color="coral" icon="shield">
-          Below the FIRST dip — a few ticks <strong>lower than the crowd</strong>. Mechanical, same placement every time. Wider-but-behind beats tight-and-clipped.
+        <Block title="The stop — TWO STEPS" color="coral" icon="shield">
+          <strong>TENTATIVE:</strong> 4 to 6 ticks beyond the broken trendline — the trendline LEVEL itself at the break, <em>not</em> below the breakout candle's close.<br/>
+          <strong>FINAL (my adjustment):</strong> just past the <strong>STRUCTURE</strong> — the swing low at the bottom of the flag, or the lower low of the W. A stop tight under the trendline gets wicked on a retest; a stop just past the structure only triggers on real failure.
         </Block>
         <Block title="The exits — 2 / 2 / 2" color="emerald" icon="check">
           {settings.contracts} contracts in thirds. <strong>Scale at T1 (1R)</strong>, then stop → breakeven the instant T1 fills. <strong>Scale at T2 (2R)</strong>. <strong>Final third</strong> trails the 9 EMA to the measured-move target.
@@ -93,19 +95,21 @@ export default function TradePlan() {
           <p className="text-textt text-[12px] mt-2">M2K is $5 per point, and 10 ticks make a point — count your ticks in chunks of 10. Express stops in points or R; ticks are the fine grain.</p>
         </Block>
 
-        <Block title="Bull flag / bear flag = our setup" color="gold" icon="flame" span>
-          What you may have called a <strong>bull flag</strong> (uptrend) or a <strong>bear flag</strong> (downtrend) is the same picture as our <strong>with-trend double bottom / double top</strong>. The flagpole is the trend leg; the flag is the pullback that holds Dip 1, the failed rally at the neckline, and Dip 2. Our timing: wait for Dip 2, then enter on the <strong>FIRST</strong> 2-min candle that closes above the neckline (long) or below (short). The first rally never closed above — that failure WAS the bait; no entry was skipped.
+        <Block title="BULL FLAG &amp; BEAR FLAG — full parity" color="gold" icon="flame" span>
+          <p className="mb-2"><strong className="text-emerald2">BULL FLAG (long, uptrend).</strong> Pole = sharp upmove. Flag = price drifting DOWN on lighter volume; a small descending channel (lower highs and lower lows of the pullback). DEFINING BOUNDARY = the <strong>DESCENDING trendline</strong> connecting the LOWER HIGHS (the upper edge of the falling flag). Early heads-up = the W at the base of the flag (heads-up only, not the entry). TRIGGER = FIRST 2-min candle that CLOSES ABOVE the descending trendline. STOP: tentative 4-6 ticks above the broken trendline level, then final at the STRUCTURE — the swing low at the bottom of the flag / lower low of the W.</p>
+          <p className="mb-2"><strong className="text-coral">BEAR FLAG (short, downtrend) — exact mirror.</strong> <em>15-min downtrend (lower highs AND lower lows) is MANDATORY permission.</em> Pole = sharp drop. Flag = price drifting UP on lighter volume; a small rising channel against the downtrend (higher highs and higher lows of the bounce). DEFINING BOUNDARY = the <strong>ASCENDING trendline</strong> connecting the HIGHER LOWS (the lower edge of the rising flag). Early heads-up = an "M" (small double-top) at the TOP of the bounce — heads-up only, NEVER the entry. TRIGGER = FIRST 2-min candle that CLOSES BELOW the ascending trendline. STOP: tentative 4-6 ticks BELOW the broken trendline level, then final at the STRUCTURE — the swing HIGH at the top of the bounce / higher high of the M.</p>
+          <p className="text-textt text-[12px]"><strong>Bear-flag specific:</strong> TIME STOP IS TIGHTER — 2 candles (4 minutes), not 3. Bear flags work fast or they fail. Same logic as longs: <em>wait for the trendline close, not the M's neckline.</em> Trendline beats neckline here too.</p>
         </Block>
 
         <Block title="The 7-step gate" color="cyan" icon="check" span>
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min trending my way (HH/HL · LH/LL)? <span className="text-coral">[Hard gate — if no, sit out.]</span></li>
-            <li>With-trend pullback, not a counter-trend reversal?</li>
-            <li>Second dip formed (higher low / lower high) — double-bottom / double-top complete?</li>
-            <li>Pullback healthy — holding near/above the 20 EMA, prior swing intact?</li>
+            <li>With-trend pullback (flag), not a counter-trend reversal?</li>
+            <li>W (longs) or M (shorts) is forming at the base/top of the flag — <em>heads-up only</em>?</li>
+            <li>5-min pullback healthy — its lower high (long) / higher low (short) holds the prior swing, rides the 20 EMA?</li>
             <li>Candle grade at the second dip? (A+ / Strong / weak → smaller or skip)</li>
-            <li>Stop below the first dip (lower than the crowd) AND room above to T1/T2?</li>
-            <li>FIRST 2-min candle has CLOSED above the neckline (long) / below (short)? No retest needed.</li>
+            <li>FIRST 2-min candle has CLOSED above the descending trendline (long) / below the ascending trendline (short)? <em>The trendline close is the ONLY trigger. Not the neckline. Not the W/M.</em></li>
+            <li>Stop placed at the STRUCTURE (swing low of flag / lower W low for longs; swing high of bounce / higher M high for shorts) — tentative 4-6 ticks past broken trendline, then final at the structure?</li>
           </ol>
         </Block>
 
@@ -114,8 +118,8 @@ export default function TradePlan() {
             <li>Counter-trend reversals (DT in uptrend, DB in downtrend, H&amp;S, V).</li>
             <li>Ranges &amp; symmetrical triangles.</li>
             <li>Standalone candles, no context.</li>
-            <li>Anticipating — entering before the FIRST close above the neckline.</li>
-            <li>Wicks. Wait for the close.</li>
+            <li>The W, the M, or the neckline as an entry. They are heads-up signals only.</li>
+            <li>Wicks. Wait for the trendline CLOSE.</li>
             <li>Chasing when there's no pullback.</li>
           </ul>
         </Block>
