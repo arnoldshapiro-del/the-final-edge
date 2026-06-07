@@ -8,6 +8,7 @@ import Trainer from './pages/Trainer.jsx'
 import Flashcards from './pages/Flashcards.jsx'
 import Gallery from './pages/Gallery.jsx'
 import TradePlan from './pages/TradePlan.jsx'
+import MyRisk from './pages/MyRisk.jsx'
 import Discipline from './pages/Discipline.jsx'
 import Manual from './pages/Manual.jsx'
 import Trade from './pages/Trade.jsx'
@@ -41,6 +42,7 @@ const DESKTOP_EXTRAS = [
   { to: '/learn/gallery', label: 'Visual library', icon: 'spark' },
   { to: '/flashcards', label: 'Flashcards', icon: 'flame' },
   { to: '/plan', label: 'Trade plan', icon: 'shield' },
+  { to: '/risk', label: 'My Risk', icon: 'lock' },
   { to: '/discipline', label: 'Discipline', icon: 'compass' },
 ]
 
@@ -175,6 +177,7 @@ export default function App() {
               <Route path="/trade" element={<Trade />} />
               <Route path="/stats" element={<Suspense fallback={<StatsFallback />}><Stats /></Suspense>} />
               <Route path="/plan" element={<TradePlan />} />
+              <Route path="/risk" element={<MyRisk />} />
               <Route path="/discipline" element={<Discipline />} />
               <Route path="/manual" element={<Manual />} />
               <Route path="/settings" element={<Settings />} />

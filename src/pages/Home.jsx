@@ -174,6 +174,13 @@ export default function Home() {
             <div className="text-texts text-[12px]">The system on one page.</div>
           </div>
         </Link>
+        <Link to="/risk" className="card card-hover p-4 group flex items-center gap-3">
+          <Icon name="lock" className="w-5 h-5 text-emerald2 shrink-0"/>
+          <div className="min-w-0">
+            <div className="font-display font-semibold text-textp text-[14px]">My Risk</div>
+            <div className="text-texts text-[12px]">Per-trade, daily, weekly $ limits.</div>
+          </div>
+        </Link>
         <Link to="/discipline" className="card card-hover p-4 group flex items-center gap-3">
           <Icon name="compass" className="w-5 h-5 text-violet2 shrink-0"/>
           <div className="min-w-0">
