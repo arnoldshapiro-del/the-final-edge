@@ -224,8 +224,39 @@ export const LESSONS = [
   },
 
   {
-    id: 'l8',
+    id: 'l-odds',
     n: 8,
+    title: 'Know The Odds',
+    oneLine: 'Reliability isn’t profitability. The edge is the FILTERS — the math does the rest.',
+    lockIt: 'A loose flag is a coin flip; the tight flag after a steep pole wins ~85%. Your confirmed trendline-close entries with-trend run ~70%. With 2/2/2 and stop to BE after T1, a 50–70% rate is a strong positive-expectancy game. Reliability isn’t profitability.',
+    render: () => (
+      <div className="prose-edge space-y-4">
+        <p><strong>THE MYTH:</strong> “Flags are 70–80% reliable.” They are not — not the loose ones.</p>
+
+        <p><strong>THE DATA</strong> (daily stock charts; treat as direction, not a promise): a standard, loose flag fails to even cover its cost about 44% of the time, averages only a ~9% move, and reaches its target only about half the time. A loose flag is close to a coin flip.</p>
+
+        <p><strong>WHAT ACTUALLY HAS AN EDGE:</strong> the <em>TIGHT</em> flag after a <em>STEEP</em> pole. The high-and-tight version succeeds about 85% of the time. Same pattern, opposite odds. The difference is entirely the quality of the setup — a clean steep pole into a tight pullback, not a sloppy drift.</p>
+
+        <p><strong>OUR EDGE ISN’T THE PATTERN — IT’S THE FILTERS:</strong></p>
+        <ul>
+          <li>Steep, clean flagpole into a tight pullback (long) or bounce (short)</li>
+          <li>15-min trend agrees: long only in an uptrend, short only in a downtrend</li>
+          <li>We wait for the 2-min candle to CLOSE through the trendline — never the touch, never the wick</li>
+        </ul>
+        <p>On a 2-min chart, noise manufactures false breaks all day. Waiting for the close plus trend alignment is what turns the coin flip back into an edge.</p>
+
+        <p><strong>YOUR NUMBER:</strong> on your own confirmed trendline-close entries, traded with the trend, your backtested reliability is about 70%. That number exists because you wait for the close and you trade with the 15-min. Break either rule and you are back to the coin flip.</p>
+
+        <p><strong>BEAR FLAGS:</strong> the mirror of the bull flag, but historically a touch weaker and more erratic, and downward breakouts fail more often when the broad market is rising. The 15-min downtrend filter is not optional on the short side — it is the whole edge.</p>
+
+        <p><strong>RELIABILITY IS NOT PROFITABILITY:</strong> you do not need a high win rate to win. With the 2/2/2 split, stop to breakeven after T1, and tiered targets against a tight fixed stop, one runner pays for several scratches. A 50–70% confirmed-entry rate with that exit structure is a strong, positive-expectancy game. Protect the process; the math does the rest.</p>
+      </div>
+    ),
+  },
+
+  {
+    id: 'l8',
+    n: 9,
     title: 'Sizing, Pushes & Discipline',
     oneLine: 'Fixed 6. Don\'t count pushes. Get pickier as the trend ages.',
     lockIt: 'Fixed 6 contracts. No variable sizing (yet). No adding to winners (yet). Trade while the 15-min makes HH/HL. Get pickier as pushes age.',
@@ -241,7 +272,7 @@ export const LESSONS = [
 
   {
     id: 'l9',
-    n: 9,
+    n: 10,
     title: 'What We Do NOT Trade',
     oneLine: 'No reversals. No ranges. No standalone candles.',
     lockIt: 'No counter-trend reversal attempts. No head & shoulders, triple tops, wedges, V-reversals. No symmetrical triangles, ranges, broadening. No standalone candle trades.',
@@ -260,7 +291,7 @@ export const LESSONS = [
 
   {
     id: 'l10',
-    n: 10,
+    n: 11,
     title: 'Going Live — The Right Way',
     oneLine: 'Sim → green by rule → 1 micro → scale slowly.',
     lockIt: 'Go live only when net green in sim AND every trade followed the checklist. Start at 1 micro. Scale only after disciplined real-money green stretches.',
