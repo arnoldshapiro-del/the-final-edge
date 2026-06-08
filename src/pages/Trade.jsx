@@ -9,12 +9,11 @@ import { useSettings, useTrades, useSession } from '../hooks.js'
 
 const CHECKLIST_STEPS = [
   { id: 'q1', hard: true, text: 'Is the 15-min trending my way? (HH/HL for longs, LH/LL for shorts)' },
-  { id: 'q2', text: 'With-trend direction only — not a counter-trend reversal?' },
-  { id: 'q3', text: 'Pullback healthy — holds the prior swing AND rides above/below the 20 EMA (not knifing)?' },
-  { id: 'q4', text: 'Dip 2 formed (higher low / lower high) — with-trend double-bottom or double-top complete?' },
-  { id: 'q5', text: 'Confirming candle at Dip 2? (A+ engulfing/dragonfly or Strong morning star — not a weak doji)' },
-  { id: 'q6', text: 'FIRST 2-min candle has CLOSED through the 2-min TRENDLINE? (Above the descending trendline for longs, below the ascending trendline for shorts. The W / M and the neckline are heads-up only — never the entry.)' },
-  { id: 'q7', text: 'Stop placed at the STRUCTURE (swing low of the flag / lower low of the W for longs; swing high of the bounce / higher high of the M for shorts) — tentative 4-6 ticks beyond the broken trendline, then moved to the structure?' },
+  { id: 'q2', text: 'With-trend direction only — not a counter-trend reversal attempt?' },
+  { id: 'q3', text: 'Pullback (long) or bounce (short) healthy — holds the prior swing low (long) / prior swing high (short) AND rides above/below the 20 EMA (not knifing)?' },
+  { id: 'q4', text: 'Confirming candle at the trendline close? (A+ engulfing/dragonfly or Strong morning star — not a weak doji)' },
+  { id: 'q5', text: 'FIRST 2-min candle has CLOSED through the 2-min TRENDLINE? (Above the descending trendline for longs, below the ascending trendline for shorts. The trendline close is the one and only trigger.)' },
+  { id: 'q6', text: 'Stop placed at the STRUCTURE (swing low at the bottom of the pullback for longs; swing high at the top of the bounce for shorts) — tentative 4-6 ticks beyond the broken trendline, then moved to the structure?' },
 ]
 
 function blankForm() {
@@ -121,7 +120,7 @@ export default function Trade() {
   // Keyboard shortcuts for fast logging:
   //   1-7 → toggle that checklist step
   //   e   → focus the Entry price input
-  //   s   → log the trade (save) if all 7 pass + valid prices
+  //   s   → log the trade (save) if all 6 pass + valid prices
   //   ?   → toggle the help panel
   const entryInputRef = useRef(null)
   const [shortcutsOpen, setShortcutsOpen] = useState(false)
@@ -137,7 +136,7 @@ export default function Trade() {
       if (inField && e.key !== 'Escape') return
       if (e.metaKey || e.ctrlKey || e.altKey) return
 
-      if (/^[1-7]$/.test(e.key)) {
+      if (/^[1-6]$/.test(e.key)) {
         const idx = parseInt(e.key, 10) - 1
         const step = CHECKLIST_STEPS[idx]
         if (step) {
@@ -166,7 +165,7 @@ export default function Trade() {
         <div>
           <div className="pill pill-emerald inline-flex mb-3"><Icon name="chart" className="w-3.5 h-3.5"/> Trade cockpit</div>
           <h1 className="font-display font-semibold text-3xl md:text-4xl text-textp tracking-tight">Trade with discipline</h1>
-          <p className="text-texts mt-2">Pass the 7-step gate. Log the trade. Stay honest.</p>
+          <p className="text-texts mt-2">Pass the 6-step gate. Log the trade. Stay honest.</p>
         </div>
         <div className="text-right">
           <div className="flex items-center gap-2 justify-end mb-1">
@@ -233,7 +232,7 @@ export default function Trade() {
             <p className="text-texts text-[14px] mt-2 max-w-lg mx-auto">The 15-min isn’t trending your way. Sitting out IS the trade. Come back when the gate opens.</p>
           </div>
         ) : !allChecked ? (
-          <div className="mt-4 text-texts text-[13px] font-body text-center">Finish all seven steps to unlock the calculator.</div>
+          <div className="mt-4 text-texts text-[13px] font-body text-center">Finish all six steps to unlock the calculator.</div>
         ) : (
           <div className="mt-4 text-emerald2 text-[13px] font-display tracking-wide text-center">
             <Icon name="check" className="inline w-4 h-4 mr-1"/> Gate open — log the trade below.
@@ -275,7 +274,7 @@ export default function Trade() {
           </div>
 
           <div>
-            <label className="field-label">Candle at Dip 2</label>
+            <label className="field-label">Confirming candle at the trendline close</label>
             <select value={form.candle} onChange={e => change('candle', e.target.value)}>
               <option value="engulfing">Bullish/Bearish engulfing (A+)</option>
               <option value="dragonfly">Dragonfly doji (A+)</option>
@@ -297,7 +296,7 @@ export default function Trade() {
           </div>
 
           <div>
-            <label className="field-label">Stop (at the STRUCTURE — flag swing low / lower W low for longs; flag swing high / higher M high for shorts)</label>
+            <label className="field-label">Stop (at the STRUCTURE — swing low at the bottom of the pullback for longs; swing high at the top of the bounce for shorts)</label>
             <input type="number" step="0.01" value={form.stop} onChange={e => change('stop', e.target.value)} placeholder="just past the structure — not below the breakout candle's close" />
           </div>
         </div>
@@ -394,9 +393,9 @@ export default function Trade() {
 
 function ShortcutsHelp({ onClose }) {
   const ROWS = [
-    { keys: ['1', '2', '3', '4', '5', '6', '7'], label: 'Toggle each checklist step' },
+    { keys: ['1', '2', '3', '4', '5', '6'], label: 'Toggle each checklist step' },
     { keys: ['E'], label: 'Focus the Entry price input' },
-    { keys: ['S'], label: 'Save / log the trade (if all 7 + valid prices)' },
+    { keys: ['S'], label: 'Save / log the trade (if all 6 + valid prices)' },
     { keys: ['?'], label: 'Open / close this help' },
     { keys: ['Esc'], label: 'Close dialogs' },
   ]
@@ -453,7 +452,7 @@ function TradeRow({ t, onEdit, onAskDelete }) {
             <span className="font-display font-semibold text-textp text-[14px]">{t.direction.toUpperCase()}</span>
             <span className="pill pill-gold text-[10px]">{t.setupGrade}</span>
             <span className="pill pill-muted text-[10px]">{t.candle}</span>
-            {t.followedAll7 ? <span className="pill pill-emerald text-[10px]">All 7</span> : <span className="pill pill-coral text-[10px]">Rule breach</span>}
+            {t.followedAll7 ? <span className="pill pill-emerald text-[10px]">All 6</span> : <span className="pill pill-coral text-[10px]">Rule breach</span>}
             <span className="pill pill-violet text-[10px]">{t.mode.toUpperCase()}</span>
           </div>
           <div className="font-mono text-texts text-[12px] mt-1 truncate">

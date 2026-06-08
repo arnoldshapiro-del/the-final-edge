@@ -105,10 +105,10 @@ export default function Trainer() {
     const ms = []
     const showAll = done   // show all annotations once an answer is committed
     if (typeof scenario.dip1Idx === 'number' && (showAll || stepIdx > scenario.dip1Idx)) {
-      ms.push({ idx: scenario.dip1Idx, kind: 'dip1', label: scenario.expected === 'SHORT' ? 'Rally high' : 'Dip 1' })
+      ms.push({ idx: scenario.dip1Idx, kind: 'dip1', label: scenario.expected === 'SHORT' ? 'Bounce high' : 'Pullback low' })
     }
     if (typeof scenario.dip2Idx === 'number' && (showAll || stepIdx > scenario.dip2Idx)) {
-      ms.push({ idx: scenario.dip2Idx, kind: 'dip2', label: scenario.expected === 'SHORT' ? 'Lower high' : 'Dip 2' })
+      ms.push({ idx: scenario.dip2Idx, kind: 'dip2', label: scenario.expected === 'SHORT' ? 'Lower high' : 'Higher low' })
     }
     if (done && typeof scenario.entryIdx === 'number') {
       ms.push({ idx: scenario.entryIdx, kind: 'enter', label: 'Enter on close' })

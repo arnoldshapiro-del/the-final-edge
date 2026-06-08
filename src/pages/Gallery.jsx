@@ -46,7 +46,7 @@ export default function Gallery() {
 
       {/* CANDLE ANATOMY */}
       <section className="space-y-5">
-        <SectionTitle icon="flame" label="Candle anatomy" kicker="What it means at Dip 2." color="gold"/>
+        <SectionTitle icon="flame" label="Candle anatomy" kicker="What it means at the trendline close." color="gold"/>
         <div className="grid md:grid-cols-2 gap-4">
           {CANDLE_GALLERY.map(c => (
             <AnatomyCandle key={c.id} entry={c} />

@@ -241,7 +241,7 @@ export default function Manual() {
             <div className="my-5 rounded-card border border-emerald2/40 bg-emerald2/5 p-5">
               <div className="font-display font-semibold tracking-[0.12em] uppercase text-emerald2 text-[12px] mb-2">The plan in one breath</div>
               <p className="text-textp font-body text-[15.5px] leading-[1.75]">
-                Keep this in your head all day: We trade the M2K, one setup only — the with-trend flag, in either direction (bull flag long / bear flag short), with the trend. The 15-minute tells us <Str>IF</Str> there’s a trend; the 5-minute shows us <Str>WHERE</Str> the pullback (or bounce) is and whether it’s healthy; the 2-minute tells us <Str>WHEN</Str>. The W at the base of a bull flag (or the M at the top of a bear flag) is a <Em>heads-up only</Em>, never the entry. The neckline is also a <Em>heads-up only</Em>, never the entry. The ONE AND ONLY trigger is a 2-minute candle that CLOSES above the descending trendline (long) or BELOW the ascending trendline (short). The trendline beats the neckline by a long way in my own data — roughly 70% vs 20%. The stop has two steps: tentative 4 to 6 ticks past the broken trendline level, then FINAL at the STRUCTURE — the swing low at the bottom of the bull flag / lower W low (or swing high of the bear-flag bounce / higher M high). At our first target we take a third off and move the stop to breakeven so the trade can never hurt us again; we take more at the second target and let a runner ride to a measured move. We never trade a range, never fight the trend, and we stop the moment we hit our limit. That is the entire edge. Everything below is just living it, hour by hour.
+                Keep this in your head all day: We trade the M2K, one setup only — the with-trend flag, in either direction (bull flag long / bear flag short), with the trend. The 15-minute tells us <Str>IF</Str> there’s a trend; the 5-minute shows us <Str>WHERE</Str> the pullback (long) or bounce (short) is and whether it’s healthy; the 2-minute tells us <Str>WHEN</Str>. The pullback or bounce forming is part of the read, never an entry on its own. The ONE AND ONLY trigger is a 2-minute candle that CLOSES above the descending trendline (long) or BELOW the ascending trendline (short). The setup is alive only while price holds above the prior swing low (long) or below the prior swing high (short); a break of that level ends the trade. The stop has two steps: tentative 4 to 6 ticks past the broken trendline level, then FINAL at the STRUCTURE — the swing low at the bottom of the pullback (long) or the swing high at the top of the bounce (short). At our first target we take a third off and move the stop to breakeven so the trade can never hurt us again; we take more at the second target and let a runner ride. We never trade a range, never fight the trend, and we stop the moment we hit our limit. That is the entire edge. Everything below is just living it, hour by hour.
               </p>
             </div>
 
@@ -252,7 +252,7 @@ export default function Manual() {
             <If><IfTag/>it’s making lower highs and lower lows <Arrow/> today you are a <strong className="text-coral">seller only</strong>. Shorts only.</If>
             <If><IfTag/>it’s doing neither — chopping sideways in a range <Arrow/> today may be a <strong className="text-gold">no-trade day</strong>, and that is a winning decision, not a wasted one. We do not trade ranges.</If>
 
-            <P>Mark your key levels. Set your max trades and your max loss for the day right now, while you’re calm — because the calm version of you is the only one you can trust to set them. Then drill the <X to="/trainer">Trainer</X> for five to ten minutes. Do not take a single trade until you’re calling the traps right — the counter-trend double bottom, the sideways range, the first-bounce bait. That warm-up is you sharpening the exact reflex that cost you years.</P>
+            <P>Mark your key levels. Set your max trades and your max loss for the day right now, while you’re calm — because the calm version of you is the only one you can trust to set them. Then drill the <X to="/trainer">Trainer</X> for five to ten minutes. Do not take a single trade until you’re calling the traps right — the counter-trend reversal attempt, the sideways range, the chase. That warm-up is you sharpening the exact reflex that cost you years.</P>
             <P>The mindset to walk in with: <Em>I need one good setup, not ten. A day with one clean trade — or zero — and full discipline is a successful day. I am not here to be busy. I am here to be precise.</Em></P>
 
             <Sub>The open and the session — the live decision tree</Sub>
@@ -260,10 +260,10 @@ export default function Manual() {
 
             <If><IfTag/>there is no 15-minute trend <Arrow/> you do nothing. You watch. You do not “find something.” <Str>No trend, no trade. Full stop.</Str></If>
             <If><IfTag/>the trend is in place and price pulls back on the 5-minute <Arrow/> good. Now you wait. You do not act on the pullback itself.</If>
-            <If><IfTag/>price prints Dip 1, bounces, then a higher-low Dip 2 (in an uptrend) — the <strong className="text-gold">W is forming</strong> at the base of the bull flag <Arrow/> heads-up only. The W is <strong className="text-coral">NEVER the entry</strong>. The <strong className="text-gold">neckline</strong> (the swing high between the two lows) is <strong className="text-coral">also heads-up only — NEVER the entry</strong>. You wait for the trendline close.</If>
-            <If><IfTag/>a 2-minute candle <strong>CLOSES above the descending 2-min trendline</strong> (the diagonal connecting the lower highs of the flag) — long — or <strong>BELOW the ascending 2-min trendline</strong> (the diagonal connecting the higher lows of the bear-flag bounce) — short — <strong>AND</strong> a confirming candle prints (bullish engulfing/dragonfly for a long, bearish engulfing for a short) <strong>AND</strong> the 5-minute pullback held the prior swing and rode the 20 EMA (healthy, not knifing through) <Arrow/> now you have a setup. Run the <X to="/trade">7-step checklist</X>. If all seven are true, enter all 6 contracts at the open of the next candle.</If>
+            <If><IfTag/>price pulls back on the 2-min and starts printing lower highs against the descending trendline <Arrow/> the bull flag is forming. <strong className="text-coral">The shape on its own is NEVER the entry.</strong> You wait for the trendline close.</If>
+            <If><IfTag/>a 2-minute candle <strong>CLOSES above the descending 2-min trendline</strong> (the diagonal connecting the lower highs of the flag) — long — or <strong>BELOW the ascending 2-min trendline</strong> (the diagonal connecting the higher lows of the bear-flag bounce) — short — <strong>AND</strong> a confirming candle prints (bullish engulfing/dragonfly for a long, bearish engulfing for a short) <strong>AND</strong> the 5-minute pullback held the prior swing and rode the 20 EMA (healthy, not knifing through) <Arrow/> now you have a setup. Run the <X to="/trade">6-step checklist</X>. If all six are true, enter all 6 contracts at the open of the next candle.</If>
             <If><IfTag/>the candle is weak, or price only poked through the trendline without closing <Arrow/> you <Str>WAIT</Str>. A poke is not a close. <Em>No trendline close, no trade.</Em></If>
-            <If><IfTag/>you feel the pull to take a reversal, a counter-trend trade, a double top in an uptrend, or anything in a range <Arrow/> <strong className="text-coral">name it out loud as the trap it is</strong>, and do not take it. That exact urge is the thing that broke you. The plan says no. (See the <X to="/learn/gallery">Do-Not-Trade gallery</X> for pictures of each trap.)</If>
+            <If><IfTag/>you feel the pull to take a counter-trend reversal attempt, fade the trend, or trade anything in a range <Arrow/> <strong className="text-coral">name it out loud as the trap it is</strong>, and do not take it. That exact urge is the thing that broke you. The plan says no. (See the <X to="/learn/gallery">Do-Not-Trade gallery</X> for pictures of each trap.)</If>
 
             <P>When you do enter: use the calculator — direction, entry, stop. Put your stop a few ticks beyond the obvious crowd level. Then take your hands off the mouse. The trade is on; your job now is to manage it mechanically, not to feel it.</P>
 
@@ -288,7 +288,7 @@ export default function Manual() {
 
             <Sub>Why this turns it around</Sub>
             <P>Be clear-eyed about what’s happening here. The thing that kept you in simulation for five and a half years was never missing knowledge — it was the gap between what you knew at night and what you did in the heat of the open. This plan closes that gap by taking the decision out of the moment of pressure: you decide everything in advance, in the calm, and during the session you only execute. The app enforces it so you can’t quietly cheat — the gate blocks the no-trend trade, the journal records the truth, the verdict holds the line on going live. Nobody can promise you a single day’s outcome; the market owes no one anything. But this is the honest mechanism by which losing traders become consistent ones: a real edge, executed with discipline, repeated enough times that variance turns into expectancy. Do the controllable thing — follow the plan — and the results are what follow.</P>
-            <P>This is the Bible now. Not the books, not the next idea — this. Read it every morning. Trade it exactly. Sit out when it tells you to, take the trade when all seven clear, take your third at 1R and breathe, and let the verdict — not your hopes — tell you when it’s time for real money. You are ready. The plan is sound, the discipline is built in, and the only two jobs left are reps and honesty.</P>
+            <P>This is the Bible now. Not the books, not the next idea — this. Read it every morning. Trade it exactly. Sit out when it tells you to, take the trade when all six clear, take your third at 1R and breathe, and let the verdict — not your hopes — tell you when it’s time for real money. You are ready. The plan is sound, the discipline is built in, and the only two jobs left are reps and honesty.</P>
             <P>Open the app. Run pre-market. Drill the Trainer. And go become the trader you spent five and a half years learning how to be — for you, for Ela, for all of it. Let’s go.</P>
           </Section>
 
@@ -308,7 +308,7 @@ export default function Manual() {
             <div className="my-5 rounded-card border border-gold/40 bg-gold/5 p-5">
               <div className="font-display font-semibold tracking-[0.12em] uppercase text-gold text-[12px] mb-2">Bull flag &amp; bear flag — same one setup, opposite directions</div>
               <p className="text-textp font-body text-[15px] leading-[1.75]">
-                Arnie — this is one setup, traded with the trend in both directions: <Str>bull flag</Str> in an uptrend (long) or <Str>bear flag</Str> in a downtrend (short). The <Em>pole</Em> is the trend leg; the <Em>flag</Em> is the counter-move that builds against it. The flag's <Em>defining boundary</Em> is its TRENDLINE — descending for a bull flag (connecting the lower highs of the pullback), ascending for a bear flag (connecting the higher lows of the bounce). The W (longs) or M (shorts) and the neckline are HEADS-UP signals only — they tell you a trendline close is likely. The TRIGGER, in both directions, is the FIRST 2-minute candle that CLOSES through the trendline. No retest. No second close. Trendline beats neckline by a wide margin in my data.
+                Arnie — this is one setup, traded with the trend in both directions: <Str>bull flag</Str> in an uptrend (long) or <Str>bear flag</Str> in a downtrend (short). The <Em>pole</Em> is the trend leg; the <Em>flag</Em> is the counter-move that builds against it. The flag's <Em>defining boundary</Em> is its TRENDLINE — descending for a bull flag (connecting the lower highs of the pullback), ascending for a bear flag (connecting the higher lows of the bounce). The TRIGGER, in both directions, is the FIRST 2-minute candle that CLOSES through the trendline. No retest. No second close. The shape of the pullback or bounce is part of the read, but it is never the entry on its own — only the trendline close gets you in.
               </p>
             </div>
 
@@ -327,7 +327,7 @@ export default function Manual() {
             <UL>
               <LI><Str>15-minute = IF.</Str> Is there a trend at all? Higher highs <em>AND</em> higher lows → look only for longs (bull flags). Lower highs <em>AND</em> lower lows → look only for shorts (bear flags). Neither → no trade today on this name. <Em>This is the gate.</Em> Nothing happens until it’s green.</LI>
               <LI><Str>5-minute = WHERE.</Str> The pullback, and whether it’s buyable. <Em>Healthy</Em> = holds above the prior swing low (longs) / below the prior swing high (shorts) AND rides just above a rising 20 EMA (longs) / just below a falling 20 EMA (shorts). <Em>Unhealthy</Em> = knifes well past the 20 EMA and keeps going, or breaks the prior swing point → skip.</LI>
-              <LI><Str>2-minute = WHEN.</Str> The trigger / the entry — the FIRST 2-minute candle that closes ABOVE the descending 2-min trendline (longs) or BELOW the ascending 2-min trendline (shorts). The trendline is the flag's <em>defining boundary</em>. The W/M and the neckline are heads-up only, never the entry.</LI>
+              <LI><Str>2-minute = WHEN.</Str> The trigger / the entry — the FIRST 2-minute candle that closes ABOVE the descending 2-min trendline (longs) or BELOW the ascending 2-min trendline (shorts). The trendline is the flag's <em>defining boundary</em>. The shape of the pullback or bounce is never the entry on its own — only the trendline close gets you in.</LI>
             </UL>
             <Mantra>The mantra: 15 says IF; 5 and 2 say WHEN and WHERE.</Mantra>
 
@@ -343,29 +343,23 @@ export default function Manual() {
             </div>
 
             <Sub>The entry — the ONLY trigger is the 2-minute trendline close</Sub>
-            <P>When the W begins to form at the base of the flag (longs), treat it as an early <Em>heads-up only</Em>, never as an entry. It tells you there is a high likelihood that price will soon close above the 2-minute descending trendline.</P>
-            <P><Str>Do NOT enter on the W. Do NOT enter on a neckline. Do NOT enter on a "price trigger."</Str></P>
+            <P>As the pullback builds at the base of the flag, treat it as part of the read — never as an entry. The shape forming tells you a trendline close is becoming likely; that is all it tells you.</P>
+            <P><Str>Do NOT enter on a chart shape. Do NOT enter on a "price trigger."</Str></P>
             <P>Wait for a 2-minute candle to <Str>CLOSE above the descending trendline</Str>. That close is your one and only trigger. The moment it closes above the line, enter all 6 contracts at the open of the next candle.</P>
-            <P>It is better to wait for the trendline close than to jump in at the neckline, because the trendline close has a meaningfully higher success rate. The trendline is the bull flag's <Em>true defining boundary</Em>; the neckline is an earlier, weaker signal.</P>
+
+            <div className="my-4 rounded-card border border-gold/40 bg-gold/5 p-4">
+              <p className="font-display tracking-wide text-gold text-[14.5px] leading-[1.65]">The close is your edge — wait for it. Anticipating the trigger is how you hand that edge back.</p>
+            </div>
+
+            <P><Str>The invalidation.</Str> The setup is alive as long as price holds above the prior swing low. The moment the pullback breaks that prior low, the setup is dead — no trade, no matter how clean the shape looked.</P>
 
             <OL>
-              <NLI>In an established uptrend, price pulls back into the flag: that’s <Str>Dip 1</Str>.</NLI>
-              <NLI>Price bounces. The bounce fails at the neckline — heads-up only. (The neckline is the swing high between Dip 1 and Dip 2. Its failure tells you the W is forming.)</NLI>
-              <NLI>Price falls back to a <Str>higher low</Str> — that’s <Str>Dip 2</Str>. The W is complete. <Em>The W is heads-up only — never the entry.</Em></NLI>
-              <NLI>A confirming candle prints at Dip 2 — ideally a <Em>bullish engulfing</Em> or a <Em>dragonfly doji</Em>. A weak little doji is not confirmation.</NLI>
+              <NLI>In an established uptrend, price pulls back into the flag and the 5-min starts printing lower highs.</NLI>
+              <NLI>The pullback holds above the prior swing low and ideally rides just above the rising 20 EMA — healthy.</NLI>
+              <NLI>A confirming candle prints at the trendline close — ideally a <Em>bullish engulfing</Em> or a <Em>dragonfly doji</Em>. A weak little doji is not confirmation.</NLI>
               <NLI><Str>TRIGGER:</Str> the FIRST 2-minute candle that CLOSES above the descending 2-min trendline. Enter all 6 contracts at the open of the next candle. <Em>No retest. No second close. A poke through that doesn’t close through is nothing.</Em></NLI>
             </OL>
             <P className="mt-3 text-texts text-[13px]">See it drawn: the <X to="/learn/gallery">flagship long entry chart (G1)</X> and the bear-flag mirror (G2) in the Visual Library.</P>
-
-            <div className="my-5 rounded-card border border-gold/40 bg-gold/5 p-5">
-              <div className="font-display font-semibold tracking-[0.12em] uppercase text-gold text-[12px] mb-2">Why this rule exists — my own track record</div>
-              <ul className="list-disc pl-5 space-y-1 text-textp font-body text-[15px] leading-[1.75]">
-                <li>Trendline entries have run about <Str>70% success</Str> for me.</li>
-                <li>Neckline entries have run about <Str>20% success</Str> for me.</li>
-                <li>In a bull flag, the neckline is a lower-probability signal than the trendline.</li>
-                <li><Str>Trade the trendline. Leave the neckline alone.</Str></li>
-              </ul>
-            </div>
 
             <Sub>BEAR FLAG — exact mirror (same one setup, opposite direction)</Sub>
             <P><Str>Higher-timeframe filter (MANDATORY for shorts):</Str> the 15-minute must be in a downtrend — lower highs and lower lows.</P>
@@ -373,18 +367,19 @@ export default function Manual() {
               <LI><Str>Pole</Str> = a sharp drop.</LI>
               <LI><Str>Flag</Str> = price drifting UP on lighter volume; a small rising channel against the downtrend (higher highs and higher lows of the bounce).</LI>
               <LI><Str>Defining boundary</Str> = the <Str>ASCENDING trendline</Str> connecting the <Str>HIGHER LOWS</Str> (the lower edge of the rising flag).</LI>
-              <LI><Str>Early heads-up</Str> = an "M" (small double-top) forming at the TOP of the bounce. It is NOT the entry — it only signals price will likely soon close below the trendline.</LI>
+              <LI><Str>The shape forming is NOT the entry.</Str> As the bounce builds and prints higher lows against the ascending trendline, that's part of the read — it tells you a trendline close is becoming likely. Nothing more.</LI>
               <LI><Str>TRIGGER</Str> = a 2-minute candle CLOSING BELOW the ascending (higher-lows) trendline. Enter all 6 contracts short at the open of the next candle.</LI>
+              <LI><Str>Invalidation</Str>: the setup is alive as long as price holds below the prior swing high. A break above that prior high kills the trade.</LI>
             </UL>
             <P><Str>STOP (mirror of the bull-flag stop):</Str></P>
             <UL>
               <LI><Str>Tentative:</Str> 4 to 6 ticks ABOVE the broken trendline (the trendline level at the break, NOT above the breakout candle's close).</LI>
-              <LI><Str>Final:</Str> just beyond the structure — the swing HIGH at the top of the bounce, or the higher high of the M.</LI>
+              <LI><Str>Final:</Str> just beyond the structure — the swing HIGH at the top of the bounce.</LI>
             </UL>
             <P><Str>BEAR-FLAG SPECIFICS:</Str></P>
             <UL>
               <LI>Time stop is <Str>TIGHTER</Str>: <Str>2 candles (4 minutes), not 3</Str>. Bear flags work fast or they fail.</LI>
-              <LI>Same logic: wait for the trendline close, NOT the M's neckline. Trendline beats neckline here too.</LI>
+              <LI>Same logic as longs: only the trendline close gets you in.</LI>
             </UL>
             <P>Timeframes for shorts mirror the longs: 15-minute downtrend is permission; the 5-minute will print a HIGHER LOW during the bounce (that higher low IS the bounce, not a reversal); reject only if the 5-minute breaks ABOVE its prior swing high; the 2-minute close below the trendline is the trigger.</P>
 
@@ -395,7 +390,7 @@ export default function Manual() {
               <LI><strong className="text-coral">Unhealthy</strong> → a pullback that slices well below the 20 EMA and keeps going. <Em>Skip it.</Em> The trend is sick; you don’t catch a sick trend.</LI>
             </UL>
 
-            <Sub>The candle grades — what’s printing at Dip 2 tells you the quality</Sub>
+            <Sub>The candle grades — what’s printing at the trendline close tells you the quality</Sub>
             <UL>
               <LI><Str>Bullish engulfing</Str> — A+. Strong demand swallowed the prior bar.</LI>
               <LI><Str>Dragonfly doji</Str> — A+ / strong. Sellers tried, failed, buyers slammed it back up.</LI>
@@ -407,11 +402,11 @@ export default function Manual() {
 
             <Sub>The stop — TWO STEPS, read carefully</Sub>
             <P><Str>STEP 1 — TENTATIVE: 4 to 6 ticks below the broken trendline.</Str> "Below the broken trendline" means below the PRICE LEVEL OF THE TRENDLINE ITSELF, at the exact spot where price punched through it. It does <Em>NOT</Em> mean 4 to 6 ticks below where the breakout candle closed. The candle's close is only the trigger — it is never the stop reference. (A strong breakout candle closes far above the line; a weak one barely above. Your stop must not depend on that.)</P>
-            <P><Str>STEP 2 — FINAL (my adjustment): move the stop to just beyond the STRUCTURE</Str> — the swing low at the bottom of the flag, or the lower low of the W. Depending on the structure, this may land a few ticks higher or a few ticks lower than the tentative spot. I make that call.</P>
+            <P><Str>STEP 2 — FINAL (my adjustment): move the stop to just beyond the STRUCTURE</Str> — the swing low at the bottom of the pullback (long) or the swing high at the top of the bounce (short). Depending on exactly where that swing sits, this may land a few ticks higher or a few ticks lower than the tentative spot. I make that call.</P>
             <P><Str>Why the structure is the better stop:</Str> a stop tucked tight under the diagonal trendline gets wicked out on a normal retest. A stop just beyond the structure only triggers if the pattern has actually failed. Because premature stop-outs have been the costliest leak in this trader's results, anchor the stop to the structure.</P>
             <UL>
-              <LI><strong className="text-emerald2">Long (bull flag):</strong> tentative 4-6 ticks below the broken trendline level; final at the swing low of the flag / lower low of the W.</LI>
-              <LI><strong className="text-coral">Short (bear flag):</strong> tentative 4-6 ticks above the broken trendline level; final at the swing high of the bounce / higher high of the M.</LI>
+              <LI><strong className="text-emerald2">Long (bull flag):</strong> tentative 4-6 ticks below the broken trendline level; final at the swing low at the bottom of the pullback.</LI>
+              <LI><strong className="text-coral">Short (bear flag):</strong> tentative 4-6 ticks above the broken trendline level; final at the swing high at the top of the bounce.</LI>
             </UL>
             <Mantra>The mantra: Tentative at the trendline. Final at the structure.</Mantra>
             <P className="text-texts text-[13px]">A visual: the <X to="/learn/gallery">stop-hunt chart</X> shows a wick taking the crowd, your stop surviving, the reversal.</P>
@@ -437,8 +432,8 @@ export default function Manual() {
             <Sub>The never-trade list</Sub>
             <P>You do not take any of these, <Em>ever</Em>:</P>
             <UL>
-              <LI>A counter-trend double bottom (trying to buy a downtrend).</LI>
-              <LI>A double top in an uptrend (trying to short a healthy uptrend — with-trend only).</LI>
+              <LI>A counter-trend long against a downtrend (trying to buy a downtrend on any pullback shape).</LI>
+              <LI>A counter-trend short against an uptrend (trying to short a healthy uptrend — with-trend only).</LI>
               <LI>A head &amp; shoulders as a reversal bet.</LI>
               <LI>A symmetrical triangle.</LI>
               <LI>A trading range / sideways market — clean bounces but no trend. <Em>We don’t trade ranges; we sit out.</Em></LI>
@@ -446,25 +441,24 @@ export default function Manual() {
             </UL>
             <P className="text-texts text-[13px]">All six are drawn in the <X to="/learn/gallery">Do-Not-Trade gallery</X>.</P>
 
-            <Sub>The 7-step gate</Sub>
+            <Sub>The 6-step gate</Sub>
             <P>The <X to="/trade">cockpit’s checklist</X> walks you through this exact sequence before you’re allowed to log a trade. Read the on-screen wording and match it to these — they’re the same system:</P>
             <OL>
               <NLI><Str>Trend on the 15-minute</Str> (the hard gate). HH/HL or LH/LL. No trend → the screen blocks you and says <strong className="text-coral">NO TRADE — SIT OUT</strong>.</NLI>
               <NLI><Str>With-trend direction only.</Str> You’re going the way the 15-minute is going. Never against it.</NLI>
-              <NLI>The 5-minute pullback is <Str>healthy</Str> — holding the prior swing, riding above/below the 20 EMA, not knifing through.</NLI>
-              <NLI>The <Str>W (longs)</Str> or <Str>M (shorts)</Str> is forming/complete at the base/top of the flag — <Em>heads-up only</Em>. The neckline is also heads-up only.</NLI>
-              <NLI>A <Str>confirming candle</Str> has printed (engulfing / dragonfly, not a weak doji).</NLI>
-              <NLI>The <Str>FIRST 2-minute candle has CLOSED above the descending trendline</Str> (long) or <Str>BELOW the ascending trendline</Str> (short). <Em>Trendline close is the ONLY trigger. Not the W/M. Not the neckline.</Em></NLI>
-              <NLI><Str>Stop placed at the STRUCTURE</Str> (swing low of flag / lower W low for longs; swing high of bounce / higher M high for shorts), tentative 4-6 ticks past broken trendline first.</NLI>
+              <NLI>The 5-minute pullback (long) or bounce (short) is <Str>healthy</Str> — holding the prior swing low (long) or prior swing high (short), riding the 20 EMA, not knifing through.</NLI>
+              <NLI>A <Str>confirming candle</Str> has printed at the trendline close (engulfing / dragonfly, not a weak doji).</NLI>
+              <NLI>The <Str>FIRST 2-minute candle has CLOSED above the descending trendline</Str> (long) or <Str>BELOW the ascending trendline</Str> (short). <Em>The trendline close is the ONLY trigger.</Em></NLI>
+              <NLI><Str>Stop placed at the STRUCTURE</Str> (swing low at the bottom of the pullback for longs; swing high at the top of the bounce for shorts), tentative 4-6 ticks past broken trendline first.</NLI>
             </OL>
-            <P>If all seven are true, you have a trade. If even one is false, you don’t. It really is that mechanical — and that’s the point.</P>
+            <P>If all six are true, you have a trade. If even one is false, you don’t. It really is that mechanical — and that’s the point.</P>
           </Section>
 
           {/* ─── PART THREE ──────────────────────────────────────────────── */}
           <Section id="p3" pill="cyan" label="PART THREE" sub="THE PROGRAM, SCREEN BY SCREEN" kicker="Every part of the app, what it’s for, and how to actually use it.">
             <P><X to="/"><Str>Home</Str></X> — your launchpad and your conscience. At the top is the Mission card — the line “Grade yourself on following the plan, not on winning.” Read it every single time you land here. It’s editable if you ever want to make it yours, but those words are the whole philosophy in one sentence, so I’d leave them. Below that are your transformation tiles — including a clean-day streak that updates itself: when a sim trading day ends net-green it ticks up, and a red day resets it. Home also surfaces your Pre-market routine and End-of-day review, your Go-Live Verdict mirrored from Stats, and a Trader’s toolkit row with one-tap access to your Field Manual (start here), Trade Plan, Discipline dashboard, and Visual Library. <Em>How to use it:</Em> this is your first and last screen of every trading day.</P>
 
-            <P><X to="/learn"><Str>Learn</Str></X> — the ten lessons. The curriculum, in the calm masterclass voice. Ten lessons, each with a “Lock-it-in” box. Several ship with live charts: the flagship Dip 1 → bounce → Dip 2 → close chart (Lesson 3), the 2-2-2 ladder (Lesson 7), healthy vs. unhealthy pullback with the 20/9 EMAs (Lesson 4), and the stop-behind-Dip-1 chart (Lesson 6). <Em>How to use it:</Em> read all ten once in sequence in your first couple of days, then treat Learn as reference. Re-read any lesson the day after you break its rule.</P>
+            <P><X to="/learn"><Str>Learn</Str></X> — the ten lessons. The curriculum, in the calm masterclass voice. Ten lessons, each with a “Lock-it-in” box. Several ship with live charts: the flagship pullback → trendline-close entry chart (Lesson 3), the 2-2-2 ladder (Lesson 7), healthy vs. unhealthy pullback with the 20/9 EMAs (Lesson 4), and the two-step stop chart (Lesson 6). <Em>How to use it:</Em> read all ten once in sequence in your first couple of days, then treat Learn as reference. Re-read any lesson the day after you break its rule.</P>
 
             <P><X to="/learn/gallery"><Str>Learn → Visual Library</Str></X> — your picture book of the whole system, 21 hand-built charts. Setup Gallery (G1–G10): the long entry fully annotated, its short mirror, the 3-panel 15/5/2, 20 EMA health side by side, the animated 2-2-2 ladder, the stop-hunt, first-bounce-is-the-bait, anatomy of a trend, the breakeven mechanic, and the measured move — several animate; press Play and watch the setup form bar by bar. Candle Anatomy (5): zoomed, labeled diagrams of every grade candle. Do-Not-Trade (6): every forbidden pattern, drawn and stamped “NOT THIS,” with a one-line why. <Em>How to use it:</Em> when a concept is fuzzy, see it here instead of re-reading words; spend real time in the Do-Not-Trade gallery, because not-trading the wrong thing is half your edge.</P>
 
@@ -472,7 +466,7 @@ export default function Manual() {
 
             <P><X to="/flashcards"><Str>Flashcards</Str></X> — eighteen cards covering every mantra. Space-bar to flip, arrows to mark whether you knew it; the deck rotates your weakest cards first. <Em>How to use it:</Em> two minutes a day; keeps the vocabulary of the system on the tip of your tongue.</P>
 
-            <P><X to="/trade"><Str>The Trade Cockpit</Str></X> — where you take and log trades. The 7-step checklist with the hard gate: Step 1 is a hard gate — if the 15-minute trend isn’t there and you leave it unchecked, the screen shows a calm “NO TRADE — SIT OUT” panel and blocks you from logging. <Em>When it blocks you, that is a win.</Em> The calculator: enter direction, entry, and stop, and it instantly gives risk in points, T1 (1R), T2 (2R), risk:reward, and the 2-2-2 split, plus the move-stop-to-breakeven reminder, and it catches a stop on the wrong side. The journal: log every trade with its direction badge, grade (A+/B), candle, a SIM/LIVE tag, and the All-7 vs. Rule-breach pill; it tallies total R and lets you edit/delete. Keyboard shortcuts (desktop): <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">1</kbd>–<kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">7</kbd> toggle each step, <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">E</kbd> jumps to the entry field, <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">S</kbd> saves (only if all seven are checked and prices are valid), <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">?</kbd> opens the shortcut list, <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">Esc</kbd> closes dialogs. <Em>How to use it:</Em> run the checklist for every potential setup; if it blocks you, sit out and feel good; if it clears, use the calculator, take the sim trade, and log it honestly, including breaches.</P>
+            <P><X to="/trade"><Str>The Trade Cockpit</Str></X> — where you take and log trades. The 6-step checklist with the hard gate: Step 1 is a hard gate — if the 15-minute trend isn’t there and you leave it unchecked, the screen shows a calm “NO TRADE — SIT OUT” panel and blocks you from logging. <Em>When it blocks you, that is a win.</Em> The calculator: enter direction, entry, and stop, and it instantly gives risk in points, T1 (1R), T2 (2R), risk:reward, and the 2-2-2 split, plus the move-stop-to-breakeven reminder, and it catches a stop on the wrong side. The journal: log every trade with its direction badge, grade (A+/B), candle, a SIM/LIVE tag, and the All-6 vs. Rule-breach pill; it tallies total R and lets you edit/delete. Keyboard shortcuts (desktop): <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">1</kbd>–<kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">6</kbd> toggle each step, <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">E</kbd> jumps to the entry field, <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">S</kbd> saves (only if all six are checked and prices are valid), <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">?</kbd> opens the shortcut list, <kbd className="font-mono text-[12px] px-1.5 py-0.5 rounded border border-border bg-bg text-textp">Esc</kbd> closes dialogs. <Em>How to use it:</Em> run the checklist for every potential setup; if it blocks you, sit out and feel good; if it clears, use the calculator, take the sim trade, and log it honestly, including breaches.</P>
 
             <P><X to="/stats"><Str>Stats</Str></X> — the numbers that actually matter. This screen never shows your win rate alone — it always pairs it with average win, average loss, and expectancy. Filter by SIM / LIVE / All. You get a cumulative-R equity curve with a by-trade / by-day toggle, a rule-adherence tile, and distributions by grade and by candle. The <Str>Go-Live Verdict</Str> lives here (and mirrors to Home): <strong className="text-emerald2">GREEN LIGHT</strong> only when all four are true — at least 20 trades, positive expectancy, rule-adherence ≥ 90%, and win rate ≥ 50%. Otherwise <strong className="text-coral">NOT YET</strong>, telling you exactly which criterion is short and by how much. <Em>How to read yourself honestly:</Em> after each session, look past the win rate — is your expectancy positive? Is your average win bigger than your average loss? And above all, what’s your adherence? Adherence is the number you control completely and the one that predicts everything else. A high-adherence week with a flat P&amp;L is a successful week.</P>
 
@@ -499,9 +493,9 @@ export default function Manual() {
 
             <Sub>During the session (sim)</Sub>
             <OL>
-              <NLI>For every potential setup, run the <X to="/trade">7-step checklist</X>.</NLI>
+              <NLI>For every potential setup, run the <X to="/trade">6-step checklist</X>.</NLI>
               <NLI>If any step blocks you → <Em>sit out.</Em> That’s the app working. Feel good about it.</NLI>
-              <NLI>If it clears → use the calculator, take the sim trade, and log it honestly — including the All-7/breach flag.</NLI>
+              <NLI>If it clears → use the calculator, take the sim trade, and log it honestly — including the All-6/breach flag.</NLI>
               <NLI>The instant T1 fills → scale a third, stop to breakeven. <Em>Always.</Em></NLI>
               <NLI>When the circuit breaker locks → you’re done. No exceptions.</NLI>
             </OL>
@@ -567,14 +561,14 @@ export default function Manual() {
                 ['Scalping', 'taking many small, quick trades for small, defined gains rather than holding for hours.'],
                 ['With the trend', 'trading in the same direction the higher timeframe is already moving. The high-probability direction.'],
                 ['Higher highs & higher lows (HH/HL)', 'the signature of an uptrend. Lower highs & lower lows = a downtrend.'],
-                ['Pullback', 'a temporary move against the trend before it (usually) resumes. Where we look to enter.'],
-                ['Dip 1 / Dip 2', 'the first and second pullback lows in an uptrend. The double-bottom we trade is Dip 1 + a higher-low Dip 2. In a downtrend the equivalents are “High 1 / High 2” (a lower high) — the double-top.'],
-                ['Neckline', 'the swing high between Dip 1 and Dip 2 (longs) — the high of the failed first rally. For shorts, the swing low between High 1 and High 2. HEADS-UP ONLY — never the entry. My track record: neckline entries ~20% success. Trade the trendline, not the neckline.'],
-                ['W (longs) / M (shorts)', 'the small double-bottom at the base of a bull flag (W) or double-top at the top of a bear flag (M). HEADS-UP ONLY — it tells you a trendline close is likely. NEVER the entry.'],
-                ['2-min descending trendline (longs)', 'the diagonal connecting the LOWER HIGHS of a bull-flag pullback. The flag\'s TRUE defining boundary. The FIRST 2-min candle that CLOSES above it is the entry.'],
+                ['Pullback', 'a temporary move against an uptrend before it (usually) resumes. The body of a bull flag. Where we look to enter.'],
+                ['Bounce', 'a temporary move against a downtrend before it (usually) resumes. The body of a bear flag. Where we look to enter shorts.'],
+                ['Bull flag / bear flag', 'a small counter-move against the trend — the pullback (long) or bounce (short) — bounded by a flag trendline. The one setup we trade.'],
+                ['Prior swing low / prior swing high', 'the most recent significant low (longs) or high (shorts) on the 5-min before the pullback / bounce. The setup is alive only while price holds above (longs) or below (shorts) it. A break ends the setup.'],
+                ['2-min descending trendline (longs)', 'the diagonal connecting the LOWER HIGHS of a bull-flag pullback. The flag\'s defining boundary. The FIRST 2-min candle that CLOSES above it is the entry.'],
                 ['2-min ascending trendline (shorts)', 'the diagonal connecting the HIGHER LOWS of a bear-flag bounce. The flag\'s defining boundary. The FIRST 2-min candle that CLOSES below it is the entry.'],
-                ['Trendline close', 'the entry signal. The FIRST 2-minute bar that finishes past the flag trendline (above for longs, below for shorts). No retest. No second close. A poke that doesn\'t close through is nothing. My track record: trendline entries ~70% success.'],
-                ['Stop — two steps', 'TENTATIVE: 4 to 6 ticks beyond the broken trendline LEVEL itself at the break (not below/above the breakout candle\'s close). FINAL: just past the STRUCTURE — the swing low of the flag / lower W low for longs; swing high of bounce / higher M high for shorts. Anchor the final stop to the structure.'],
+                ['Trendline close', 'the entry signal. The FIRST 2-minute bar that finishes past the flag trendline (above for longs, below for shorts). No retest. No second close. A poke that doesn\'t close through is nothing.'],
+                ['Stop — two steps', 'TENTATIVE: 4 to 6 ticks beyond the broken trendline LEVEL itself at the break (not below/above the breakout candle\'s close). FINAL: just past the STRUCTURE — the swing low at the bottom of the pullback for longs; swing high at the top of the bounce for shorts. Anchor the final stop to the structure.'],
                 ['20 EMA / 9 EMA', 'exponential moving averages (smoothed average price). The 20 is your trend-health gauge; the 9 is what the runner trails.'],
                 ['Engulfing candle', 'a bar whose body fully swallows the prior bar’s body. Strong confirmation. Doji — a bar with almost no body (open ≈ close); indecision. Dragonfly doji — a doji with a long lower tail; buyers rejected lower prices (bullish).'],
                 ['Liquidity grab / stop hunt', 'the market dipping just far enough to trigger the obvious crowd stops, then reversing. We place our stop beyond the obvious spot to survive it.'],
@@ -585,7 +579,7 @@ export default function Manual() {
                 ['Measured move', 'projecting the height of the prior price leg forward from your entry to estimate the runner’s target.'],
                 ['Expectancy', 'your average profit (or loss) per trade over many trades. Positive expectancy = you make money over time, even with losing trades mixed in. The number that matters most.'],
                 ['Win rate', 'the percentage of trades that win. Useful only alongside average win and average loss — never alone.'],
-                ['Adherence', 'the percentage of your trades that followed all seven steps. The number you fully control, and the one that predicts everything else.'],
+                ['Adherence', 'the percentage of your trades that followed all six steps. The number you fully control, and the one that predicts everything else.'],
                 ['Tilt', 'trading from emotion (anger, fear, revenge) instead of process. The thing the circuit breaker and tilt-watch exist to stop.'],
                 ['Sim vs. Live', 'simulation (fake money, real practice) vs. real money. You move from one to the other only on a GREEN LIGHT.'],
               ].map(([term, def]) => (

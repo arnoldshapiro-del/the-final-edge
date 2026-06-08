@@ -57,9 +57,9 @@ export function MultiTimeframeChart() {
           triggerY={44}
           triggerLabel="Trigger"
           markers={[
-            { idx: 2, kind: 'dip1', label: 'Dip 1' },
-            { idx: 6, kind: 'dip2', label: 'Dip 2' },
-            { idx: 7, kind: 'enter', label: 'Enter — close above' },
+            { idx: 2, kind: 'dip1', label: 'Pullback low' },
+            { idx: 6, kind: 'dip2', label: 'Higher low' },
+            { idx: 7, kind: 'enter', label: 'Enter — trendline close' },
           ]}
           stopY={28}
           crowdStopY={31}
@@ -95,9 +95,9 @@ export function StopHuntChart() {
     { open: 30, close: 48, high: 50, low: 28, up: true },
     { open: 48, close: 60, high: 62, low: 46, up: true },
     { open: 60, close: 52, high: 62, low: 48, up: false }, // pullback begins
-    { open: 52, close: 44, high: 54, low: 42, up: false }, // Dip 1
+    { open: 52, close: 44, high: 54, low: 42, up: false }, // pullback low
     { open: 44, close: 56, high: 58, low: 42, up: true },  // bounce
-    { open: 56, close: 47, high: 58, low: 46, up: false }, // Dip 2 forming
+    { open: 56, close: 47, high: 58, low: 46, up: false }, // higher low forming
     { open: 47, close: 44, high: 50, low: 30, up: false }, // LIQUIDITY GRAB — long lower wick to 30, takes the crowd stop
     { open: 44, close: 60, high: 62, low: 44, up: true },  // reversal
     { open: 60, close: 72, high: 74, low: 58, up: true },  // continuation
@@ -109,8 +109,8 @@ export function StopHuntChart() {
       triggerY={56}
       triggerLabel="Trigger"
       markers={[
-        { idx: 3, kind: 'dip1', label: 'Dip 1' },
-        { idx: 5, kind: 'dip2', label: 'Dip 2' },
+        { idx: 3, kind: 'dip1', label: 'Pullback low' },
+        { idx: 5, kind: 'dip2', label: 'Higher low' },
         { idx: 6, kind: 'dot', label: 'Liquidity grab — crowd stopped out', color: '#FF5C72' },
         { idx: 7, kind: 'enter', label: 'Survives + reverses' },
       ]}
@@ -156,18 +156,18 @@ export function BreakevenChart() {
         triggerY={70}
         triggerLabel="Trigger"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'Dip 1' },
-          { idx: 5, kind: 'dip2', label: 'Dip 2' },
+          { idx: 3, kind: 'dip1', label: 'Pullback low' },
+          { idx: 5, kind: 'dip2', label: 'Higher low' },
           { idx: 6, kind: 'enter', label: phase === 'before' ? 'Entry' : 'T1 hit — stop snapped to BE' },
         ]}
         stopY={phase === 'before' ? 50 : 60}
-        stopLabel={phase === 'before' ? 'Stop = −1R (below Dip 1)' : 'Stop = breakeven (entry)'}
+        stopLabel={phase === 'before' ? 'Stop = −1R (at the pullback swing low)' : 'Stop = breakeven (entry)'}
         t1Y={76}
         t2Y={84}
         contextLabel={phase === 'before' ? 'Phase 1 · risk on' : 'Phase 2 · risk off — trade can no longer lose'}
         contextColor={phase === 'before' ? 'coral' : 'emerald'}
         caption={phase === 'before'
-          ? 'Before T1 fills, the original stop sits below Dip 1.'
+          ? 'Before T1 fills, the original stop sits at the pullback swing low (the structure).'
           : 'The instant T1 fills, the stop snaps up to entry. The trade can no longer lose.'}
       />
     </div>

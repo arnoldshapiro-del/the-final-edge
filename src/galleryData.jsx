@@ -8,7 +8,7 @@ export const SETUP_GALLERY = [
   {
     id: 'g1',
     title: 'G1 · The long entry — bull flag, trendline trigger',
-    caption: 'A with-trend BULL FLAG. Dip 1 → failed rally (the neckline is heads-up only, NOT the entry) → higher-low Dip 2 (the W is complete — heads-up only, NOT the entry) → bullish engulfing → ENTER on the FIRST 2-min candle that CLOSES above the DESCENDING 2-min trendline (the diagonal connecting the lower highs of the pullback — shown here as a horizontal line for clarity; in practice it slopes down to where price breaks through). STOP — TWO STEPS: tentative 4-6 ticks beyond the broken trendline (the trendline level itself at the break — not below the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing low at the bottom of the flag / lower low of the W). My track record: trendline entries ~70% success; neckline entries ~20%. Trade the trendline.',
+    caption: 'A with-trend BULL FLAG. The pullback prints lower highs against a descending trendline while holding above the prior swing low and ideally riding the rising 20 EMA. The TRIGGER, and the only trigger, is the FIRST 2-min candle that CLOSES above the DESCENDING 2-min trendline (the diagonal connecting those lower highs — shown here as a horizontal level for clarity; in practice it slopes down to where price breaks through). Confirming candle ideally bullish engulfing or dragonfly. ENTER all 6 contracts at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks beyond the broken trendline (the trendline level itself at the break — not below the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing low at the bottom of the pullback).',
     render: () => (
       <SetupChart
         values={[18, 36, 56, 44, 56, 48, 62, 76]}
@@ -17,14 +17,13 @@ export const SETUP_GALLERY = [
         triggerY={56}
         triggerLabel="2-min trendline (entry trigger)"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'Dip 1 (W forming)' },
-          { idx: 4, kind: 'dot', label: 'Failed rally — neckline is heads-up only', color: '#FF5C72' },
-          { idx: 5, kind: 'dip2', label: 'Dip 2 — W complete (heads-up only)' },
+          { idx: 3, kind: 'dip1', label: 'Pullback low' },
+          { idx: 5, kind: 'dip2', label: 'Higher low' },
           { idx: 6, kind: 'enter', label: 'First close above 2-min trendline — ENTER' },
         ]}
         stopY={38}
         crowdStopY={42}
-        stopLabel="Final stop — at the structure (flag swing low)"
+        stopLabel="Final stop — at the structure (pullback swing low)"
         t1Y={64}
         t2Y={72}
         showKindToggle
@@ -37,7 +36,7 @@ export const SETUP_GALLERY = [
   {
     id: 'g2',
     title: 'G2 · The short entry — BEAR FLAG, trendline trigger',
-    caption: 'A with-trend BEAR FLAG — exact mirror of the bull flag. PERMISSION (MANDATORY): the 15-minute must be in a downtrend — lower highs AND lower lows. Pole = sharp drop. Flag = price drifting UP on lighter volume; a small rising channel against the downtrend (higher highs and higher lows of the bounce). DEFINING BOUNDARY = the ASCENDING trendline connecting the HIGHER LOWS (the lower edge of the rising flag). Early heads-up = an M (small double-top) at the TOP of the bounce — heads-up only, NEVER the entry. TRIGGER = FIRST 2-min candle that CLOSES BELOW the ascending trendline. Enter all 6 contracts short at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks ABOVE the broken trendline (the trendline level itself at the break — not above the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing HIGH at the top of the bounce / higher high of the M). TIME STOP IS TIGHTER: 2 candles (4 minutes), not 3 — bear flags work fast or they fail. Same logic as longs: trade the trendline, not the M\'s neckline (trendline ~70% success, neckline ~20%).',
+    caption: 'A with-trend BEAR FLAG — exact mirror of the bull flag. PERMISSION (MANDATORY): the 15-minute must be in a downtrend — lower highs AND lower lows. Pole = sharp drop. Flag = price drifting UP on lighter volume in a small rising channel against the downtrend; the bounce prints higher lows while holding below the prior swing high. DEFINING BOUNDARY = the ASCENDING trendline connecting those HIGHER LOWS (the lower edge of the rising flag). TRIGGER = FIRST 2-min candle that CLOSES BELOW the ascending trendline. Enter all 6 contracts short at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks ABOVE the broken trendline (the trendline level itself at the break — not above the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing HIGH at the top of the bounce). TIME STOP IS TIGHTER: 2 candles (4 minutes), not 3 — bear flags work fast or they fail.',
     render: () => (
       <SetupChart
         values={[82, 64, 44, 56, 44, 52, 38, 24]}
@@ -46,9 +45,8 @@ export const SETUP_GALLERY = [
         triggerY={44}
         triggerLabel="2-min trendline (entry trigger)"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'High 1 (M forming)' },
-          { idx: 4, kind: 'dot', label: 'Failed dip — neckline is heads-up only', color: '#1FE0A0' },
-          { idx: 5, kind: 'dip2', label: 'High 2 — M complete (heads-up only)' },
+          { idx: 3, kind: 'dip1', label: 'Bounce high' },
+          { idx: 5, kind: 'dip2', label: 'Lower high' },
           { idx: 6, kind: 'enter', label: 'First close below 2-min trendline — ENTER' },
         ]}
         stopY={62}
@@ -105,25 +103,24 @@ export const SETUP_GALLERY = [
   {
     id: 'g6',
     title: 'G6 · Stop vs the crowd',
-    caption: 'A liquidity grab takes out the crowd stops just below Dip 1. Yours, a few ticks lower, survives — and the move reverses.',
+    caption: 'A liquidity grab takes out the crowd stops just below the obvious pullback low. Yours, anchored a few ticks past the structure, survives — and the move reverses.',
     render: () => <StopHuntChart />,
   },
   {
     id: 'g7',
-    title: 'G7 · The W is heads-up only — the trendline is the entry',
-    caption: 'When the W begins to form at the base of the flag, treat it as an early heads-up only — it tells you price is likely to soon close above the 2-min trendline. Do NOT enter on the W. Do NOT enter on the neckline. Do NOT enter on a "price trigger." Wait for the 2-min candle to CLOSE above the descending trendline — that close is your one and only trigger. The trendline has run ~70% for me; the neckline ~20%.',
+    title: 'G7 · The trendline close is the entry — nothing before it counts',
+    caption: 'The pullback forming and making lower highs is the shape of the setup — but it is not the entry. Do NOT enter on the shape. Do NOT enter on a "price trigger." Wait for the 2-min candle to CLOSE above the descending trendline — that close is your one and only trigger.',
     render: () => (
       <SetupChart
         values={[20, 36, 54, 44, 54, 48, 60, 72]}
         triggerY={54}
         triggerLabel="2-min trendline (entry trigger)"
         markers={[
-          { idx: 3, kind: 'dip1', label: 'Dip 1 (W forming)' },
-          { idx: 4, kind: 'dot', label: 'Failed first rally — neckline is heads-up only', color: '#FF5C72' },
-          { idx: 5, kind: 'dip2', label: 'Dip 2 — W complete (heads-up only)' },
+          { idx: 3, kind: 'dip1', label: 'Pullback low' },
+          { idx: 5, kind: 'dip2', label: 'Higher low' },
           { idx: 6, kind: 'enter', label: 'First close above 2-min trendline — ENTER' },
         ]}
-        contextLabel="Trendline beats neckline"
+        contextLabel="Trendline close = the only trigger"
         contextColor="gold"
       />
     ),
@@ -180,25 +177,25 @@ export const CANDLE_GALLERY = [
   {
     id: 'c-be', title: 'Bullish engulfing',
     grade: 'A+', side: 'long', color: 'emerald',
-    meaning: 'A bigger up bar fully engulfs the prior down bar — buyers overwhelmed sellers at the second dip.',
+    meaning: 'A bigger up bar fully engulfs the prior down bar — buyers overwhelmed sellers at the trendline close. The confirming candle at the pullback low.',
     candle: { open: 30, close: 80, high: 84, low: 26, up: true, priorOpen: 60, priorClose: 36, priorHigh: 62, priorLow: 32 },
   },
   {
     id: 'c-df', title: 'Dragonfly doji',
     grade: 'A+', side: 'long', color: 'emerald',
-    meaning: 'Open ≈ close at the top, long lower wick — sellers tried, buyers rejected the low. Strong second-dip signal.',
+    meaning: 'Open ≈ close at the top, long lower wick — sellers tried, buyers rejected the low. Strong pullback-low signal at the trendline close.',
     candle: { open: 70, close: 70.5, high: 71, low: 30, up: true },
   },
   {
     id: 'c-ms', title: 'Morning star (3-bar)',
     grade: 'Strong', side: 'long', color: 'gold',
-    meaning: 'Big down bar → small indecision bar → big up bar. Three-bar reversal that confirms at Dip 2. Rare. Take it if seen.',
+    meaning: 'Big down bar → small indecision bar → big up bar. Three-bar reversal that confirms at the trendline close. Rare. Take it if seen.',
     isThree: true,
   },
   {
     id: 'c-bge', title: 'Bearish engulfing',
     grade: 'A+ (shorts)', side: 'short', color: 'coral',
-    meaning: 'A bigger down bar engulfs the prior up bar — sellers overwhelmed buyers at the lower high.',
+    meaning: 'A bigger down bar engulfs the prior up bar — sellers overwhelmed buyers at the trendline close. The confirming candle at the bounce high.',
     candle: { open: 75, close: 25, high: 80, low: 22, up: false, priorOpen: 35, priorClose: 60, priorHigh: 63, priorLow: 33 },
   },
   {
@@ -212,14 +209,14 @@ export const CANDLE_GALLERY = [
 export const DONT_TRADE_GALLERY = [
   {
     id: 'd1',
-    title: 'Counter-trend double bottom (in a downtrend)',
-    why: 'A "bottom" inside a downtrend is a bottom-pick. Counter-trend trades fight momentum. Skip.',
+    title: 'Counter-trend long attempt (in a downtrend)',
+    why: 'Trying to buy inside a downtrend. Counter-trend trades fight momentum. Skip.',
     render: () => <DoNotChart values={[70,55,42,40,44,41,42,46]} ctx="DOWNTREND" ctxColor="coral" />,
   },
   {
     id: 'd2',
-    title: 'Double top (in an uptrend)',
-    why: 'Selling a top in an uptrend is the exact mistake. With-trend only.',
+    title: 'Counter-trend short attempt (in an uptrend)',
+    why: 'Trying to sell into a healthy uptrend. With-trend only. Never short an uptrend.',
     render: () => <DoNotChart values={[20,40,60,50,60,55,52,48]} ctx="UPTREND" ctxColor="emerald" tops={[2,4]} />,
   },
   {

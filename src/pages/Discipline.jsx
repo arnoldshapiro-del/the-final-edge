@@ -29,7 +29,7 @@ export default function Discipline() {
 
   const stats = useMemo(() => {
     const days = groupByDate(trades)
-    // clean-day streak = consecutive most-recent days where every trade followed all 7
+    // clean-day streak = consecutive most-recent days where every trade followed all 6
     let cleanStreak = 0
     for (let i = days.length - 1; i >= 0; i--) {
       if (days[i].clean && days[i].trades.length > 0) cleanStreak++
@@ -57,11 +57,11 @@ export default function Discipline() {
     if (todays.length > settings.maxTradesPerSession) {
       tilt.push({ kind: 'over-trades', msg: `${todays.length} trades today — over the ${settings.maxTradesPerSession} limit.` })
     }
-    // Trade logged after a prior loss without all 7 checked
+    // Trade logged after a prior loss without all 6 checked
     for (let i = 1; i < todays.length; i++) {
       const prev = todays[i - 1], cur = todays[i]
       if ((prev.totalR ?? 0) < 0 && !cur.followedAll7) {
-        tilt.push({ kind: 'after-loss', msg: `Trade after a losing one didn't pass all 7. Watch the chase reflex.` })
+        tilt.push({ kind: 'after-loss', msg: `Trade after a losing one didn't pass all 6. Watch the chase reflex.` })
         break
       }
     }
