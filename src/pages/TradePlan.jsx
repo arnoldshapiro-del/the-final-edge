@@ -48,7 +48,10 @@ export default function TradePlan() {
           A lower high or a broken swing low = <span className="text-coral">hard NO</span>.
         </Block>
         <Block title="5 says WHERE" color="cyan" icon="chart">
-          The 5-min is where the pullback forms, and a lower high here is normal — that's the pullback doing its job, not a reversal, so don't flinch at it. The one hard line: price must hold above the prior swing low. The moment it makes a lower low and breaks that prior low, the pullback has failed — the setup is dead, no trade. (Shorts mirror it: a higher low on the bounce is normal; a break above the prior swing high ends it.)
+          The 5-min is where the pullback forms, and a lower high here is normal — that's the pullback doing its job, not a reversal, so don't flinch at it. The one hard line: it must hold above the prior swing low, and "hold" means on the CLOSE. A wick that stabs below the prior low and closes back above does NOT end the flag — that's usually a stop-hunt in your favor. Only a 5-min candle that CLOSES below the prior swing low kills the setup. (Shorts mirror it: a higher low on the bounce is normal; only a close above the prior swing high ends it.)
+        </Block>
+        <Block title="WICK vs CLOSE" color="violet" icon="chart">
+          Two different jobs — not a contradiction. To DRAW the structure — higher highs / higher lows for longs, lower highs / lower lows for shorts — read the WICKS: a swing high or low sits at the very tip of its wick, and that tip is the line you watch. To decide whether a line has BROKEN, read the CLOSE: a wick that pokes past it but closes back is only a test (usually a stop-hunt) — it makes no new high or low and breaks nothing. Only a CLOSE past the line counts. In one breath: the wick shows you WHERE the line is; the close tells you whether it BROKE.
         </Block>
         <Block title="2 says WHEN" color="gold" icon="chart">
           The 2-min gives the trigger: a close above the descending trendline (long) or below the ascending trendline (short). The close through the trendline is the only thing that puts you in — nothing before it counts.
