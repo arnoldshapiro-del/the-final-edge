@@ -575,7 +575,7 @@ export function LadderChart({ entry, riskPts, contracts = 6, animate = false }) 
         {[
           { val: runner, label: 'Runner — trails 9 EMA → measured move', color: COLORS.violet },
           { val: t2, label: 'T2 = +2R · scale 2', color: COLORS.emerald },
-          { val: t1, label: 'T1 = +1R · scale 2 → stop to BE', color: COLORS.emerald },
+          { val: t1, label: 'T1 = +1R · scale 2 → stop trails the structure', color: COLORS.emerald },
           { val: entry, label: 'Entry', color: COLORS.text },
           { val: stop, label: 'Stop = −1R · below first dip', color: COLORS.coral },
         ].map((l, i) => (

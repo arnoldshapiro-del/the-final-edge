@@ -2,7 +2,7 @@
 // All rendered via the SetupChart engine. Each entry: { id, title, caption, render() }.
 
 import SetupChart, { LadderChart } from './components/SetupChart.jsx'
-import { DoNotChart, BreakevenChart, MultiTimeframeChart, StopHuntChart } from './components/GalleryCharts.jsx'
+import { DoNotChart, StructureTrailChart, MultiTimeframeChart, StopHuntChart } from './components/GalleryCharts.jsx'
 
 export const SETUP_GALLERY = [
   {
@@ -97,7 +97,7 @@ export const SETUP_GALLERY = [
   {
     id: 'g5',
     title: 'G5 · The 2-2-2 ladder',
-    caption: 'Entry. T1 (1R): scale 2 → stop snaps to breakeven. T2 (2R): scale 2. Runner trails the 9 EMA up to the measured-move target.',
+    caption: 'Entry. T1 (1R): scale 2 → stop tucks 4–6 ticks under the newest 2-min swing low. T2 (2R): scale 2. Runner trails the 9 EMA up to the measured-move target. The stop only ever tightens.',
     render: () => <LadderChart entry={100} riskPts={3} animate />,
   },
   {
@@ -148,9 +148,9 @@ export const SETUP_GALLERY = [
   },
   {
     id: 'g9',
-    title: 'G9 · Breakeven mechanic',
-    caption: 'The instant T1 fills, the stop snaps up to the entry. The trade can no longer lose.',
-    render: () => <BreakevenChart />,
+    title: 'G9 · The structure trail',
+    caption: 'The instant T1 fills, the stop tucks 4–6 ticks under the most recent 2-minute swing low — never at entry — and ratchets behind each new swing until the trade is done.',
+    render: () => <StructureTrailChart />,
   },
   {
     id: 'g10',

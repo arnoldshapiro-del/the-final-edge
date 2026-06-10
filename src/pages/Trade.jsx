@@ -430,7 +430,7 @@ export default function Trade() {
           <span className="text-violet2">M2K math:</span> $5.00 per point · 10 ticks per point · 1 tick = 0.10 pts = $0.50 / contract.
         </p>
         <p className="text-textt text-[12px] mt-2 font-body">
-          Targets beyond T1 are bonus — never recalculated. <span className="text-gold">The instant T1 fills, move stop to breakeven.</span>
+          Targets beyond T1 are bonus — never recalculated. <span className="text-gold">The instant T1 fills, trail the stop to 4–6 ticks behind the newest 2-min swing — only ever tighter, never at entry.</span>
         </p>
         {validNums && !directionSigned && (
           <p className="text-coral text-[12px] mt-2 font-body">For a long, stop must be BELOW entry. For a short, stop must be ABOVE entry.</p>

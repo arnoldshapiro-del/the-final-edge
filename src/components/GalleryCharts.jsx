@@ -126,16 +126,17 @@ export function StopHuntChart() {
 }
 
 // ───────────────────────────────────────────────────────────────────────────────
-// G9 — Breakeven mechanic: before/after T1 fills, the stop snaps to entry
+// G9 — The structure trail: before/after T1 fills, the stop ratchets behind
+// the most recent 2-minute swing (never to entry)
 // ───────────────────────────────────────────────────────────────────────────────
-export function BreakevenChart() {
+export function StructureTrailChart() {
   const [phase, setPhase] = useState('before') // 'before' | 'after'
 
   return (
     <div className="card-elev rounded-card p-3 md:p-4 border border-border space-y-3">
       <div className="flex items-center justify-between gap-2 flex-wrap">
-        <span className="pill pill-emerald">G9 · Breakeven mechanic</span>
-        <div className="inline-flex p-0.5 rounded-md border border-border bg-bg" role="tablist" aria-label="Breakeven step">
+        <span className="pill pill-emerald">G9 · The structure trail</span>
+        <div className="inline-flex p-0.5 rounded-md border border-border bg-bg" role="tablist" aria-label="Structure-trail step">
           {[
             { k: 'before', l: 'Before T1' },
             { k: 'after',  l: 'After T1 fills' },
@@ -158,17 +159,17 @@ export function BreakevenChart() {
         markers={[
           { idx: 3, kind: 'dip1', label: 'Pullback low' },
           { idx: 5, kind: 'dip2', label: 'Higher low' },
-          { idx: 6, kind: 'enter', label: phase === 'before' ? 'Entry' : 'T1 hit — stop snapped to BE' },
+          { idx: 6, kind: 'enter', label: phase === 'before' ? 'Entry' : 'T1 hit — stop trails the newest swing' },
         ]}
-        stopY={phase === 'before' ? 50 : 60}
-        stopLabel={phase === 'before' ? 'Stop = −1R (at the pullback swing low)' : 'Stop = breakeven (entry)'}
+        stopY={phase === 'before' ? 50 : 57}
+        stopLabel={phase === 'before' ? 'Stop = −1R (4–6 ticks under the setup swing low)' : 'Stop = 4–6 ticks under the newest 2-min swing low'}
         t1Y={76}
         t2Y={84}
-        contextLabel={phase === 'before' ? 'Phase 1 · risk on' : 'Phase 2 · risk off — trade can no longer lose'}
+        contextLabel={phase === 'before' ? 'Phase 1 · risk on' : 'Phase 2 · locked behind structure'}
         contextColor={phase === 'before' ? 'coral' : 'emerald'}
         caption={phase === 'before'
-          ? 'Before T1 fills, the original stop sits at the pullback swing low (the structure).'
-          : 'The instant T1 fills, the stop snaps up to entry. The trade can no longer lose.'}
+          ? 'Before T1 fills, the stop sits 4–6 ticks under the pullback swing low (the setup structure).'
+          : 'The instant T1 fills, the stop tucks 4–6 ticks under the most recent 2-minute swing low — never at entry — and ratchets behind each new swing. It only ever tightens.'}
       />
     </div>
   )

@@ -4,7 +4,7 @@
 //   - Navigation requests (HTML): network-first; on failure serve cached /index.html (SPA shell).
 // Bump CACHE_VERSION to invalidate when shipping breaking changes.
 
-const CACHE_VERSION = 'v4-2026-06-10'
+const CACHE_VERSION = 'v5-2026-06-10'
 const CACHE_NAME = `tfe-${CACHE_VERSION}`
 const SHELL_URLS = ['/', '/index.html', '/icon.svg', '/icon-maskable.svg', '/manifest.webmanifest']
 

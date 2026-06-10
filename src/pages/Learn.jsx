@@ -13,13 +13,13 @@ export default function Learn() {
       <header>
         <div className="pill pill-gold inline-flex mb-3"><Icon name="book" className="w-3.5 h-3.5" /> The playbook</div>
         <h1 className="font-display font-semibold text-3xl md:text-4xl text-textp tracking-tight">Learn the one edge</h1>
-        <p className="text-texts text-[15px] md:text-base mt-2 max-w-2xl">Ten lessons. One setup, decomposed. Study each, lock it in, then move on. The Trainer drills what you read here.</p>
+        <p className="text-texts text-[15px] md:text-base mt-2 max-w-2xl">Twelve lessons. One setup, decomposed. Study each, lock it in, then move on. The Trainer drills what you read here.</p>
       </header>
 
       <div className="card p-4 md:p-5">
         <div className="flex items-center justify-between mb-2">
           <span className="font-display tracking-wide text-texts text-[12px] uppercase">Progress</span>
-          <span className="font-mono text-textp text-[13px]">{done.size}/10 · {pct}%</span>
+          <span className="font-mono text-textp text-[13px]">{done.size}/{LESSONS.length} · {pct}%</span>
         </div>
         <div className="w-full bg-bg rounded-full h-2 overflow-hidden border border-border">
           <div className="h-full bg-emerald2 transition-all" style={{ width: `${pct}%`, boxShadow: '0 0 18px rgba(31,224,160,0.45)' }} />

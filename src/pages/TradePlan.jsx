@@ -70,7 +70,7 @@ export default function TradePlan() {
           <strong>FINAL (my adjustment):</strong> just past the <strong>STRUCTURE</strong> — the swing low at the bottom of the pullback (long) or the swing high at the top of the bounce (short). A stop tight under the trendline gets wicked on a retest; a stop just past the structure only triggers on real failure.
         </Block>
         <Block title="The exits — 2 / 2 / 2" color="emerald" icon="check">
-          {settings.contracts} contracts in thirds. <strong>Scale at T1 (1R)</strong>, then stop → breakeven the instant T1 fills. <strong>Scale at T2 (2R)</strong>. <strong>Final third</strong> trails the 9 EMA to the measured-move target.
+          {settings.contracts} contracts in thirds. <strong>Scale at T1 (1R)</strong>, then tuck the stop 4–6 ticks behind the newest 2-min swing the instant T1 fills — never at your entry — and ratchet it behind each new swing. <strong>Scale at T2 (2R)</strong>. <strong>Final third</strong> trails the 9 EMA to the measured-move target. The stop only ever tightens.
         </Block>
 
         <Block title="Candle grade at the trendline close" color="gold" icon="flame">

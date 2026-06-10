@@ -21,7 +21,7 @@ const STATES = [
 const IF_THEN = [
   { ifPart: 'the 2-min candle only WICKS through the trendline', thenPart: 'I do NOTHING. Only a CLOSE counts.' },
   { ifPart: 'the 15-min is sideways or unclear', thenPart: 'I sit out. Sitting out IS the trade.' },
-  { ifPart: 'T1 fills', thenPart: 'stop goes to BREAKEVEN — instantly.' },
+  { ifPart: 'T1 fills', thenPart: 'stop tucks 4–6 ticks behind the newest 2-min swing — instantly, and only if tighter. Never at entry.' },
   { ifPart: 'I take my 2nd loss', thenPart: 'one more A+ only — or I stop early. Stopping is winning.' },
   { ifPart: 'I take my 3rd loss OR hit my daily max', thenPart: 'I am DONE. Close NinjaTrader. No debate.' },
   { ifPart: 'the clock hits 10:30', thenPart: 'my edge window is over. I am done for the day.' },
@@ -321,7 +321,7 @@ export default function Live() {
           </div>
           <div className="rounded-card border border-border bg-bg/50 p-3 text-center">
             <div className="font-display text-[10px] uppercase tracking-[0.14em] text-textt">Exits</div>
-            <div className="text-textp text-[13px] mt-1">2/2/2 · T1 1R → stop to BE · T2 2R · runner trails 9 EMA</div>
+            <div className="text-textp text-[13px] mt-1">2/2/2 · T1 1R → stop trails the newest 2-min swing · T2 2R · runner trails 9 EMA</div>
           </div>
           <div className="rounded-card border border-border bg-bg/50 p-3 text-center">
             <div className="font-display text-[10px] uppercase tracking-[0.14em] text-textt">Never</div>

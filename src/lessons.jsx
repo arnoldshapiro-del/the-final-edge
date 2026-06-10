@@ -16,7 +16,7 @@ export const LESSONS = [
         <p><strong>Why 5.5 years hurt.</strong> You traded counter-trend reversals and you fought the trend. Counter-trend trading fights <em>momentum</em>, the strongest force on the chart. And the stop sat in front of the crowd, where it was hunted before the move could breathe.</p>
         <p><strong>Why mentors (80%) and Al Brooks win where you didn't.</strong> The candle was never the edge — the <em>context</em> was. They unconsciously filter which signals to take, a filter built over thousands of with-trend reps. Brooks's "second entry" is a <em>with-trend</em> tool you were using <em>against</em> the trend. The candle they read was confirming the trend, not predicting a reversal of it.</p>
         <p><strong>The fix.</strong> One setup. With the trend. Entered on the second push. Stop behind the crowd. Repeat until it's reflex.</p>
-        <p>The next nine lessons are this single edge, broken into its working parts. Master each. Then drill them in the Trainer until you don't think — you see.</p>
+        <p>The lessons that follow are this single edge, broken into its working parts. Master each. Then drill them in the Trainer until you don't think — you see.</p>
       </div>
     ),
   },
@@ -62,7 +62,7 @@ export const LESSONS = [
     lockIt: 'Wait for a 2-minute candle to CLOSE above the descending trendline (long) or below the ascending trendline (short). That close is your one and only trigger. Enter all 6 contracts at the open of the next candle.',
     render: () => (
       <div className="prose-edge space-y-4">
-        <p>This is the flagship setup — the <strong>BULL FLAG</strong>, the one setup we trade with the trend. Long version below; the BEAR FLAG (shorts) is the exact mirror — see Lesson 9 and the Visual Library (G2).</p>
+        <p>This is the flagship setup — the <strong>BULL FLAG</strong>, the one setup we trade with the trend. Long version below; the BEAR FLAG (shorts) is the exact mirror — see the Visual Library (G2).</p>
 
         <p><strong>The picture.</strong> Pole = a sharp upmove. Flag = price drifting down on lighter volume; a small descending channel against the uptrend (lower highs and lower lows of the pullback). The <em>defining boundary</em> of the bull flag = the <strong>DESCENDING trendline</strong> connecting the lower highs of the pullback.</p>
 
@@ -205,9 +205,9 @@ export const LESSONS = [
   {
     id: 'l7',
     n: 7,
-    title: 'The Exits — 2/2/2',
-    oneLine: 'T1 = 1R. T2 = 2R. Runner trails the 9 EMA. T1 hit → stop to BE.',
-    lockIt: 'Trade 6 contracts. 2 at T1 (1R). 2 at T2 (2R). 2 as the runner. T1 fills → stop moves to breakeven. Trade can no longer lose.',
+    title: 'The Exits — 2/2/2 + The Structure Trail',
+    oneLine: 'T1 = 1R. T2 = 2R. Runner trails the 9 EMA. T1 fills → stop trails the newest 2-min swing.',
+    lockIt: 'Trade 6 contracts. 2 at T1 (1R). 2 at T2 (2R). 2 as the runner. ON ENTRY: the stop goes 4–6 ticks beyond the setup structure — that typed distance is your 1R. T1 FILLS: move the stop to 4–6 ticks beyond the most recent 2-min swing — only if that tightens it. Then ratchet behind every new swing. The stop only ever tightens. Never loosen a stop.',
     render: () => (
       <div className="prose-edge space-y-4">
         <p>Six contracts. Three pairs. One simple ladder.</p>
@@ -215,8 +215,30 @@ export const LESSONS = [
           <li><strong>2 at T1.</strong> +1R. The first pair locks in proof.</li>
           <li><strong>2 at T2.</strong> +2R. The middle pair takes the meat.</li>
           <li><strong>2 as the runner.</strong> Trails the 9 EMA. Sometimes does nothing. Sometimes pays for the week.</li>
-          <li><strong>T1 hits → stop to breakeven.</strong> Immediately. Not "after the candle closes," not "after a second confirmation." The instant the fill hits, the trade is risk-off. It can no longer lose.</li>
         </ul>
+
+        <p><strong>And the stop has a life of its own. Three steps, mechanical:</strong></p>
+
+        <p><strong>STEP 1 — ON ENTRY.</strong> The ATM places the stop where you typed it and sets T1 at 1R and T2 at 2R from your entry (2 contracts each; the runner has no fixed target). Your FIRST ACTION: make sure that stop sits <strong>4–6 ticks beyond the setup structure</strong> — 4–6 ticks UNDER the setup swing low for longs, 4–6 ticks ABOVE the setup swing high for shorts. On the M2K that typed distance IS your 1R: the structure decides the stop, and the stop decides everything else.</p>
+
+        <p><strong>STEP 2 — THE MOMENT T1 FILLS.</strong> Do <strong>NOT</strong> park the stop at your entry price. Immediately move it to <strong>4–6 ticks below the most recent 2-MINUTE swing low</strong> (longs) / <strong>above the most recent 2-minute swing high</strong> (shorts) — but ONLY if that tightens the stop. If the most recent swing is wider than where your stop already sits, leave the stop alone.</p>
+
+        <div className="my-4 rounded-lg border border-coral/40 bg-coral/5 p-4">
+          <p className="font-display tracking-wide text-coral text-[14px] mb-2">WHY WE RETIRED "MOVE IT TO BREAK EVEN"</p>
+          <p className="text-[14.5px] leading-[1.7]">Your entry price sits exactly in the retest zone — the spot price normally pulls back to in order to test a broken level before continuing, and the exact spot where everyone else's break-even stops cluster. A stop parked at entry gets hit by the market breathing normally, right before the move you wanted. That habit was costing T2 and the runner on most trades. A stop tucked beyond the swing low only gets hit when the pattern has genuinely failed — which is exactly when you want out.</p>
+        </div>
+
+        <p><strong>HOW TO SPOT THE SWING — don't wait for the textbook.</strong> A textbook swing low needs 2 candles to its left and 2 to its right — that's 4 minutes on a 2-minute chart, and the move may be over before it confirms. You don't wait for it. <em>One 2-minute candle closing back UP off the low</em> (back DOWN off the high for shorts) is enough confirmation to act — combined with the 4–6 tick buffer, that's your spot.</p>
+
+        <p><strong>STEP 3 — KEEP RATCHETING.</strong> As the trade prints each new HIGHER swing low (longs), move the stop up to 4–6 ticks under it. Shorts: each new LOWER swing high, move the stop down to 4–6 ticks above it. Keep going through T2 and the runner, until the trail takes you out.</p>
+
+        <div className="my-4 rounded-lg border border-gold/40 bg-gold/5 p-4">
+          <p className="font-display tracking-wide text-gold text-[14.5px] leading-[1.65]">THE IRON RULE: the stop only ever moves in the protective direction — UP for longs, DOWN for shorts. NEVER loosen a stop. If a trailed swing breaks, that break is information: the pattern failed, you're out, you keep what you locked in. "Moving it a little lower to give it room" is the habit that destroys accounts.</p>
+        </div>
+
+        <p><strong>The honest tradeoff.</strong> Trailing the structure slightly lowers your win rate versus parking the stop at your entry — and materially raises your average winner. Traders who made this switch report roughly 8–12% fewer wins but 40–60% bigger average winners. That is net strongly positive, and it is the trade we are making, on purpose.</p>
+
+        <p><strong>What 4–6 ticks means on M2K:</strong> 0.4–0.6 points. Same rule on the MES, where 4–6 ticks = 1.0–1.5 points — proportionally nearly identical given the Russell's lower index level and the M2K's 0.10-point tick. Same rule, both instruments.</p>
         <p><strong>R:R is a glance, not a calculation.</strong> T1 is 1R by definition. Before entry, the only question is: <em>is there room above to reach my targets before obvious resistance?</em> Yes → take it. No → skip. You don't compute ratios on the fly.</p>
         <LadderChart entry={100} riskPts={3} animate />
       </div>
@@ -228,7 +250,7 @@ export const LESSONS = [
     n: 8,
     title: 'Know The Odds',
     oneLine: 'Reliability isn’t profitability. The edge is the FILTERS — the math does the rest.',
-    lockIt: 'A loose flag is a coin flip; the tight flag after a steep pole wins ~85%. Your confirmed trendline-close entries with-trend run ~70%. With 2/2/2 and stop to BE after T1, a 50–70% rate is a strong positive-expectancy game. Reliability isn’t profitability.',
+    lockIt: 'A loose flag is a coin flip; the tight flag after a steep pole wins ~85%. Your confirmed trendline-close entries with-trend run ~70%. With 2/2/2 and the structure trail after T1, a 50–70% rate is a strong positive-expectancy game. Reliability isn’t profitability.',
     render: () => (
       <div className="prose-edge space-y-4">
         <p><strong>THE MYTH:</strong> “Flags are 70–80% reliable.” They are not — not the loose ones.</p>
@@ -249,30 +271,75 @@ export const LESSONS = [
 
         <p><strong>BEAR FLAGS:</strong> the mirror of the bull flag, but historically a touch weaker and more erratic, and downward breakouts fail more often when the broad market is rising. The 15-min downtrend filter is not optional on the short side — it is the whole edge.</p>
 
-        <p><strong>RELIABILITY IS NOT PROFITABILITY:</strong> you do not need a high win rate to win. With the 2/2/2 split, stop to breakeven after T1, and tiered targets against a tight fixed stop, one runner pays for several scratches. A 50–70% confirmed-entry rate with that exit structure is a strong, positive-expectancy game. Protect the process; the math does the rest.</p>
+        <p><strong>RELIABILITY IS NOT PROFITABILITY:</strong> you do not need a high win rate to win. With the 2/2/2 split, the structure trail kicking in after T1, and tiered targets against a tight stop, one runner pays for several scratches. A 50–70% confirmed-entry rate with that exit structure is a strong, positive-expectancy game. Protect the process; the math does the rest.</p>
+      </div>
+    ),
+  },
+
+  {
+    id: 'l-orb',
+    n: 9,
+    title: 'Method 3 — The Opening Range Break & Retest',
+    oneLine: 'The same flag, at the most important level of the morning. Break, retest, 2-min close — or nothing.',
+    lockIt: 'Mark the high and low of 9:30–10:00 ET and watch only. Gates: 15-min trend agrees · correct side of VWAP · normal-sized range · no imminent news. Wait for a 2-min candle to CLOSE beyond the range edge, never chase it, and enter only on a 2-min close back in the breakout direction off the retest. Stop 4–6 ticks beyond the retest swing, then trail the structure. Two failed attempts = done with the open.',
+    render: () => (
+      <div className="prose-edge space-y-4">
+        <p><strong>This is not a new strategy.</strong> It is the same flag setup you already trade, applied to the most important level of the morning. The opening-range high and low are simply a high-value line for the flag to break and retest. Same trigger, same stop, same exits — only the level is new.</p>
+
+        <p><strong>Step by step:</strong></p>
+        <ol className="list-decimal pl-5 space-y-2 marker:text-violet2">
+          <li><strong>9:30–10:00 AM ET: watch only.</strong> Mark the highest high and the lowest low of the first 30 minutes. Extend both lines to the right. The opening range is a MAP — not a trigger.</li>
+          <li><strong>The gates — ALL must pass, or stand down:</strong> the 15-minute trend agrees with your trade direction; price is on the correct side of VWAP; the range is normal-sized (a tiny range = chop day = skip; a giant range = size down or skip); no scheduled news imminent.</li>
+          <li><strong>The break.</strong> Wait for a 2-minute candle to <strong>CLOSE fully beyond the range edge</strong> — a wick through does not count. Above-average volume on the break is a plus.</li>
+          <li><strong>DO NOT CHASE THE BREAKOUT.</strong> Let it go without you. The breakout is the heads-up, never the entry.</li>
+          <li><strong>The retest.</strong> Wait for price to pull back to the broken level — the old range high should now act as support (the old low as resistance for shorts). This is the flag forming at the level. It may dip a few ticks past the level; that is normal.</li>
+          <li><strong>The entry.</strong> Only when a 2-minute candle <strong>CLOSES back in the breakout direction</strong> off the retest. No close, no trade.</li>
+          <li><strong>The stop.</strong> 4–6 ticks beyond the retest swing point. Then manage it exactly per Lesson 7: ratchet behind each new 2-minute swing, only ever tighter, through T2 and the runner.</li>
+          <li><strong>Two-and-done.</strong> Two failed opening-range attempts = done trading the open for the day. The daily loss limit is the backstop; two-and-done stops the chop-day bleed before it starts.</li>
+        </ol>
+
+        <div className="my-4 rounded-lg border border-coral/40 bg-coral/5 p-4">
+          <p className="font-display tracking-wide text-coral text-[14px] mb-2">THE HONEST ODDS</p>
+          <p className="text-[14.5px] leading-[1.7]">Realistic opening-range win rates are <strong>40–60%</strong> — closer to 40% with no filters, about 55% with a higher-timeframe trend filter and VWAP alignment. The retest entry trades fewer signals for higher quality, and it misses the runaway days that never pull back. The profit comes from the occasional trend day caught with a trailing stop — NOT from a high hit rate. Any opening-range method claiming 80%+ is ignoring slippage and false breakouts.</p>
+        </div>
+
+        <div className="my-4 rounded-lg border border-emerald2/40 bg-emerald2/5 p-4">
+          <p className="font-display tracking-wide text-emerald2 text-[14px] mb-2">THE CONSERVATIVE ALTERNATIVE — the recommended default for a discipline-first trader</p>
+          <p className="text-[14.5px] leading-[1.7]">Skip trading the 9:30–10:00 window entirely and use the opening range purely as a map. After 10:00, trade your normal flag setups off those marked levels with every standard rule. The opening-range high and low act as key support and resistance all day — you get the level's power without the open's chaos.</p>
+        </div>
       </div>
     ),
   },
 
   {
     id: 'l8',
-    n: 9,
+    n: 10,
     title: 'Sizing, Pushes & Discipline',
     oneLine: 'Fixed 6. Don\'t count pushes. Get pickier as the trend ages.',
-    lockIt: 'Fixed 6 contracts. No variable sizing (yet). No adding to winners (yet). Trade while the 15-min makes HH/HL. Get pickier as pushes age.',
+    lockIt: 'Fixed 6 contracts. No variable sizing (yet). No adding to winners (yet). Trade while the 15-min makes HH/HL. Get pickier as pushes age. Prime window 9:45–11:00 AM ET (secondary 3:00–4:00 PM). Skip the lunch chop. Never trade overnight.',
     render: () => (
       <div className="prose-edge space-y-4">
         <p><strong>Fixed 6.</strong> Same size every trade. No conviction-based sizing yet — that is a graduate-level adjustment, not a starter rule.</p>
         <p><strong>No adding to a winner. No pyramiding.</strong> Not yet. A fresh, separate, valid setup later in the day is a <em>new</em> trade — that's fine. Adding to an existing trade is not.</p>
         <p><strong>How many pushes?</strong> Don't count to a number. Trade while the 15-min keeps making HH/HL. On the third, fourth, fifth push: get pickier — A+ only. Watch for exhaustion: smaller pushes, deeper pullbacks, climactic bars. Stop when the 15-min breaks structure or exhaustion shows.</p>
         <p><strong>Circuit breaker.</strong> Set a max trades per session and a max loss per session. When either is hit, the day is done. The cockpit will enforce it for you. The rule of trading isn't to win every day — it's to be there for the easy days.</p>
+
+        <div className="my-4 rounded-lg border border-cyan2/40 bg-cyan2/5 p-4">
+          <p className="font-display tracking-wide text-cyan2 text-[14px] mb-2">WHEN TO TRADE — THE CLOCK IS A FILTER TOO</p>
+          <ul className="list-disc pl-5 space-y-2 text-[14px]">
+            <li><strong>Prime window: 9:45–11:00 AM ET.</strong> Highest liquidity, tightest spreads, cleanest follow-through. This is where the edge lives. <strong>Secondary window: 3:00–4:00 PM ET.</strong></li>
+            <li><strong>Do not trade the literal 9:30 open.</strong> Let the first real 2-minute structure print before you act on anything.</li>
+            <li><strong>Avoid the lunch chop (~11:30 AM–1:30 PM ET).</strong> Tight ranges and false breakouts — the exact conditions that bleed a flag trader.</li>
+            <li><strong>Never trade overnight (4:00 PM–9:30 AM).</strong> Thin volume, wide spreads, false breakouts — and false breakouts are poison for a flag trader. Roughly 70% of index-futures volume happens in regular hours; the edge lives there.</li>
+          </ul>
+        </div>
       </div>
     ),
   },
 
   {
     id: 'l9',
-    n: 10,
+    n: 11,
     title: 'What We Do NOT Trade',
     oneLine: 'No reversals. No ranges. No standalone candles.',
     lockIt: 'No counter-trend reversal attempts. No head & shoulders, triple tops, wedges, V-reversals. No symmetrical triangles, ranges, broadening. No standalone candle trades.',
@@ -291,7 +358,7 @@ export const LESSONS = [
 
   {
     id: 'l10',
-    n: 11,
+    n: 12,
     title: 'Going Live — The Right Way',
     oneLine: 'Sim → green by rule → 1 micro → scale slowly.',
     lockIt: 'Go live only when net green in sim AND every trade followed the checklist. Start at 1 micro. Scale only after disciplined real-money green stretches.',

@@ -1,7 +1,7 @@
 export const CARDS = [
   { id: 'c1',  front: '15 says ___ / 5 and 2 say ___', back: '15 says IF · 5 and 2 say WHEN and WHERE.' },
   { id: 'c2',  front: 'Where does the stop go?', back: 'Two steps. TENTATIVE: 4-6 ticks beyond the broken trendline (the trendline level itself at the break — NOT below the breakout candle\'s close). FINAL: just past the STRUCTURE — the swing low at the bottom of the bull-flag pullback (longs), or the swing high at the top of the bear-flag bounce (shorts). Anchor the final stop to the structure.' },
-  { id: 'c3',  front: 'T1 = ?', back: 'T1 = 1R. The instant T1 fills → move stop to BREAKEVEN.' },
+  { id: 'c3',  front: 'T1 = ?', back: 'T1 = 1R. The instant T1 fills → trail the stop to 4–6 ticks behind the newest 2-min swing (only if tighter — never at entry). Then ratchet behind every new swing. The stop only ever tightens.' },
   { id: 'c4',  front: 'T2 = ?', back: 'T2 = 2R. The middle pair takes the meat.' },
   { id: 'c5',  front: 'Runner trails what?', back: 'The 9 EMA. The 9 is not a separate strategy.' },
   { id: 'c6',  front: 'What is the candle\'s job?', back: 'Grade the entry — GO/NO-GO and conviction cue. NOT a size dial.' },
