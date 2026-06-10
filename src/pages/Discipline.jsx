@@ -2,8 +2,20 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '../components/Icon.jsx'
 import { useTrades, useSettings } from '../hooks.js'
+import { tradeDollars } from '../storage.js'
 
 function r2(n) { return Math.round(n * 100) / 100 }
+
+const STEP_LABELS = {
+  q1: '15-min trend gate',
+  q2: 'With-trend only',
+  q3: 'Healthy pullback / bounce',
+  q4: 'Confirming candle',
+  q5: 'Trendline CLOSE trigger',
+  q6: 'Stop at the structure',
+}
+
+const RISKY_EMOTIONS = ['fomo', 'revenge', 'anxious', 'tired', 'eager']
 
 // Group trades by local date. Returns [{ date, trades:[], net, clean }]
 function groupByDate(trades) {
@@ -65,7 +77,51 @@ export default function Discipline() {
         break
       }
     }
-    return { days, cleanStreak, cleanDays, totalDays, followingLosses, breakingWins, overallAdh, todays, tilt }
+    // Revenge timing today: next trade fired < 5 minutes after a loss
+    for (let i = 1; i < todays.length; i++) {
+      const prev = todays[i - 1], cur = todays[i]
+      const gapMin = (new Date(cur.datetime) - new Date(prev.datetime)) / 60000
+      if ((prev.totalR ?? 0) < 0 && gapMin < 5) {
+        tilt.push({ kind: 'revenge-speed', msg: `A trade went in ${Math.round(gapMin)} min after a loss. The cooldown exists for exactly this.` })
+        break
+      }
+    }
+
+    // ---- All-time mistake taxonomy ----
+    // Which of the 6 steps gets skipped most, and what those breaches cost in $.
+    const stepBreaks = {}
+    let breachCostR = 0
+    const chrono = trades.slice().sort((a, b) => new Date(a.datetime) - new Date(b.datetime))
+    trades.forEach(t => {
+      if (!t.followedAll7) breachCostR += Math.min(0, t.totalR ?? 0)
+      ;(t.missedSteps || []).forEach(id => {
+        if (!stepBreaks[id]) stepBreaks[id] = { n: 0, r: 0, d: 0 }
+        stepBreaks[id].n++
+        stepBreaks[id].r += (t.totalR ?? 0)
+        stepBreaks[id].d += tradeDollars(t)
+      })
+    })
+    // Revenge-speed trades all-time (within a day, < 5 min after a loss)
+    let revengeCount = 0, revengeR = 0, revengeD = 0
+    for (let i = 1; i < chrono.length; i++) {
+      const prev = chrono[i - 1], cur = chrono[i]
+      const sameDay = new Date(prev.datetime).toDateString() === new Date(cur.datetime).toDateString()
+      const gapMin = (new Date(cur.datetime) - new Date(prev.datetime)) / 60000
+      if (sameDay && (prev.totalR ?? 0) < 0 && gapMin < 5) { revengeCount++; revengeR += (cur.totalR ?? 0); revengeD += tradeDollars(cur) }
+    }
+    // Risky-state trades all-time
+    const riskyTrades = trades.filter(t => RISKY_EMOTIONS.includes(t.emotion))
+    const riskyR = riskyTrades.reduce((a, t) => a + (t.totalR ?? 0), 0)
+    const riskyD = riskyTrades.reduce((a, t) => a + tradeDollars(t), 0)
+    const calmTrades = trades.filter(t => t.emotion === 'calm' || t.emotion === 'focused')
+    const calmR = calmTrades.reduce((a, t) => a + (t.totalR ?? 0), 0)
+    const calmD = calmTrades.reduce((a, t) => a + tradeDollars(t), 0)
+
+    return {
+      days, cleanStreak, cleanDays, totalDays, followingLosses, breakingWins, overallAdh, todays, tilt,
+      stepBreaks, breachCostR, revengeCount, revengeR, revengeD,
+      riskyN: riskyTrades.length, riskyR, riskyD, calmN: calmTrades.length, calmR, calmD,
+    }
   }, [trades, settings])
 
   if (!trades.length) {
@@ -148,6 +204,53 @@ export default function Discipline() {
           <span className="text-emerald2">{cleanCount} clean</span>
           <span className="text-coral">{breakCount} broken</span>
         </div>
+      </section>
+
+      {/* Mistake taxonomy — which rule, how often, what it cost */}
+      <section className="card p-5">
+        <h3 className="font-display font-semibold text-textp text-lg mb-1 flex items-center gap-2">
+          <Icon name="target" className="w-5 h-5 text-coral"/> The leak finder
+        </h3>
+        <p className="text-texts text-[13px] mb-3">Every breach is tagged with the steps that were skipped. The most expensive rule to break is the one to drill this week.</p>
+        {Object.keys(stats.stepBreaks).length === 0 && stats.revengeCount === 0 && stats.riskyN === 0 ? (
+          <p className="text-emerald2 text-[14px] font-display"><Icon name="check" className="inline w-4 h-4 mr-1"/>No tagged breaches yet. Keep it that way.</p>
+        ) : (
+          <ul className="space-y-2">
+            {Object.entries(stats.stepBreaks).sort((a, b) => b[1].n - a[1].n).map(([id, v]) => (
+              <li key={id} className="flex items-center justify-between gap-3 py-2 border-b border-border last:border-0">
+                <span className="text-textp text-[14px]">{STEP_LABELS[id] || id} <span className="text-textt text-[12px]">(step {id.slice(1)})</span></span>
+                <span className="flex items-center gap-3">
+                  <span className="font-mono text-textt text-[12px]">skipped {v.n}×</span>
+                  <span className={`font-display font-semibold text-[15px] ${v.r >= 0 ? 'text-emerald2' : 'text-coral'}`}>{v.d >= 0 ? '+' : '−'}${Math.abs(v.d)}</span>
+                </span>
+              </li>
+            ))}
+            {stats.revengeCount > 0 && (
+              <li className="flex items-center justify-between gap-3 py-2 border-b border-border last:border-0">
+                <span className="text-textp text-[14px]">Fired &lt; 5 min after a loss <span className="text-textt text-[12px]">(revenge timing)</span></span>
+                <span className="flex items-center gap-3">
+                  <span className="font-mono text-textt text-[12px]">{stats.revengeCount}×</span>
+                  <span className={`font-display font-semibold text-[15px] ${stats.revengeR >= 0 ? 'text-emerald2' : 'text-coral'}`}>{stats.revengeD >= 0 ? '+' : '−'}${Math.abs(stats.revengeD)}</span>
+                </span>
+              </li>
+            )}
+            {stats.riskyN > 0 && (
+              <li className="flex items-center justify-between gap-3 py-2">
+                <span className="text-textp text-[14px]">Entered in a risky state <span className="text-textt text-[12px]">(FOMO / revenge / anxious / tired / eager)</span></span>
+                <span className="flex items-center gap-3">
+                  <span className="font-mono text-textt text-[12px]">{stats.riskyN} trades</span>
+                  <span className={`font-display font-semibold text-[15px] ${stats.riskyR >= 0 ? 'text-emerald2' : 'text-coral'}`}>{stats.riskyD >= 0 ? '+' : '−'}${Math.abs(stats.riskyD)}</span>
+                </span>
+              </li>
+            )}
+          </ul>
+        )}
+        {stats.calmN > 0 && stats.riskyN > 0 && (
+          <p className="text-textt text-[12.5px] mt-3 font-body">
+            For contrast: your {stats.calmN} calm/focused trades net {stats.calmD >= 0 ? '+' : '−'}${Math.abs(stats.calmD)}.
+            The market pays the version of you that shows up calm.
+          </p>
+        )}
       </section>
 
       <section className="card p-5">

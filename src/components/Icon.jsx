@@ -22,6 +22,11 @@ export function Icon({ name, className = 'w-5 h-5', stroke = 'currentColor' }) {
     case 'edit': return <svg className={className} {...p}><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
     case 'compass': return <svg className={className} {...p}><circle cx="12" cy="12" r="9"/><path d="M16 8l-2 6-6 2 2-6z"/></svg>
     case 'refresh': return <svg className={className} {...p}><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>
+    case 'clock': return <svg className={className} {...p}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    case 'download': return <svg className={className} {...p}><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+    case 'upload': return <svg className={className} {...p}><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 3h16"/></svg>
+    case 'alert': return <svg className={className} {...p}><path d="M12 3 2 20h20z"/><path d="M12 9v5"/><circle cx="12" cy="17" r="0.5" fill={stroke}/></svg>
+    case 'heart': return <svg className={className} {...p}><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21z"/></svg>
     default: return null
   }
 }

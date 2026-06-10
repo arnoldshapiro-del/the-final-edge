@@ -1,15 +1,59 @@
-import { useState, useEffect } from 'react'
-import { useSettings, useTrades } from '../hooks.js'
-import { setSettings, setTrades, setProgress, setSession } from '../storage.js'
+import { useState, useEffect, useRef } from 'react'
+import { useSettings, useTrades, useProgress } from '../hooks.js'
+import { setSettings, setTrades, setProgress, setSession, exportAllData, importAllData, buildTradesCSV, markBackupDone } from '../storage.js'
 import { Icon } from '../components/Icon.jsx'
+
+function download(filename, text, type = 'application/json') {
+  const blob = new Blob([text], { type })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
+}
+
+function todayFile() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
 
 export default function Settings() {
   const s = useSettings()
   const trades = useTrades()
+  const progress = useProgress()
   const [draft, setDraft] = useState(s)
   const [askReset, setAskReset] = useState(null) // 'trades' | 'all' | null
   const [saved, setSaved] = useState(false)
-  useEffect(() => setDraft(s), [s.contracts, s.maxTradesPerSession, s.maxLossPerSession, s.mode])
+  const [importMsg, setImportMsg] = useState(null)
+  const fileRef = useRef(null)
+  useEffect(() => setDraft(s), [s.contracts, s.maxTradesPerSession, s.maxLossPerSession, s.mode, s.enforceWindow])
+
+  const onExportJSON = () => {
+    download(`final-edge-mes-backup-${todayFile()}.json`, exportAllData())
+    markBackupDone()
+  }
+  const onExportCSV = () => {
+    download(`final-edge-mes-trades-${todayFile()}.csv`, buildTradesCSV(), 'text/csv')
+    markBackupDone()
+  }
+  const onImportFile = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      try {
+        const n = importAllData(JSON.parse(reader.result))
+        setImportMsg({ ok: true, text: `Restored ${n} trades from backup.` })
+      } catch (err) {
+        setImportMsg({ ok: false, text: `Couldn't import: ${err.message}` })
+      }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
 
   const save = () => { setSettings(draft); setSaved(true); setTimeout(() => setSaved(false), 1800) }
   const change = (k, v) => setDraft({ ...draft, [k]: v })
@@ -64,15 +108,52 @@ export default function Settings() {
         </div>
 
         <div>
-          <label className="field-label">Max loss per session (R)</label>
-          <input type="number" min={1} max={20} value={draft.maxLossPerSession} onChange={e => change('maxLossPerSession', parseInt(e.target.value || '3'))} />
-          <p className="text-textt text-[12px] mt-1 font-body">In R units. When the day's net hits −Max, the cockpit locks until tomorrow.</p>
+          <label className="field-label">Max losing trades per session (full losses)</label>
+          <input type="number" min={1} max={10} value={draft.maxLossPerSession} onChange={e => change('maxLossPerSession', parseInt(e.target.value || '3'))} />
+          <p className="text-textt text-[12px] mt-1 font-body">
+            One full loss = one full stop = 6R. Default 3 = the mentor's rule: 3 losing trades OR −{(draft.maxLossPerSession || 3) * 6}R for the day, whichever first, and the cockpit locks until tomorrow.
+            The weekly cap is automatically 2× the daily (−{(draft.maxLossPerSession || 3) * 12}R) — hit it and live mode locks until Monday. Dollar amounts come from each trade's actual stop; set your M2K dollar limits on the My Risk page when you lock them in.
+          </p>
+        </div>
+
+        <div>
+          <label className="field-label">Edge-window enforcement (live mode)</label>
+          <div className="flex gap-2">
+            {[{ k: true, l: 'On — lock entries outside 9:30–10:30 ET' }, { k: false, l: 'Off' }].map(o => (
+              <button
+                key={String(o.k)}
+                className={`btn text-[13px] ${(draft.enforceWindow !== false) === o.k ? 'btn-primary' : 'btn-ghost'}`}
+                onClick={() => change('enforceWindow', o.k)}
+              >{o.l}</button>
+            ))}
+          </div>
+          <p className="text-textt text-[12px] mt-1 font-body">Your edge was proven at the open. This keeps lunch-hour boredom from becoming a position.</p>
         </div>
 
         <div className="flex gap-3 items-center">
           <button className="btn btn-primary" onClick={save}><Icon name="check" className="w-4 h-4"/> Save settings</button>
           {saved && <span className="pill pill-emerald animate-fadeup"><Icon name="check" className="w-3 h-3"/> Saved</span>}
         </div>
+      </div>
+
+      {/* BACKUP — a real-money journal must survive a dead laptop */}
+      <div className="card p-5 space-y-3 border-l-4" style={{ borderLeftColor: '#1FE0A0' }}>
+        <h2 className="font-display font-semibold text-textp text-lg flex items-center gap-2"><Icon name="download" className="w-5 h-5 text-emerald2"/> Backup &amp; restore</h2>
+        <p className="text-textt text-[13px] font-body">
+          Your journal lives in this browser only. Export it weekly — a real-money journal must survive a dead laptop or a cleared cache.
+          {progress.lastBackupAt
+            ? <span className="text-emerald2"> Last backup: {new Date(progress.lastBackupAt).toLocaleDateString()}.</span>
+            : <span className="text-gold"> No backup yet.</span>}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <button className="btn btn-primary" onClick={onExportJSON}><Icon name="download" className="w-4 h-4"/> Export everything (JSON)</button>
+          <button className="btn btn-ghost" onClick={onExportCSV}><Icon name="download" className="w-4 h-4"/> Export trades (CSV)</button>
+          <button className="btn btn-ghost" onClick={() => fileRef.current?.click()}><Icon name="upload" className="w-4 h-4"/> Restore from backup</button>
+          <input ref={fileRef} type="file" accept="application/json,.json" className="hidden" onChange={onImportFile} />
+        </div>
+        {importMsg && (
+          <p className={`text-[13px] font-display ${importMsg.ok ? 'text-emerald2' : 'text-coral'}`}>{importMsg.text}</p>
+        )}
       </div>
 
       <div className="card p-5 space-y-3 border-l-4" style={{ borderLeftColor: '#FF5C72' }}>

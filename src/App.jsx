@@ -12,6 +12,7 @@ import MyRisk from './pages/MyRisk.jsx'
 import Discipline from './pages/Discipline.jsx'
 import Manual from './pages/Manual.jsx'
 import Trade from './pages/Trade.jsx'
+import Live from './pages/Live.jsx'
 import Settings from './pages/Settings.jsx'
 import { Icon } from './components/Icon.jsx'
 
@@ -33,6 +34,7 @@ const NAV = [
   { to: '/', label: 'Home', icon: 'home' },
   { to: '/learn', label: 'Learn', icon: 'book' },
   { to: '/trainer', label: 'Trainer', icon: 'target' },
+  { to: '/live', label: 'Live', icon: 'flame' },
   { to: '/trade', label: 'Trade', icon: 'chart' },
   { to: '/stats', label: 'Stats', icon: 'stats' },
 ]
@@ -106,7 +108,7 @@ function Sidebar() {
           <Icon name="gear" className="w-4 h-4" />
           Settings
         </NavLink>
-        <div className="text-[11px] text-textt mt-3 px-3 font-mono">v1.0</div>
+        <div className="text-[11px] text-textt mt-3 px-3 font-mono">v2.0 · Live Fire</div>
       </div>
     </aside>
   )
@@ -115,7 +117,7 @@ function Sidebar() {
 function MobileTabs() {
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-panel/95 backdrop-blur border-t border-border" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-6">
         {NAV.map(n => (
           <NavLink
             key={n.to}
@@ -175,6 +177,7 @@ export default function App() {
               <Route path="/trainer" element={<Trainer />} />
               <Route path="/flashcards" element={<Flashcards />} />
               <Route path="/trade" element={<Trade />} />
+              <Route path="/live" element={<Live />} />
               <Route path="/stats" element={<Suspense fallback={<StatsFallback />}><Stats /></Suspense>} />
               <Route path="/plan" element={<TradePlan />} />
               <Route path="/risk" element={<MyRisk />} />

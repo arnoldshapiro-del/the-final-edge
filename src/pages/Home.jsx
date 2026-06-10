@@ -131,6 +131,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Live day strip */}
+      <Link to="/live" className="card card-hover p-5 flex items-center justify-between gap-3 relative overflow-hidden block" style={{ borderColor: 'rgba(255,92,114,0.4)' }}>
+        <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 w-44 h-44 rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,92,114,0.14), transparent 65%)' }}/>
+        <div className="flex items-center gap-3 relative">
+          <div className="w-11 h-11 rounded-lg flex items-center justify-center bg-coral/10 border border-coral/40">
+            <Icon name="flame" className="w-6 h-6 text-coral"/>
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="font-display font-semibold text-textp text-lg">Live day command center</h3>
+              <span className="pill pill-coral text-[9px]">Trading day HQ</span>
+            </div>
+            <p className="text-texts text-[13px]">Pre-flight gate · market clock · guardrail meters · if-then cards · debrief.</p>
+          </div>
+        </div>
+        <Icon name="arrow" className="w-5 h-5 text-textt relative shrink-0"/>
+      </Link>
+
+      {/* Backup nudge */}
+      {(stats?.n || 0) + (getDerivedStats('live')?.n || 0) >= 10 && (!progress.lastBackupAt || (Date.now() - new Date(progress.lastBackupAt).getTime()) > 7 * 24 * 3600 * 1000) && (
+        <section className="card p-4 border-l-4 flex items-center justify-between gap-3 flex-wrap" style={{ borderLeftColor: '#FFB347' }}>
+          <p className="text-textp text-[14px] font-display flex items-center gap-2 m-0">
+            <Icon name="alert" className="w-4 h-4 text-gold shrink-0"/>
+            {progress.lastBackupAt ? 'It’s been over a week since your last journal backup.' : 'Your journal has never been backed up — it lives only in this browser.'}
+          </p>
+          <Link to="/settings" className="btn btn-gold text-[12px] py-1.5 px-3"><Icon name="download" className="w-3.5 h-3.5"/> Back it up</Link>
+        </section>
+      )}
+
       {/* Quick actions */}
       <section className="grid md:grid-cols-3 gap-4">
         <Link to="/learn" className="card card-hover p-5 group">

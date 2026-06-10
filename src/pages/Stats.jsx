@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '../components/Icon.jsx'
-import { useTrades, useProgress } from '../hooks.js'
-import { getDerivedStats } from '../storage.js'
+import { useTrades, useProgress, useWeekStats } from '../hooks.js'
+import { getDerivedStats, tradeDollars } from '../storage.js'
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, ReferenceLine, CartesianGrid,
+  BarChart, Bar, Cell,
 } from 'recharts'
 
 const MODES = [
@@ -30,6 +31,22 @@ function StatTile({ label, value, sub, accent = 'plain', big = false }) {
       <div className="font-display text-[11px] tracking-[0.18em] uppercase text-textt">{label}</div>
       <div className={`font-display font-semibold mt-2 ${big ? 'text-4xl md:text-5xl' : 'text-3xl'} ${colorMap[accent]}`}>{value}</div>
       {sub && <div className="text-texts text-[12px] mt-2 font-mono">{sub}</div>}
+    </div>
+  )
+}
+
+function SampleChip({ stats }) {
+  if (!stats) return null
+  const map = {
+    'PRELIMINARY': { cls: 'pill-gold', note: 'under 30 trades — treat every number as a sketch' },
+    'MEANINGFUL': { cls: 'pill-cyan', note: '30–99 trades — patterns are forming' },
+    'DECISION-GRADE': { cls: 'pill-emerald', note: '100+ trades — these numbers mean something' },
+  }
+  const m = map[stats.sampleLabel]
+  return (
+    <div className="flex items-center gap-2 flex-wrap">
+      <span className={`pill ${m.cls}`}>{stats.sampleLabel} · {stats.n} trades</span>
+      <span className="text-textt text-[12px] font-body">{m.note}</span>
     </div>
   )
 }
@@ -67,8 +84,90 @@ function Verdict({ stats, mode }) {
         <Criterion ok={okRule} label="Rule adherence ≥ 90%" value={pct(stats.ruleAdherence)} miss={!okRule ? `${pct(0.9 - stats.ruleAdherence)} short` : ''} />
         <Criterion ok={okWin} label="Win rate ≥ 50%" value={pct(stats.winRate)} miss={!okWin ? `${pct(0.5 - stats.winRate)} short` : ''} />
       </ul>
-      <div className="mt-4 text-textt text-[12px] font-mono">Mode: {mode.toUpperCase()} · {stats.n} trades · {stats.n >= 20 ? 'sample size: meaningful' : 'sample size: building'}</div>
+      <div className="mt-4"><SampleChip stats={stats} /></div>
+      <div className="mt-2 text-textt text-[12px] font-mono">Mode: {mode.toUpperCase()}</div>
     </div>
+  )
+}
+
+// Live-only safety panel: the rules that send you back to sim, checked automatically.
+function BackToSim({ liveStats, week }) {
+  if (!liveStats || !liveStats.n) return null
+  const triggers = [
+    {
+      hit: week.locked,
+      label: 'Weekly max loss hit',
+      detail: week.locked ? `−${Math.abs(week.netR)}R this week — sim until Monday` : `${Math.abs(Math.min(0, week.netR))}R of ${week.weeklyLimitR}R used`,
+    },
+    {
+      hit: liveStats.currentLossStreak >= 4,
+      label: '4+ losses in a row',
+      detail: liveStats.currentLossStreak >= 4 ? `${liveStats.currentLossStreak} straight — rebuild confidence in sim` : `current streak: ${liveStats.currentLossStreak}`,
+    },
+    {
+      hit: liveStats.rolling20N >= 20 && liveStats.rolling20 < 0,
+      label: 'Rolling 20-trade expectancy negative',
+      detail: liveStats.rolling20N >= 20 ? `${liveStats.rolling20 >= 0 ? '+' : ''}${r2(liveStats.rolling20)}R/trade over last 20` : `${liveStats.rolling20N}/20 trades so far`,
+    },
+  ]
+  const anyHit = triggers.some(t => t.hit)
+  return (
+    <div className={`card p-5 ${anyHit ? 'border-coral/50' : ''}`}>
+      <h3 className="font-display font-semibold text-textp text-lg mb-1 flex items-center gap-2">
+        <Icon name="shield" className={`w-5 h-5 ${anyHit ? 'text-coral' : 'text-emerald2'}`} /> Back-to-sim triggers · LIVE
+      </h3>
+      <p className="text-texts text-[13px] mb-3">Decided in advance so a bad week can't talk you out of them.</p>
+      <ul className="grid md:grid-cols-3 gap-3">
+        {triggers.map((t, i) => (
+          <li key={i} className={`rounded-card p-3 border ${t.hit ? 'border-coral/40 bg-coral/5' : 'border-emerald2/30 bg-emerald2/5'}`}>
+            <div className="flex items-center gap-2">
+              <Icon name={t.hit ? 'alert' : 'check'} className={`w-4 h-4 ${t.hit ? 'text-coral' : 'text-emerald2'}`} />
+              <span className="font-display text-textp text-[13px]">{t.label}</span>
+            </div>
+            <div className={`font-mono text-[12px] mt-1 ${t.hit ? 'text-coral' : 'text-texts'}`}>{t.detail}</div>
+          </li>
+        ))}
+      </ul>
+      {anyHit && <p className="text-coral text-[13px] font-display mt-3">A trigger is hit — the plan says SIM. Honoring it is what professionals do.</p>}
+    </div>
+  )
+}
+
+// Sim vs live divergence — execution or psychology check.
+function SimVsLive({ sim, live }) {
+  if (!sim || !live || sim.n < 10 || live.n < 5) return null
+  const rows = [
+    { label: 'Win rate', s: pct(sim.winRate), l: pct(live.winRate), bad: live.winRate < sim.winRate - 0.15 },
+    { label: 'Expectancy', s: `${sim.expectancy >= 0 ? '+' : ''}${r2(sim.expectancy)}R`, l: `${live.expectancy >= 0 ? '+' : ''}${r2(live.expectancy)}R`, bad: live.expectancy < 0 && sim.expectancy > 0 },
+    { label: 'Rule adherence', s: pct(sim.ruleAdherence), l: pct(live.ruleAdherence), bad: live.ruleAdherence < sim.ruleAdherence - 0.1 },
+  ]
+  const diverging = rows.some(r => r.bad)
+  return (
+    <div className={`card p-5 ${diverging ? 'border-gold/50' : ''}`}>
+      <h3 className="font-display font-semibold text-textp text-lg mb-3 flex items-center gap-2">
+        <Icon name="stats" className="w-5 h-5 text-violet2" /> Sim vs Live — same trader?
+      </h3>
+      <div className="grid grid-cols-3 gap-2 text-center">
+        <div className="font-display text-[11px] uppercase tracking-[0.14em] text-textt text-left">Metric</div>
+        <div className="font-display text-[11px] uppercase tracking-[0.14em] text-violet2">SIM ({sim.n})</div>
+        <div className="font-display text-[11px] uppercase tracking-[0.14em] text-coral">LIVE ({live.n})</div>
+        {rows.map((r, i) => (
+          <FragmentRow key={i} r={r} />
+        ))}
+      </div>
+      {diverging
+        ? <p className="text-gold text-[13px] font-display mt-3"><Icon name="alert" className="inline w-4 h-4 mr-1" />Live is running well below sim. That gap is usually psychology or execution, not the setup — diagnose before risking more.</p>
+        : <p className="text-texts text-[13px] mt-3">Live tracks sim within normal variance. The skill is transferring.</p>}
+    </div>
+  )
+}
+function FragmentRow({ r }) {
+  return (
+    <>
+      <div className="text-texts text-[13px] text-left">{r.label}</div>
+      <div className="font-mono text-textp text-[14px]">{r.s}</div>
+      <div className={`font-mono text-[14px] ${r.bad ? 'text-coral' : 'text-textp'}`}>{r.l}</div>
+    </>
   )
 }
 
@@ -124,12 +223,28 @@ function buildByDayCurve(trades) {
   })
 }
 
+function buildHistogram(totals) {
+  const bins = [
+    { label: '−6R', test: r => r <= -5 },
+    { label: '−4..−2R', test: r => r > -5 && r <= -1.5 },
+    { label: '−1.5..0', test: r => r > -1.5 && r < 0 },
+    { label: '0..2R', test: r => r >= 0 && r < 2 },
+    { label: '2..4R', test: r => r >= 2 && r < 4 },
+    { label: '4..8R', test: r => r >= 4 && r < 8 },
+    { label: '8R+', test: r => r >= 8 },
+  ]
+  return bins.map(b => ({ label: b.label, n: totals.filter(b.test).length, neg: b.label.startsWith('−') }))
+}
+
 export default function Stats() {
   const [mode, setMode] = useState('sim')
   const [curveView, setCurveView] = useState('trade') // 'trade' | 'day'
   const trades = useTrades()
   const progress = useProgress()
   const stats = getDerivedStats(mode)
+  const simStats = getDerivedStats('sim')
+  const liveStats = getDerivedStats('live')
+  const week = useWeekStats('live')
 
   if (!trades.length) {
     return (
@@ -169,12 +284,38 @@ export default function Stats() {
               <StatTile label="Win rate" value={pct(stats.winRate)} sub={`${Math.round(stats.winRate * stats.n)}/${stats.n} winners`} accent="emerald" />
               <StatTile label="Avg win" value={`+${r2(stats.avgWinR)}R`} sub="per winning trade" accent="emerald" />
               <StatTile label="Avg loss" value={`${r2(stats.avgLossR)}R`} sub="per losing trade" accent="coral" />
-              <StatTile label="Expectancy" value={`${stats.expectancy >= 0 ? '+' : ''}${r2(stats.expectancy)}R`} sub="per trade" accent="gold" big />
+              <StatTile label="Expectancy" value={`${stats.expectancy >= 0 ? '+' : ''}${r2(stats.expectancy)}R`} sub={(() => {
+                const avgD = Math.round(stats.trades.reduce((a, t) => a + tradeDollars(t), 0) / stats.n)
+                return `${avgD >= 0 ? '+' : '−'}$${Math.abs(avgD)} per trade (actual stops)`
+              })()} accent="gold" big />
             </div>
             <p className="text-textt text-[12px] mt-3 font-body italic text-center">
               We never show win rate without average win vs loss. A 30% win rate with +3R wins beats a 60% win rate with -1R losses every day.
             </p>
           </section>
+
+          {/* Pro metrics */}
+          <section>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <StatTile
+                label="Profit factor"
+                value={stats.profitFactor === Infinity ? '∞' : r2(stats.profitFactor)}
+                sub={stats.profitFactor >= 1.3 ? '>1.3 = real edge' : 'target > 1.3'}
+                accent={stats.profitFactor >= 1.3 ? 'emerald' : 'gold'}
+              />
+              <StatTile label="Max drawdown" value={`−${r2(stats.maxDD)}R`} sub="deepest dip from an equity peak" accent="coral" />
+              <StatTile label="Streaks" value={`${stats.bestWinStreak}W / ${stats.worstLossStreak}L`} sub="best run / worst run" accent="violet" />
+              <StatTile
+                label="Last 20 trades"
+                value={`${stats.rolling20 >= 0 ? '+' : ''}${r2(stats.rolling20)}R`}
+                sub={stats.rolling20N >= 20 ? 'rolling expectancy — is the edge here NOW?' : `${stats.rolling20N}/20 logged`}
+                accent={stats.rolling20 >= 0 ? 'cyan' : 'coral'}
+              />
+            </div>
+          </section>
+
+          {mode === 'live' && <BackToSim liveStats={liveStats} week={week} />}
+          <SimVsLive sim={simStats} live={liveStats} />
 
           {/* Equity curve */}
           <section className="card p-5">
@@ -247,6 +388,32 @@ export default function Stats() {
             </div>
           </section>
 
+          {/* R-multiple histogram */}
+          <section className="card p-5">
+            <h3 className="font-display font-semibold text-textp text-lg mb-1 flex items-center gap-2">
+              <Icon name="stats" className="w-5 h-5 text-cyan2"/> R-multiple distribution
+            </h3>
+            <p className="text-texts text-[13px] mb-3">The healthy shape: a wall of small controlled losses on the left, a long tail of big wins on the right.</p>
+            <div className="w-full h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={buildHistogram(stats.totals)} margin={{ top: 10, right: 16, left: -20, bottom: 0 }}>
+                  <CartesianGrid stroke="#252C44" strokeDasharray="3 5" vertical={false} />
+                  <XAxis dataKey="label" stroke="#5E6884" tick={{ fontSize: 10, fontFamily: 'Space Mono' }} />
+                  <YAxis allowDecimals={false} stroke="#5E6884" tick={{ fontSize: 11, fontFamily: 'Space Mono' }} />
+                  <Tooltip
+                    contentStyle={{ background: '#121829', border: '1px solid #252C44', borderRadius: 8, fontFamily: 'Space Mono', color: '#E8ECF4' }}
+                    formatter={(v) => [`${v} trade${v === 1 ? '' : 's'}`, 'Count']}
+                  />
+                  <Bar dataKey="n" radius={[4, 4, 0, 0]}>
+                    {buildHistogram(stats.totals).map((b, i) => (
+                      <Cell key={i} fill={b.neg ? '#FF5C72' : '#1FE0A0'} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </section>
+
           {/* Rule adherence + by grade + by candle */}
           <section className="grid md:grid-cols-3 gap-3">
             <StatTile
@@ -264,6 +431,30 @@ export default function Stats() {
               label="By candle"
               items={Object.entries(stats.byCandle).sort((a, b) => b[1].n - a[1].n)}
             />
+          </section>
+
+          {/* Edge finder — where the money actually comes from */}
+          <section>
+            <h3 className="font-display font-semibold text-textp text-lg mb-3 flex items-center gap-2">
+              <Icon name="target" className="w-5 h-5 text-gold"/> Edge finder
+            </h3>
+            <div className="grid md:grid-cols-3 gap-3">
+              <Distribution
+                label="By state at entry"
+                items={Object.entries(stats.byEmotion).sort((a, b) => b[1].n - a[1].n)}
+              />
+              <Distribution
+                label="By time of day"
+                items={Object.entries(stats.byTimeBucket).sort((a, b) => b[1].n - a[1].n)}
+              />
+              <Distribution
+                label="By day of week"
+                items={Object.entries(stats.byDOW).sort((a, b) => b[1].n - a[1].n)}
+              />
+            </div>
+            <p className="text-textt text-[12px] mt-3 font-body italic text-center">
+              This is where leaks hide: if "FOMO" or "After 10:30" rows bleed red while "Calm · 9:30–9:45" prints green, the data has spoken.
+            </p>
           </section>
         </>
       ) : (

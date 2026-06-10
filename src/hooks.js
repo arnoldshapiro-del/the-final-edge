@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { subscribe, getSettings, getTrades, getProgress, getSession, getPremarket, getEOD } from './storage.js'
+import { subscribe, getSettings, getTrades, getProgress, getSession, getPremarket, getEOD, getCooldown, getPreflight, getWeekStats } from './storage.js'
 
 export function useStorageVersion() {
   const [v, setV] = useState(0)
@@ -31,6 +31,35 @@ export function usePremarket() {
 export function useEOD() {
   const v = useStorageVersion()
   return useMemoFresh(() => getEOD(), [v])
+}
+export function usePreflight() {
+  const v = useStorageVersion()
+  return useMemoFresh(() => getPreflight(), [v])
+}
+export function useWeekStats(mode = 'live') {
+  const v = useStorageVersion()
+  return useMemoFresh(() => getWeekStats(mode), [v, mode])
+}
+// Cooldown ticks once a second so countdowns render live.
+export function useCooldown() {
+  const v = useStorageVersion()
+  const [, setTick] = useState(0)
+  const cd = getCooldown()
+  useEffect(() => {
+    if (!cd) return
+    const t = setInterval(() => setTick(x => x + 1), 1000)
+    return () => clearInterval(t)
+  }, [cd?.until])
+  return getCooldown()
+}
+// Live clock — re-renders every `ms` (for session-phase displays).
+export function useClock(ms = 1000) {
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), ms)
+    return () => clearInterval(t)
+  }, [ms])
+  return now
 }
 
 import { useMemo } from 'react'
