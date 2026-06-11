@@ -98,6 +98,8 @@ export default function SetupChart({
   kind: kindProp = 'line',        // 'line' | 'candle'
   showKindToggle = false,         // small toggle in the header
   ema20, ema9,                    // overlay arrays (0..100)
+  vwap, ema200,                   // Gatekeeper overlays (0..100): session VWAP (violet) + 200 EMA (coral)
+  labelLines = false,             // print a small name at the right end of each overlay line
   triggerY, triggerLabel = 'Trigger',
   stopY, stopLabel = 'Stop',
   crowdStopY, crowdStopLabel = 'crowd stop (typical)',
@@ -234,8 +236,26 @@ export default function SetupChart({
     )
   }
 
+  const lineEndLabel = (arr, text, color, dy = -5) => {
+    if (!arr || !arr.length) return null
+    const y = yFromVal(arr[arr.length - 1])
+    return (
+      <text x={w - padR - 2} y={y + dy} textAnchor="end" fill={color} fontFamily="Space Mono" fontSize="10"
+            style={{ paintOrder: 'stroke', stroke: COLORS.bg, strokeWidth: 3 }}>{text}</text>
+    )
+  }
+
   const renderEMAs = () => (
     <g opacity={overlaysAt}>
+      {/* 200 EMA — the regime line of the execution chart (drawn first, sits "behind") */}
+      {ema200 && (
+        <path d={emaPath(ema200)} stroke={COLORS.coral} strokeWidth="2.1" fill="none" opacity="0.85" />
+      )}
+      {/* Session VWAP — the institutional benchmark */}
+      {vwap && (
+        <path d={emaPath(vwap)} stroke={COLORS.violet} strokeWidth="2.0" strokeDasharray="9 4 2 4" fill="none"
+              opacity="0.95" />
+      )}
       {ema20 && (
         <path d={emaPath(ema20)} stroke={COLORS.cyan} strokeWidth="1.9" strokeDasharray="6 5" fill="none"
               opacity="0.95" filter="url(#sc-glow-cyan)" />
@@ -244,6 +264,10 @@ export default function SetupChart({
         <path d={emaPath(ema9)} stroke={COLORS.gold} strokeWidth="1.6" strokeDasharray="3 4" fill="none"
               opacity="0.95" />
       )}
+      {ema200 && lineEndLabel(ema200, '200 EMA', COLORS.coral, 12)}
+      {vwap && lineEndLabel(vwap, 'VWAP', COLORS.violet)}
+      {labelLines && ema20 && lineEndLabel(ema20, '20 EMA', COLORS.cyan)}
+      {labelLines && ema9 && lineEndLabel(ema9, '9 EMA', COLORS.gold)}
     </g>
   )
 

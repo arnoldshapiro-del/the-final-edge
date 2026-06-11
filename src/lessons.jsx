@@ -1,4 +1,5 @@
 import SetupChart, { LadderChart } from './components/SetupChart.jsx'
+import { GateGreenLightChart, GateTrapChart, GateReclaimChart, GateDecisionFlow, GateCheatSheet } from './components/GatekeeperCharts.jsx'
 
 // Each lesson: { id, n, title, oneLine, render() -> JSX, lockIt }
 // Body uses .prose-edge CSS for typography (Inter).
@@ -50,16 +51,107 @@ export const LESSONS = [
         </div>
 
         <p><strong>For shorts (bear flag): mirror.</strong> 15-minute downtrend is permission; the 5-minute will print a HIGHER LOW during the bounce (that higher low IS the bounce, not a reversal); reject only if the 5-minute breaks ABOVE its prior swing high; the 2-minute close BELOW the trendline is the trigger.</p>
+
+        <p><strong>One more thing — and it's the next lesson.</strong> Everything above is STRUCTURE: where price <em>has been</em>. Structure grants <em>directional permission only</em>. Before any trigger means anything, LOCATION — where price sits relative to VWAP and the EMAs on the 2-minute — must agree too. That filter is <strong>the Gatekeeper</strong>, and it decides "now, or not now." Lesson 3 installs it.</p>
+      </div>
+    ),
+  },
+
+  {
+    id: 'l-gate',
+    n: 3,
+    title: 'The Gatekeeper — VWAP + EMA Location Filter',
+    oneLine: 'Structure says where price HAS BEEN. VWAP + the EMAs say who is in control NOW. Both must agree.',
+    lockIt: 'TREND → LOCATION → PATTERN → TRIGGER. LONG GATE (all required, on the 2-min): price above VWAP, above the 9 EMA, above the 20 EMA with the 20 rising, above the 200 EMA. SHORT GATE: exact mirror. Any single miss = gate closed. Conflict (15/5 up, 2-min below VWAP/200) = FLAT — no long AND no short. Flat is a position. No wall (VWAP or 200) between entry and T1 — the Runway Rule. Red turns green only through the Reclaim Sequence: decisive close above both, hold from above, first flag. Risk is untouched: the Gatekeeper changes WHICH trades qualify — never how trades are managed.',
+    render: () => (
+      <div className="prose-edge space-y-4">
+        <p><strong>What the losing day taught us.</strong> Live fire exposed the one hole in the system. The 15-minute and the 5-minute were printing higher highs and higher lows — structure said "uptrend, longs allowed." And the longs kept losing. Why? Because on the 2-minute execution chart, price was trading <em>below the entire EMA stack and below VWAP</em>. Structure checks where price <em>has been</em>. It has no opinion about who is in control <em>right now</em>. The 15 and 5 can be telling yesterday's truth while the 2-minute shows you today's: sellers own the tape, and every "buy the pullback" is a swim against the current.</p>
+
+        <p><strong>The lesson, in one line:</strong> the 15-min and 5-min can print higher highs and higher lows while the 2-min trades below everything — that is a deep pullback or an early reversal, <em>not a buy zone</em>. Structure = where price has been. VWAP + the EMAs = who is in control now. <strong>Both must agree before any trade.</strong> From today, a new layer sits between trend and trigger, and nothing gets through without its permission: <em>the Gatekeeper</em>.</p>
+
+        <p><strong>The four lines — all on the 2-minute chart, all calculated on 2-minute data:</strong></p>
+        <ul>
+          <li><strong>Session VWAP</strong> — the institutional benchmark. Large players measure their fills against it, defend it, and trade around it. Above VWAP, buyers own the session; below it, sellers do. It resets every day.</li>
+          <li><strong>9 EMA</strong> — immediate momentum.</li>
+          <li><strong>20 EMA</strong> — the pullback line. Healthy flags ride it.</li>
+          <li><strong>200 EMA</strong> — the regime line of the execution chart.</li>
+        </ul>
+        <p>Chart setup, so there is no ambiguity: your 2-minute M2K chart displays session VWAP, the 9 EMA, the 20 EMA, and the 200 EMA — all four, all calculated on 2-minute data. If they're not on the chart, you are trading blind to location.</p>
+
+        <p><strong>The upgraded sequence: TREND → LOCATION → PATTERN → TRIGGER.</strong></p>
+        <ul>
+          <li><strong>TREND</strong> = 15/5 structure (Lesson 2, unchanged) — grants <em>directional permission only</em>.</li>
+          <li><strong>LOCATION</strong> = the Gatekeeper (new) — decides <em>"now, or not now."</em></li>
+          <li><strong>PATTERN</strong> = bull flags and bear flags ONLY (unchanged).</li>
+          <li><strong>TRIGGER</strong> = a 2-min candle CLOSE through the flag trendline (unchanged).</li>
+        </ul>
+        <p>All four layers must agree. Neither the 15/5 nor the 2-min overrides the other — they are answering different questions.</p>
+
+        <GateDecisionFlow />
+
+        <p><strong>THE LONG GATE — ALL required, on the 2-minute:</strong> price above VWAP; above the 9 EMA; above the 20 EMA <em>with the 20 rising</em>; above the 200 EMA. <strong>A+ grade when fully stacked:</strong> 9 above 20 above 200, with VWAP below price. Any single miss = gate closed = <em>no long</em>. Not "smaller size." Not "probably fine." Closed.</p>
+
+        <p><strong>THE SHORT GATE — the exact mirror:</strong> 15/5 printing lower highs and lower lows; price below VWAP, below the 9, below the 20 with the 20 <em>falling</em>, below the 200. A+ when stacked 9 below 20 below 200.</p>
+
+        <GateGreenLightChart />
+
+        <p><strong>CONFLICT = FLAT.</strong> Here is the subtle one. Bullish 15/5 with the 2-min below VWAP and the 200 means <em>no long</em> — the gate is closed. But it also means <em>NO SHORT</em>. Shorting there is shorting a pullback inside an uptrend — the mirror image of the original mistake. Three positions exist: long, short, and flat. <strong>Flat is a position.</strong> Some of your best trades from now on will be the ones you don't take.</p>
+
+        <GateTrapChart />
+
+        <p><strong>Trap flags.</strong> A "bull flag" forming below the stack is the same shape with opposite context — viewed from the other side, it is often the bear flag. Same picture, opposite odds. <strong>The flag quality rule:</strong> the pullback may <em>touch</em> the 9 or the 20 — that is healthy — but 2-min candles must not <strong>CLOSE</strong> below the 20 EMA during a bull flag, and never CLOSE below VWAP. Exact mirror for bear flags: touches of the 9/20 from below are fine; closes above the 20 or above VWAP kill it.</p>
+
+        <p><strong>The Runway Rule.</strong> Before entry, look at what stands between your entry price and your first scale-out target: no wall — VWAP or the 200 EMA — may sit in that path. Price slows, stalls, and reverses at those lines; that is where the other side defends. Wall in the way = skip the trade, even if every other box is checked.</p>
+
+        <p><strong>Chop tells — any ONE of these means sit on your hands:</strong></p>
+        <ul>
+          <li>The 9 and 20 flat and braided together.</li>
+          <li>A flat VWAP.</li>
+          <li>Price crossing VWAP repeatedly over the last ~30 minutes.</li>
+          <li><strong>The squeeze:</strong> price sandwiched between the 9/20 on one side and VWAP/200 on the other — walls everywhere, no room to run.</li>
+          <li>Failed breakouts in both directions with small overlapping candles.</li>
+        </ul>
+
+        <p><strong>The Reclaim Sequence — how red turns green.</strong> When the 2-min is below VWAP and the 200, you are not banned from longs forever — you are waiting for a specific, watchable event. 1) A <em>decisive</em> 2-min close above BOTH VWAP and the 200. 2) <strong>HOLD</strong> — price pulls back and finds support on them <em>from above</em>. 3) The FIRST flag after a held reclaim is valid — and often the best trade of the move. Exact mirror for shorts. This turns waiting into hunting: you know precisely what you are waiting for, and you'll see it forming minutes before it completes.</p>
+
+        <GateReclaimChart />
+
+        <p><strong>What we never trade:</strong></p>
+        <ul>
+          <li>No mean-reversion longs below the 200 "because it's a magnet." We considered it. We rejected it. It's counter-trend with extra steps.</li>
+          <li>No shorting pullbacks inside uptrends.</li>
+          <li>No anticipating a reclaim before it prints. The close completes the reclaim, not your conviction.</li>
+        </ul>
+
+        <p><strong>Early-session note.</strong> Early in the day, the 2-min 200 EMA mostly reflects the <em>prior session</em> — which is exactly why VWAP (it resets daily) is ALSO mandatory; together the two cover both regimes. And in the first ~20–30 minutes after the open, VWAP itself is still forming on very few data points — treat the open as a no-rush zone. None of this creates exceptions to the all-four rule; it only adds patience.</p>
+
+        <div className="my-4 rounded-lg border border-gold/40 bg-gold/5 p-4">
+          <p className="font-display tracking-wide text-gold text-[14px] mb-2">RISK IS UNTOUCHED</p>
+          <p className="text-[14.5px] leading-[1.7]">The Gatekeeper changes WHICH trades qualify — never how trades are managed. Everything stays exactly as this app already states it: <strong>6 contracts, the structure stop you type (on the M2K that typed distance IS your 1R), the 2/2/2 scale-outs, and your daily limit — 3 losses or 3 full stops, whichever comes first.</strong> Same stop rules, same structure trail, same targets. The only thing that changes is how many bad trades never get taken.</p>
+        </div>
+
+        <p><strong>Drill it.</strong> Six Gatekeeper scenarios (D1–D6) are loaded in the <em>Trainer</em> — the same six below, in one breath each:</p>
+        <ul>
+          <li><strong>D1:</strong> 15 and 5 both HH/HL; 2-min below VWAP, 9, 20, and 200. → <strong>FLAT.</strong> No long (gate closed); no short (you'd short a pullback inside an uptrend).</li>
+          <li><strong>D2:</strong> 2-min reclaims the 9 and 20 but still sits below VWAP and the 200. → <strong>FLAT.</strong> Reclaim incomplete.</li>
+          <li><strong>D3:</strong> 2-min above the 9 and 20 but below VWAP and the 200 — the squeeze. → <strong>FLAT.</strong> Walls overhead, no runway.</li>
+          <li><strong>D4:</strong> Decisive close above VWAP and the 200, held on a retest from above, then the first bull flag forms riding the 20. → <strong>GO LONG</strong> on a 2-min close through the flag trendline.</li>
+          <li><strong>D5:</strong> 15 and 5 both LH/LL; 2-min below all four lines with the 20 falling; bear flag that never closes back above the 20; runway clear below. → <strong>GO SHORT</strong> on the trigger.</li>
+          <li><strong>D6:</strong> The 9/20 braided flat and price has crossed VWAP four times in 30 minutes. → <strong>FLAT.</strong> Chop. No setups exist here in either direction.</li>
+        </ul>
+
+        <p><strong>The cheat sheet</strong> — small enough for one phone screen. Screenshot it:</p>
+        <GateCheatSheet />
       </div>
     ),
   },
 
   {
     id: 'l3',
-    n: 3,
+    n: 4,
     title: 'The Entry — The Only Trigger Is the 2-Min Trendline Close',
     oneLine: 'The shape of the pullback is not the entry. The 2-min close through the trendline is.',
-    lockIt: 'Wait for a 2-minute candle to CLOSE above the descending trendline (long) or below the ascending trendline (short). That close is your one and only trigger. Enter all 6 contracts at the open of the next candle.',
+    lockIt: 'With trend permission granted AND the Gatekeeper open (above VWAP and the 9/20/200 stack for longs; mirror for shorts), wait for a 2-minute candle to CLOSE above the descending trendline (long) or below the ascending trendline (short). That close is your one and only trigger. Enter all 6 contracts at the open of the next candle.',
     render: () => (
       <div className="prose-edge space-y-4">
         <p>This is the flagship setup — the <strong>BULL FLAG</strong>, the one setup we trade with the trend. Long version below; the BEAR FLAG (shorts) is the exact mirror — see the Visual Library (G2).</p>
@@ -77,7 +169,8 @@ export const LESSONS = [
         <p><strong>The invalidation.</strong> The setup is alive as long as price holds above the prior swing low. The moment the pullback breaks that prior low, the setup is dead — no trade.</p>
 
         <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
-          <li><strong>15-min HH/HL confirmed.</strong> The gate is open.</li>
+          <li><strong>15-min HH/HL confirmed.</strong> Trend permission granted.</li>
+          <li><strong>The Gatekeeper is open (Lesson 3).</strong> On the 2-min: price above VWAP, above the 9, above the 20 with the 20 rising, above the 200 — and no VWAP/200 wall between entry and T1. Any miss = no trade, no matter how clean the flag.</li>
           <li><strong>Wait for the 2-min candle that CLOSES above the descending trendline.</strong> No retest. No second close. The trendline close is the contract.</li>
           <li><strong>ENTER all 6 contracts at the open of the next candle.</strong> Take your hands off the mouse.</li>
         </ol>
@@ -101,14 +194,14 @@ export const LESSONS = [
           contextColor="emerald"
         />
 
-        <p>From now on: <em>see the pullback build → know a trendline close is becoming likely → wait for the close above the trendline → buy.</em> Anything less is not the setup.</p>
+        <p>From now on: <em>trend agrees → the Gatekeeper is open → see the pullback build → wait for the close above the trendline → buy.</em> Anything less is not the setup.</p>
       </div>
     ),
   },
 
   {
     id: 'l4',
-    n: 4,
+    n: 5,
     title: 'The 20 EMA & 9 EMA',
     oneLine: '20 = health filter. 9 = runner trail.',
     lockIt: 'A healthy pullback holds near/above the 20 EMA. The 9 EMA only trails the runner — it is NOT a separate strategy.',
@@ -117,6 +210,7 @@ export const LESSONS = [
         <p><strong>The 20 EMA — your health filter.</strong> A healthy pullback in an uptrend holds near or just above the 20 EMA. A pullback that knifes well <em>below</em> the 20 EMA and stays there isn't a pullback — it's a change of character. Stand aside.</p>
         <p>You do <em>not</em> need two bounces off the EMA. Every normal pullback gives you the dip-bounce-dip. The EMA's only job is to tell you whether the pullback is healthy.</p>
         <p><strong>The 9 EMA — your runner's trail.</strong> The 9 EMA is momentum context, and the line behind which your runner trails. It is <em>not</em> a separate strategy. You don't fade it, ride it, or wait for "9 EMA crosses." The decision line is the 20.</p>
+        <p><strong>And on the 2-minute, both lines wear a second hat.</strong> The 9 and the 20 are two of the Gatekeeper's four lines (Lesson 3): for a long, price must sit above both — with the 20 rising — alongside VWAP and the 200 EMA. Health filter here, location filter there. Same lines, two jobs.</p>
 
         <SetupChart
           values={[18, 30, 44, 38, 50, 44, 58, 70]}
@@ -146,7 +240,7 @@ export const LESSONS = [
 
   {
     id: 'l5',
-    n: 5,
+    n: 6,
     title: 'Candles Are the Grade, Not the Signal',
     oneLine: 'Candle = GO/NO-GO and conviction. Same size every trade.',
     lockIt: 'A+ (bullish engulfing / dragonfly) → take confidently. Strong (morning star) → take if seen. Weak/none → smaller or skip.',
@@ -166,7 +260,7 @@ export const LESSONS = [
 
   {
     id: 'l6',
-    n: 6,
+    n: 7,
     title: 'The Stop — Two Steps: Tentative at the Trendline, Final at the Structure',
     oneLine: 'TENTATIVE: 4-6 ticks beyond the broken trendline. FINAL: just past the STRUCTURE.',
     lockIt: 'STEP 1 (tentative): 4 to 6 ticks beyond the broken trendline — the price level of the trendline itself at the break, NOT below the breakout candle\'s close. STEP 2 (final): move the stop to just past the STRUCTURE — the swing low at the bottom of the bull-flag pullback (longs), or the swing high at the top of the bear-flag bounce (shorts). The structure is the anchor.',
@@ -204,7 +298,7 @@ export const LESSONS = [
 
   {
     id: 'l7',
-    n: 7,
+    n: 8,
     title: 'The Exits — 2/2/2 + The Structure Trail',
     oneLine: 'T1 = 1R. T2 = 2R. Runner trails the 9 EMA. T1 fills → stop trails the newest 2-min swing.',
     lockIt: 'Trade 6 contracts. 2 at T1 (1R). 2 at T2 (2R). 2 as the runner. ON ENTRY: the stop goes 4–6 ticks beyond the setup structure — that typed distance is your 1R. T1 FILLS: move the stop to 4–6 ticks beyond the most recent 2-min swing — only if that tightens it. Then ratchet behind every new swing. The stop only ever tightens. Never loosen a stop.',
@@ -247,7 +341,7 @@ export const LESSONS = [
 
   {
     id: 'l-odds',
-    n: 8,
+    n: 9,
     title: 'Know The Odds',
     oneLine: 'Reliability isn’t profitability. The edge is the FILTERS — the math does the rest.',
     lockIt: 'A loose flag is a coin flip; the tight flag after a steep pole wins ~85%. Your confirmed trendline-close entries with-trend run ~70%. With 2/2/2 and the structure trail after T1, a 50–70% rate is a strong positive-expectancy game. Reliability isn’t profitability.',
@@ -263,11 +357,12 @@ export const LESSONS = [
         <ul>
           <li>Steep, clean flagpole into a tight pullback (long) or bounce (short)</li>
           <li>15-min trend agrees: long only in an uptrend, short only in a downtrend</li>
+          <li>LOCATION agrees — the Gatekeeper (Lesson 3): above VWAP and the 9/20/200 stack for longs, below for shorts. The same flag shape on the wrong side of the stack is a trap flag — not a lower-odds trade, a NO-trade.</li>
           <li>We wait for the 2-min candle to CLOSE through the trendline — never the touch, never the wick</li>
         </ul>
-        <p>On a 2-min chart, noise manufactures false breaks all day. Waiting for the close plus trend alignment is what turns the coin flip back into an edge.</p>
+        <p>On a 2-min chart, noise manufactures false breaks all day. Waiting for the close plus trend alignment plus correct location is what turns the coin flip back into an edge.</p>
 
-        <p><strong>YOUR NUMBER:</strong> on your own confirmed trendline-close entries, traded with the trend, your backtested reliability is about 70%. That number exists because you wait for the close and you trade with the 15-min. Break either rule and you are back to the coin flip.</p>
+        <p><strong>YOUR NUMBER:</strong> on your own confirmed trendline-close entries, traded with the trend, your backtested reliability is about 70%. That number exists because you wait for the close and you trade with the 15-min — and it assumes the setup is correctly located (the live losses that prompted the Gatekeeper were structurally "valid" longs taken below the stack). Break any of those rules and you are back to the coin flip.</p>
 
         <p><strong>BEAR FLAGS:</strong> the mirror of the bull flag, but historically a touch weaker and more erratic, and downward breakouts fail more often when the broad market is rising. The 15-min downtrend filter is not optional on the short side — it is the whole edge.</p>
 
@@ -278,10 +373,10 @@ export const LESSONS = [
 
   {
     id: 'l-orb',
-    n: 9,
+    n: 10,
     title: 'Method 3 — The Opening Range Break & Retest',
     oneLine: 'The same flag, at the most important level of the morning. Break, retest, 2-min close — or nothing.',
-    lockIt: 'Mark the high and low of 9:30–10:00 ET and watch only. Gates: 15-min trend agrees · correct side of VWAP · normal-sized range · no imminent news. Wait for a 2-min candle to CLOSE beyond the range edge, never chase it, and enter only on a 2-min close back in the breakout direction off the retest. Stop 4–6 ticks beyond the retest swing, then trail the structure. Two failed attempts = done with the open.',
+    lockIt: 'Mark the high and low of 9:30–10:00 ET and watch only. Gates: 15-min trend agrees · the Gatekeeper open in that direction (correct side of VWAP AND the 9/20/200 stack) · normal-sized range · no imminent news. Wait for a 2-min candle to CLOSE beyond the range edge, never chase it, and enter only on a 2-min close back in the breakout direction off the retest. Stop 4–6 ticks beyond the retest swing, then trail the structure. Two failed attempts = done with the open.',
     render: () => (
       <div className="prose-edge space-y-4">
         <p><strong>This is not a new strategy.</strong> It is the same flag setup you already trade, applied to the most important level of the morning. The opening-range high and low are simply a high-value line for the flag to break and retest. Same trigger, same stop, same exits — only the level is new.</p>
@@ -289,7 +384,7 @@ export const LESSONS = [
         <p><strong>Step by step:</strong></p>
         <ol className="list-decimal pl-5 space-y-2 marker:text-violet2">
           <li><strong>9:30–10:00 AM ET: watch only.</strong> Mark the highest high and the lowest low of the first 30 minutes. Extend both lines to the right. The opening range is a MAP — not a trigger.</li>
-          <li><strong>The gates — ALL must pass, or stand down:</strong> the 15-minute trend agrees with your trade direction; price is on the correct side of VWAP; the range is normal-sized (a tiny range = chop day = skip; a giant range = size down or skip); no scheduled news imminent.</li>
+          <li><strong>The gates — ALL must pass, or stand down:</strong> the 15-minute trend agrees with your trade direction; the Gatekeeper is open in that direction (Lesson 3 — price on the correct side of VWAP <em>and</em> the 9/20/200 stack on the 2-min); the range is normal-sized (a tiny range = chop day = skip; a giant range = size down or skip); no scheduled news imminent.</li>
           <li><strong>The break.</strong> Wait for a 2-minute candle to <strong>CLOSE fully beyond the range edge</strong> — a wick through does not count. Above-average volume on the break is a plus.</li>
           <li><strong>DO NOT CHASE THE BREAKOUT.</strong> Let it go without you. The breakout is the heads-up, never the entry.</li>
           <li><strong>The retest.</strong> Wait for price to pull back to the broken level — the old range high should now act as support (the old low as resistance for shorts). This is the flag forming at the level. It may dip a few ticks past the level; that is normal.</li>
@@ -313,7 +408,7 @@ export const LESSONS = [
 
   {
     id: 'l8',
-    n: 10,
+    n: 11,
     title: 'Sizing, Pushes & Discipline',
     oneLine: 'Fixed 6. Don\'t count pushes. Get pickier as the trend ages.',
     lockIt: 'Fixed 6 contracts. No variable sizing (yet). No adding to winners (yet). Trade while the 15-min makes HH/HL. Get pickier as pushes age. Prime window 9:45–11:00 AM ET (secondary 3:00–4:00 PM). Skip the lunch chop. Never trade overnight.',
@@ -339,7 +434,7 @@ export const LESSONS = [
 
   {
     id: 'l9',
-    n: 11,
+    n: 12,
     title: 'What We Do NOT Trade',
     oneLine: 'No reversals. No ranges. No standalone candles.',
     lockIt: 'No counter-trend reversal attempts. No head & shoulders, triple tops, wedges, V-reversals. No symmetrical triangles, ranges, broadening. No standalone candle trades.',
@@ -350,6 +445,8 @@ export const LESSONS = [
           <li><strong>No counter-trend reversal attempts.</strong> No head &amp; shoulders, triple tops, wedges, V-reversals. No trying to buy a downtrend or short an uptrend on any pullback shape. These are the trades that bled the last five years. They look brilliant on losers' charts and on traders' regret tweets.</li>
           <li><strong>No bilateral / neutral patterns.</strong> No symmetrical triangles, ranges, broadening formations. Bilateral patterns have a 50/50 outcome. We don't trade coin flips.</li>
           <li><strong>No standalone candle trades.</strong> A great candle in the wrong context is a worse trade than a mediocre candle in the right context.</li>
+          <li><strong>No mean-reversion longs below the 200 "because it's a magnet."</strong> Considered and deliberately rejected — it's counter-trend with a story attached.</li>
+          <li><strong>No flags on the wrong side of the stack.</strong> A bull flag below VWAP and the 9/20/200, or a bear flag above them, is a trap flag (Lesson 3). Same shape, opposite odds. And no anticipating a reclaim before it prints.</li>
         </ul>
         <p>When the 15-min is sideways and going nowhere, <em>sitting out is the trade</em>. You will lose months of P&amp;L in a sideways tape if you force trades. The market gives a trend most days, sometimes after lunch, sometimes for ten minutes. Be there for those windows. Skip the rest.</p>
       </div>
@@ -358,7 +455,7 @@ export const LESSONS = [
 
   {
     id: 'l10',
-    n: 12,
+    n: 13,
     title: 'Going Live — The Right Way',
     oneLine: 'Sim → green by rule → 1 micro → scale slowly.',
     lockIt: 'Go live only when net green in sim AND every trade followed the checklist. Start at 1 micro. Scale only after disciplined real-money green stretches.',
@@ -368,7 +465,7 @@ export const LESSONS = [
         <p><strong>Go live only when:</strong></p>
         <ul>
           <li>Net green in sim on this exact system, over a meaningful sample.</li>
-          <li>Every trade followed the 6-step checklist (high rule-adherence %).</li>
+          <li>Every trade followed the 7-step checklist (high rule-adherence %).</li>
         </ul>
         <p><strong>Then:</strong> start at the smallest real size — 1 micro. Scale only after a stretch of disciplined, green real-money sessions. Not after one good day. A stretch.</p>
         <p><strong>How to grade yourself.</strong> Grade on whether you followed the 7 steps — not on whether the trade won. A rule-following loss is a <em>good</em> trade. A rule-breaking win is a <em>dangerous</em> trade. The dangerous one teaches the wrong lesson and bleeds you next week.</p>

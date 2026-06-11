@@ -13,7 +13,7 @@ export default function Learn() {
       <header>
         <div className="pill pill-gold inline-flex mb-3"><Icon name="book" className="w-3.5 h-3.5" /> The playbook</div>
         <h1 className="font-display font-semibold text-3xl md:text-4xl text-textp tracking-tight">Learn the one edge</h1>
-        <p className="text-texts text-[15px] md:text-base mt-2 max-w-2xl">Twelve lessons. One setup, decomposed. Study each, lock it in, then move on. The Trainer drills what you read here.</p>
+        <p className="text-texts text-[15px] md:text-base mt-2 max-w-2xl">Thirteen lessons. One setup, decomposed. Study each, lock it in, then move on. The Trainer drills what you read here.</p>
       </header>
 
       <div className="card p-4 md:p-5">

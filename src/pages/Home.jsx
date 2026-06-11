@@ -3,6 +3,7 @@ import { useSettings, useProgress, useTrades } from '../hooks.js'
 import { setSettings, getDerivedStats } from '../storage.js'
 import { Icon } from '../components/Icon.jsx'
 import { PreMarket, EndOfDay } from '../components/Routines.jsx'
+import { LESSONS } from '../lessons.jsx'
 import { useState, useEffect } from 'react'
 
 function StatTile({ label, value, sub, accent = 'emerald', to, big = false }) {
@@ -111,7 +112,7 @@ export default function Home() {
           <Link to="/stats" className="text-texts hover:text-textp font-display text-[13px] flex items-center gap-1">See stats <Icon name="arrow" className="w-3.5 h-3.5"/></Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
-          <StatTile label="Lessons mastered" value={`${lessonsDone}/10`} sub={lessonsDone === 10 ? 'All locked in' : 'Keep going'} accent="gold" to="/learn" />
+          <StatTile label="Lessons mastered" value={`${lessonsDone}/${LESSONS.length}`} sub={lessonsDone === LESSONS.length ? 'All locked in' : 'Keep going'} accent="gold" to="/learn" />
           <StatTile label="Trainer accuracy" value={trainerAcc != null ? `${trainerAcc}%` : '—'} sub={trainerAcc != null ? `${progress.trainerCorrect}/${progress.trainerAttempts}` : 'Run your first set'} accent="cyan" to="/trainer" />
           <StatTile label="Sim green streak" value={progress.simGreenStreak || 0} sub="Consecutive green days" accent="emerald" to="/stats" />
           <StatTile
@@ -165,12 +166,12 @@ export default function Home() {
         <Link to="/learn" className="card card-hover p-5 group">
           <Icon name="book" className="w-6 h-6 text-gold mb-3"/>
           <h3 className="font-display font-semibold text-textp text-lg">Open the playbook</h3>
-          <p className="text-texts text-[14px] mt-1">10 lessons + visual library. Study like a master.</p>
+          <p className="text-texts text-[14px] mt-1">13 lessons + visual library. Study like a master.</p>
         </Link>
         <Link to="/trainer" className="card card-hover p-5 group">
           <Icon name="target" className="w-6 h-6 text-cyan2 mb-3"/>
           <h3 className="font-display font-semibold text-textp text-lg">Drill the setup</h3>
-          <p className="text-texts text-[14px] mt-1">18 scenarios. Instant · play · step.</p>
+          <p className="text-texts text-[14px] mt-1">24 scenarios incl. the Gatekeeper drills. Instant · play · step.</p>
         </Link>
         <Link to="/trade" className="card card-hover p-5 group">
           <Icon name="chart" className="w-6 h-6 text-emerald2 mb-3"/>

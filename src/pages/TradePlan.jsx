@@ -56,9 +56,18 @@ export default function TradePlan() {
         <Block title="2 says WHEN" color="gold" icon="chart">
           The 2-min gives the trigger: a close above the descending trendline (long) or below the ascending trendline (short). The close through the trendline is the only thing that puts you in — nothing before it counts.
         </Block>
-        <Block title="The 3-step entry — trendline close ONLY" color="emerald" icon="target" span>
+        <Block title="LOCATION — THE GATEKEEPER (between trend and trigger)" color="violet" icon="shield" span>
+          <p className="mb-2"><strong className="text-emerald2">LONG GATE — ALL required on the 2-min:</strong> price above VWAP · above the 9 EMA · above the 20 EMA with the 20 rising · above the 200 EMA. A+ = fully stacked (9 &gt; 20 &gt; 200, VWAP below price). Any single miss = gate closed = no long.</p>
+          <p className="mb-2"><strong className="text-coral">SHORT GATE — exact mirror:</strong> 15/5 LH/LL · below VWAP, the 9, the 20 (falling) and the 200. A+ = stacked 9 &lt; 20 &lt; 200.</p>
+          <p className="mb-2"><strong className="text-gold">CONFLICT = FLAT:</strong> 15/5 up but 2-min below VWAP/200 → no long AND no short (that short is a pullback inside an uptrend). Flat is a position.</p>
+          <p className="mb-2"><strong>RUNWAY RULE:</strong> no wall (VWAP or the 200) between entry and T1 — wall in the way = skip. <strong>CHOP TELLS (any one = sit out):</strong> 9/20 braided flat · flat VWAP · repeated VWAP crosses (~30 min) · the squeeze · failed breaks both ways.</p>
+          <p className="m-0"><strong className="text-cyan2">RECLAIM SEQUENCE (red → green):</strong> decisive 2-min close above BOTH VWAP + 200 → HOLD from above on the retest → FIRST flag after the hold is valid, often the best trade of the move. Never anticipate it. <span className="text-textt">Chart setup: 2-min shows session VWAP + 9/20/200 EMA, all on 2-min data. Risk unchanged — the Gatekeeper changes WHICH trades qualify, never how they're managed.</span></p>
+        </Block>
+
+        <Block title="The 4-step entry — trendline close ONLY" color="emerald" icon="target" span>
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min HH/HL confirmed. (Mandatory permission to be long.)</li>
+            <li>The Gatekeeper is OPEN: 2-min above VWAP + 9 + 20 (rising) + 200, runway clear to T1.</li>
             <li>Wait for a 2-min candle to <strong>CLOSE above the descending 2-min trendline</strong> — the diagonal connecting the lower highs of the pullback. That close is your ONE and ONLY trigger.</li>
             <li>Enter all 6 contracts at the open of the next candle. <span className="text-emerald2">Buy.</span></li>
           </ol>
@@ -102,11 +111,12 @@ export default function TradePlan() {
           <p className="text-textt text-[12px]"><strong>Bear-flag specific:</strong> TIME STOP IS TIGHTER — 2 candles (4 minutes), not 3. Bear flags work fast or they fail. Same logic as longs: wait for the trendline close.</p>
         </Block>
 
-        <Block title="The 6-step gate" color="cyan" icon="check" span>
+        <Block title="The 7-step gate" color="cyan" icon="check" span>
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min trending my way (HH/HL · LH/LL)? <span className="text-coral">[Hard gate — if no, sit out.]</span></li>
             <li>With-trend pullback / bounce (flag), not a counter-trend reversal attempt?</li>
             <li>5-min pullback (long) / bounce (short) healthy — holds the prior swing low (long) / prior swing high (short), rides the 20 EMA?</li>
+            <li>LOCATION — the Gatekeeper OPEN on the 2-min? Long: above VWAP + 9 + 20 (rising) + 200; short: mirror; runway clear. <span className="text-gold">[Hard gate — conflict = FLAT, no long AND no short.]</span></li>
             <li>Confirming candle at the trendline close? (A+ / Strong / weak → smaller or skip)</li>
             <li>FIRST 2-min candle has CLOSED above the descending trendline (long) / below the ascending trendline (short)? <em>The trendline close is the ONLY trigger.</em></li>
             <li>Stop placed at the STRUCTURE (swing low at the bottom of the pullback for longs; swing high at the top of the bounce for shorts) — tentative 4-6 ticks past broken trendline, then final at the structure?</li>
@@ -121,6 +131,8 @@ export default function TradePlan() {
             <li>Any pullback or bounce shape as an entry on its own — only the trendline close gets you in.</li>
             <li>Wicks. Wait for the trendline CLOSE.</li>
             <li>Chasing when there's no pullback.</li>
+            <li>Trap flags — any flag on the wrong side of the stack (bull flag below VWAP/9/20/200, bear flag above).</li>
+            <li>Mean-reversion longs below the 200 "because it's a magnet" — rejected on purpose. And never anticipate a reclaim.</li>
           </ul>
         </Block>
       </div>

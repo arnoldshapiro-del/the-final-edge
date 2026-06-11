@@ -21,6 +21,10 @@ const STATES = [
 const IF_THEN = [
   { ifPart: 'the 2-min candle only WICKS through the trendline', thenPart: 'I do NOTHING. Only a CLOSE counts.' },
   { ifPart: 'the 15-min is sideways or unclear', thenPart: 'I sit out. Sitting out IS the trade.' },
+  { ifPart: 'the 15/5 look bullish but the 2-min is below VWAP or the 200', thenPart: 'FLAT. No long (gate closed), no short (that\'s a pullback inside an uptrend). Flat is a position.' },
+  { ifPart: 'price is below VWAP/200 and I want back in', thenPart: 'I wait for the Reclaim Sequence: decisive close above BOTH → hold from above → FIRST flag. Never anticipate it.' },
+  { ifPart: 'the 9/20 are braided flat or price keeps crossing VWAP', thenPart: 'chop. Hands off — no setups exist there in either direction.' },
+  { ifPart: 'a VWAP or 200 wall sits between entry and T1', thenPart: 'I skip the trade. No runway, no trade.' },
   { ifPart: 'T1 fills', thenPart: 'stop tucks 4–6 ticks behind the newest 2-min swing — instantly, and only if tighter. Never at entry.' },
   { ifPart: 'I take my 2nd loss', thenPart: 'one more A+ only — or I stop early. Stopping is winning.' },
   { ifPart: 'I take my 3rd loss OR hit my daily max', thenPart: 'I am DONE. Close NinjaTrader. No debate.' },
@@ -99,6 +103,7 @@ export default function Live() {
     { id: 'g1', label: 'Pre-market routine saved (trend + key levels)', auto: premarketDone },
     { id: 'g2', label: 'Mission read — out loud if you can' },
     { id: 'g3', label: 'Warm-up — 3 flashcards', quiz: true },
+    { id: 'g6', label: 'Gatekeeper lines on the 2-min chart: session VWAP + 9 / 20 / 200 EMA, all calculated on 2-min data' },
     { id: 'g4', label: 'Daily loss limit set inside NinjaTrader (your daily max)' },
     { id: 'g5', label: `Risk acknowledged: ${settings.maxLossPerSession} losses = done for the day · window closes 10:30` },
   ]
@@ -307,12 +312,16 @@ export default function Live() {
         <div className="grid md:grid-cols-2 gap-3">
           <div className="rounded-card border border-emerald2/30 bg-emerald2/5 p-4">
             <div className="font-display text-[11px] uppercase tracking-[0.16em] text-emerald2 mb-1">LONG — bull flag</div>
-            <p className="text-textp text-[13.5px] leading-relaxed">15-min HH/HL → pullback holds prior swing low → FIRST 2-min candle <strong>CLOSES above the descending trendline</strong> → enter next candle open.</p>
+            <p className="text-textp text-[13.5px] leading-relaxed">15-min HH/HL → <strong>Gatekeeper OPEN</strong> (2-min above VWAP + 9 + 20 rising + 200, runway clear) → pullback holds prior swing low → FIRST 2-min candle <strong>CLOSES above the descending trendline</strong> → enter next candle open.</p>
           </div>
           <div className="rounded-card border border-coral/30 bg-coral/5 p-4">
             <div className="font-display text-[11px] uppercase tracking-[0.16em] text-coral mb-1">SHORT — bear flag</div>
-            <p className="text-textp text-[13.5px] leading-relaxed">15-min LH/LL → bounce holds below prior swing high → FIRST 2-min candle <strong>CLOSES below the ascending trendline</strong> → enter next candle open.</p>
+            <p className="text-textp text-[13.5px] leading-relaxed">15-min LH/LL → <strong>Gatekeeper OPEN</strong> (2-min below VWAP + 9 + 20 falling + 200, runway clear) → bounce holds below prior swing high → FIRST 2-min candle <strong>CLOSES below the ascending trendline</strong> → enter next candle open.</p>
           </div>
+        </div>
+        <div className="rounded-card border border-gold/30 bg-gold/5 p-4 mt-3">
+          <div className="font-display text-[11px] uppercase tracking-[0.16em] text-gold mb-1">FLAT — the third position</div>
+          <p className="text-textp text-[13.5px] leading-relaxed m-0">Trend and location disagree (15/5 up, 2-min below VWAP/200 — or the mirror) → <strong>no long AND no short</strong>. Chop tells or no runway → flat. Red turns green only through the Reclaim Sequence: decisive close above both → hold from above → first flag. <strong>Flat is a position.</strong></p>
         </div>
         <div className="grid md:grid-cols-3 gap-3 mt-3">
           <div className="rounded-card border border-border bg-bg/50 p-3 text-center">

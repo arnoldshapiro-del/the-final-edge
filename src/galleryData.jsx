@@ -8,7 +8,7 @@ export const SETUP_GALLERY = [
   {
     id: 'g1',
     title: 'G1 · The long entry — bull flag, trendline trigger',
-    caption: 'A with-trend BULL FLAG. The pullback prints lower highs against a descending trendline while holding above the prior swing low and ideally riding the rising 20 EMA. The TRIGGER, and the only trigger, is the FIRST 2-min candle that CLOSES above the DESCENDING 2-min trendline (the diagonal connecting those lower highs — shown here as a horizontal level for clarity; in practice it slopes down to where price breaks through). Confirming candle ideally bullish engulfing or dragonfly. ENTER all 6 contracts at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks beyond the broken trendline (the trendline level itself at the break — not below the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing low at the bottom of the pullback).',
+    caption: 'A with-trend BULL FLAG. The pullback prints lower highs against a descending trendline while holding above the prior swing low and ideally riding the rising 20 EMA. LOCATION (the Gatekeeper, Lesson 3) must agree first: this entry exists only with the 2-min above VWAP and the 9/20/200 stack — the identical shape below the stack is a trap flag, a NO-trade. The TRIGGER, and the only trigger, is the FIRST 2-min candle that CLOSES above the DESCENDING 2-min trendline (the diagonal connecting those lower highs — shown here as a horizontal level for clarity; in practice it slopes down to where price breaks through). Confirming candle ideally bullish engulfing or dragonfly. ENTER all 6 contracts at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks beyond the broken trendline (the trendline level itself at the break — not below the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing low at the bottom of the pullback).',
     render: () => (
       <SetupChart
         values={[18, 36, 56, 44, 56, 48, 62, 76]}
@@ -36,7 +36,7 @@ export const SETUP_GALLERY = [
   {
     id: 'g2',
     title: 'G2 · The short entry — BEAR FLAG, trendline trigger',
-    caption: 'A with-trend BEAR FLAG — exact mirror of the bull flag. PERMISSION (MANDATORY): the 15-minute must be in a downtrend — lower highs AND lower lows. Pole = sharp drop. Flag = price drifting UP on lighter volume in a small rising channel against the downtrend; the bounce prints higher lows while holding below the prior swing high. DEFINING BOUNDARY = the ASCENDING trendline connecting those HIGHER LOWS (the lower edge of the rising flag). TRIGGER = FIRST 2-min candle that CLOSES BELOW the ascending trendline. Enter all 6 contracts short at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks ABOVE the broken trendline (the trendline level itself at the break — not above the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing HIGH at the top of the bounce). TIME STOP IS TIGHTER: 2 candles (4 minutes), not 3 — bear flags work fast or they fail.',
+    caption: 'A with-trend BEAR FLAG — exact mirror of the bull flag. PERMISSION (MANDATORY): the 15-minute must be in a downtrend — lower highs AND lower lows. LOCATION (the Gatekeeper, Lesson 3): the 2-min must be below VWAP and the 9/20/200 stack with the 20 falling — a bear flag above the stack is the trap-flag mirror, a NO-trade. Pole = sharp drop. Flag = price drifting UP on lighter volume in a small rising channel against the downtrend; the bounce prints higher lows while holding below the prior swing high. DEFINING BOUNDARY = the ASCENDING trendline connecting those HIGHER LOWS (the lower edge of the rising flag). TRIGGER = FIRST 2-min candle that CLOSES BELOW the ascending trendline. Enter all 6 contracts short at the open of the next candle. STOP — TWO STEPS: tentative 4-6 ticks ABOVE the broken trendline (the trendline level itself at the break — not above the breakout candle\'s close), then FINAL just past the STRUCTURE (the swing HIGH at the top of the bounce). TIME STOP IS TIGHTER: 2 candles (4 minutes), not 3 — bear flags work fast or they fail.',
     render: () => (
       <SetupChart
         values={[82, 64, 44, 56, 44, 52, 38, 24]}
@@ -109,7 +109,7 @@ export const SETUP_GALLERY = [
   {
     id: 'g7',
     title: 'G7 · The trendline close is the entry — nothing before it counts',
-    caption: 'The pullback forming and making lower highs is the shape of the setup — but it is not the entry. Do NOT enter on the shape. Do NOT enter on a "price trigger." Wait for the 2-min candle to CLOSE above the descending trendline — that close is your one and only trigger.',
+    caption: 'The pullback forming and making lower highs is the shape of the setup — but it is not the entry. Do NOT enter on the shape. Do NOT enter on a "price trigger." Wait for the 2-min candle to CLOSE above the descending trendline — that close is your one and only trigger. (And the trigger only counts where the Gatekeeper is open: above VWAP and the stack for longs. A perfect trigger in the wrong location is still a no-trade.)',
     render: () => (
       <SetupChart
         values={[20, 36, 54, 44, 54, 48, 60, 72]}

@@ -305,6 +305,10 @@ export default function Trainer() {
           stopY={done && (scenario.expected === 'LONG' || scenario.expected === 'SHORT') ? scenario.stopY : undefined}
           stopLabel={scenario.stopLabel || 'Your stop'}
           ema20={scenario.ema20 ? scenario.ema20.slice(0, visibleValues.length) : undefined}
+          ema9={scenario.ema9 ? scenario.ema9.slice(0, visibleValues.length) : undefined}
+          vwap={scenario.vwap ? scenario.vwap.slice(0, visibleValues.length) : undefined}
+          ema200={scenario.ema200 ? scenario.ema200.slice(0, visibleValues.length) : undefined}
+          labelLines={!!(scenario.vwap || scenario.ema200)}
           height={280}
           mode={!done && trainMode === 'play' ? 'play' : (done ? 'reveal' : 'static')}
           autoPlay={!done && trainMode === 'play'}

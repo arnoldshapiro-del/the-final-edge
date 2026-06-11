@@ -13,6 +13,7 @@ const CHECKLIST_STEPS = [
   { id: 'q1', hard: true, text: 'Is the 15-min trending my way? (HH/HL for longs, LH/LL for shorts)' },
   { id: 'q2', text: 'With-trend direction only — not a counter-trend reversal attempt?' },
   { id: 'q3', text: 'Pullback (long) or bounce (short) healthy — holds the prior swing low (long) / prior swing high (short) AND rides above/below the 20 EMA (not knifing)?' },
+  { id: 'qgate', hard: true, text: 'LOCATION — the Gatekeeper is OPEN on the 2-min? LONG: price above VWAP, above the 9 EMA, above the 20 EMA with the 20 rising, above the 200 EMA. SHORT: below all four with the 20 falling. Runway clear — no VWAP/200 wall between entry and T1. Any single miss = gate closed. (Conflict — 15/5 up but 2-min below VWAP/200 — means NO long AND NO short. Flat is a position.)' },
   { id: 'q4', text: 'Confirming candle at the trendline close? (A+ engulfing/dragonfly or Strong morning star — not a weak doji)' },
   { id: 'q5', text: 'FIRST 2-min candle has CLOSED through the 2-min TRENDLINE? (Above the descending trendline for longs, below the ascending trendline for shorts. The trendline close is the one and only trigger.)' },
   { id: 'q6', text: 'Stop placed at the STRUCTURE (swing low at the bottom of the pullback for longs; swing high at the top of the bounce for shorts) — tentative 4-6 ticks beyond the broken trendline, then moved to the structure?' },
@@ -71,6 +72,7 @@ export default function Trade() {
 
   const allChecked = CHECKLIST_STEPS.every(s => checks[s.id])
   const hardGateFail = !checks.q1
+  const gateClosedFail = checks.q1 && !checks.qgate
   const entryNum = Number(form.entry)
   const stopNum = Number(form.stop)
   const validNums = isNum(entryNum) && isNum(stopNum) && entryNum > 0 && stopNum > 0 && entryNum !== stopNum
@@ -168,7 +170,7 @@ export default function Trade() {
   // Keyboard shortcuts for fast logging:
   //   1-7 → toggle that checklist step
   //   e   → focus the Entry price input
-  //   s   → log the trade (save) if all 6 pass + valid prices
+  //   s   → log the trade (save) if all 7 pass + valid prices
   //   ?   → toggle the help panel
   const entryInputRef = useRef(null)
   const [shortcutsOpen, setShortcutsOpen] = useState(false)
@@ -184,7 +186,7 @@ export default function Trade() {
       if (inField && e.key !== 'Escape') return
       if (e.metaKey || e.ctrlKey || e.altKey) return
 
-      if (/^[1-6]$/.test(e.key)) {
+      if (/^[1-7]$/.test(e.key)) {
         const idx = parseInt(e.key, 10) - 1
         const step = CHECKLIST_STEPS[idx]
         if (step) {
@@ -213,7 +215,7 @@ export default function Trade() {
         <div>
           <div className="pill pill-emerald inline-flex mb-3"><Icon name="chart" className="w-3.5 h-3.5"/> Trade cockpit</div>
           <h1 className="font-display font-semibold text-3xl md:text-4xl text-textp tracking-tight">Trade with discipline</h1>
-          <p className="text-texts mt-2">Pass the 6-step gate. Log the trade. Stay honest.</p>
+          <p className="text-texts mt-2">Pass the 7-step gate. Log the trade. Stay honest.</p>
         </div>
         <div className="text-right">
           <div className="flex items-center gap-2 justify-end mb-1">
@@ -321,8 +323,13 @@ export default function Trade() {
             <div className="font-display font-semibold text-2xl md:text-3xl text-coral text-glow-coral">NO TRADE — SIT OUT</div>
             <p className="text-texts text-[14px] mt-2 max-w-lg mx-auto">The 15-min isn’t trending your way. Sitting out IS the trade. Come back when the gate opens.</p>
           </div>
+        ) : gateClosedFail ? (
+          <div className="mt-5 rounded-card border border-gold/40 bg-gold/5 p-5 text-center">
+            <div className="font-display font-semibold text-2xl md:text-3xl text-gold text-glow-gold">GATE CLOSED — FLAT</div>
+            <p className="text-texts text-[14px] mt-2 max-w-lg mx-auto">Trend says yes, but location hasn’t agreed yet. Below VWAP/the stack there is no long — and no short either; that would be shorting a pullback inside an uptrend. Flat is a position. Watch for the Reclaim Sequence.</p>
+          </div>
         ) : !allChecked ? (
-          <div className="mt-4 text-texts text-[13px] font-body text-center">Finish all six steps to unlock the calculator.</div>
+          <div className="mt-4 text-texts text-[13px] font-body text-center">Finish all seven steps to unlock the calculator.</div>
         ) : (
           <div className="mt-4 text-emerald2 text-[13px] font-display tracking-wide text-center">
             <Icon name="check" className="inline w-4 h-4 mr-1"/> Gate open — log the trade below.
@@ -500,7 +507,7 @@ export default function Trade() {
         </div>
         {canLogBreach && !editingId && (
           <p className="text-textt text-[12px] mt-2 text-right font-body">
-            Took the trade without all 6? Record it anyway — an honest journal is worth more than a perfect-looking one.
+            Took the trade without all 7? Record it anyway — an honest journal is worth more than a perfect-looking one.
           </p>
         )}
       </section>
@@ -551,9 +558,9 @@ export default function Trade() {
 
 function ShortcutsHelp({ onClose }) {
   const ROWS = [
-    { keys: ['1', '2', '3', '4', '5', '6'], label: 'Toggle each checklist step' },
+    { keys: ['1', '2', '3', '4', '5', '6', '7'], label: 'Toggle each checklist step' },
     { keys: ['E'], label: 'Focus the Entry price input' },
-    { keys: ['S'], label: 'Save / log the trade (if all 6 + valid prices)' },
+    { keys: ['S'], label: 'Save / log the trade (if all 7 + valid prices)' },
     { keys: ['?'], label: 'Open / close this help' },
     { keys: ['Esc'], label: 'Close dialogs' },
   ]
@@ -614,7 +621,7 @@ function TradeRow({ t, onEdit, onAskDelete }) {
             <span className="font-display font-semibold text-textp text-[14px]">{t.direction.toUpperCase()}</span>
             <span className="pill pill-gold text-[10px]">{t.setupGrade}</span>
             <span className="pill pill-muted text-[10px]">{t.candle}</span>
-            {t.followedAll7 ? <span className="pill pill-emerald text-[10px]">All 6</span> : <span className="pill pill-coral text-[10px]">Breach{t.missedSteps?.length ? ` ·${t.missedSteps.map(id => ' ' + (parseInt(id.slice(1), 10))).join(',')}` : ''}</span>}
+            {t.followedAll7 ? <span className="pill pill-emerald text-[10px]">All 7</span> : <span className="pill pill-coral text-[10px]">Breach{t.missedSteps?.length ? ` ·${t.missedSteps.map(id => { const i = CHECKLIST_STEPS.findIndex(s => s.id === id); return ' ' + (i >= 0 ? i + 1 : id) }).join(',')}` : ''}</span>}
             {emo && <span className={`pill text-[10px] ${emo.good ? 'pill-cyan' : 'pill-coral'}`}>{emo.label}</span>}
             <span className="pill pill-violet text-[10px]">{t.mode.toUpperCase()}</span>
           </div>

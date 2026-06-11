@@ -419,7 +419,7 @@ export default function Stats() {
             <StatTile
               label="Rule adherence"
               value={pct(stats.ruleAdherence)}
-              sub={`${Math.round(stats.ruleAdherence * stats.n)} of ${stats.n} followed all 6`}
+              sub={`${Math.round(stats.ruleAdherence * stats.n)} of ${stats.n} followed all 7`}
               accent={stats.ruleAdherence >= 0.9 ? 'emerald' : 'gold'}
               big
             />
