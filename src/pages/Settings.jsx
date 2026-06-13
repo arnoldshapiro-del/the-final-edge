@@ -99,7 +99,7 @@ export default function Settings() {
         <div>
           <label className="field-label">Contracts per trade</label>
           <input type="number" min={1} max={20} value={draft.contracts} onChange={e => change('contracts', Math.max(1, Math.min(20, parseInt(e.target.value || '6'))))} />
-          <p className="text-textt text-[12px] mt-1 font-body">Default 6 (2/2/2 ladder). Same size every trade.</p>
+          <p className="text-textt text-[12px] mt-1 font-body">Default 6 (2/2/2 ladder). The flag grade sets the size: A-grade full, B-grade half or pass.</p>
         </div>
 
         <div>

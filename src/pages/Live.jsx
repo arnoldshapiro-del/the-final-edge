@@ -26,7 +26,9 @@ const IF_THEN = [
   { ifPart: 'the 9/20 are braided flat or price keeps crossing VWAP', thenPart: 'chop. Hands off — no setups exist there in either direction.' },
   { ifPart: 'a VWAP or 200 wall sits between entry and T1', thenPart: 'I skip the trade. No runway, no trade.' },
   { ifPart: 'T1 fills', thenPart: 'stop tucks 4–6 ticks behind the newest 2-min swing — instantly, and only if tighter. Never at entry.' },
-  { ifPart: 'I take my 2nd loss', thenPart: 'one more A+ only — or I stop early. Stopping is winning.' },
+  { ifPart: 'it is the 3rd flag of the leg', thenPart: 'NO TRADE, ever. Three pushes form a wedge — that flag is where reversal traders enter. The count resets on a VWAP/200 tag or a new session.' },
+  { ifPart: 'my open day P&L falls to 50% of its intraday peak', thenPart: 'trading is FINISHED for the day. The give-back rule has no exceptions.' },
+  { ifPart: 'I take my 2nd loss', thenPart: 'one more A-grade only — or I stop early. Stopping is winning.' },
   { ifPart: 'I take my 3rd loss OR hit my daily max', thenPart: 'I am DONE. Close NinjaTrader. No debate.' },
   { ifPart: 'the clock hits 10:30', thenPart: 'my edge window is over. I am done for the day.' },
 ]
@@ -103,7 +105,7 @@ export default function Live() {
     { id: 'g1', label: 'Pre-market routine saved (trend + key levels)', auto: premarketDone },
     { id: 'g2', label: 'Mission read — out loud if you can' },
     { id: 'g3', label: 'Warm-up — 3 flashcards', quiz: true },
-    { id: 'g6', label: 'Gatekeeper lines on the 2-min chart: session VWAP + 9 / 20 / 200 EMA, all calculated on 2-min data' },
+    { id: 'g6', label: 'Gatekeeper lines on the 2-min chart: session VWAP + the 200 EMA (the two gates), the 20 EMA (the grader) and the 9 EMA (reference only) — all calculated on 2-min data' },
     { id: 'g4', label: 'Daily loss limit set inside NinjaTrader (your daily max)' },
     { id: 'g5', label: `Risk acknowledged: ${settings.maxLossPerSession} losses = done for the day · window closes 10:30` },
   ]
@@ -312,11 +314,11 @@ export default function Live() {
         <div className="grid md:grid-cols-2 gap-3">
           <div className="rounded-card border border-emerald2/30 bg-emerald2/5 p-4">
             <div className="font-display text-[11px] uppercase tracking-[0.16em] text-emerald2 mb-1">LONG — bull flag</div>
-            <p className="text-textp text-[13.5px] leading-relaxed">15-min HH/HL → <strong>Gatekeeper OPEN</strong> (2-min above VWAP + 9 + 20 rising + 200, runway clear) → pullback holds prior swing low → FIRST 2-min candle <strong>CLOSES above the descending trendline</strong> → enter next candle open.</p>
+            <p className="text-textp text-[13.5px] leading-relaxed">15-min HH/HL → <strong>Gatekeeper OPEN</strong> (at the entry candle's close: price above BOTH gates — the 2-min 200 EMA and session VWAP — runway clear) → flag holds prior swing low, graded by the 20 (A full size · B half or pass) → FIRST 2-min candle <strong>CLOSES above the descending trendline</strong> → enter next candle open.</p>
           </div>
           <div className="rounded-card border border-coral/30 bg-coral/5 p-4">
             <div className="font-display text-[11px] uppercase tracking-[0.16em] text-coral mb-1">SHORT — bear flag</div>
-            <p className="text-textp text-[13.5px] leading-relaxed">15-min LH/LL → <strong>Gatekeeper OPEN</strong> (2-min below VWAP + 9 + 20 falling + 200, runway clear) → bounce holds below prior swing high → FIRST 2-min candle <strong>CLOSES below the ascending trendline</strong> → enter next candle open.</p>
+            <p className="text-textp text-[13.5px] leading-relaxed">15-min AND 5-min LH/LL → <strong>Gatekeeper OPEN</strong> (at the entry candle's close: price below BOTH gates — the 2-min 200 EMA and session VWAP — runway clear) → bounce holds below prior swing high, graded by the 20 from below → FIRST 2-min candle <strong>CLOSES below the ascending trendline</strong> → enter next candle open.</p>
           </div>
         </div>
         <div className="rounded-card border border-gold/30 bg-gold/5 p-4 mt-3">

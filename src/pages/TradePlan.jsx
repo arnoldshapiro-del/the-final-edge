@@ -57,17 +57,18 @@ export default function TradePlan() {
           The 2-min gives the trigger: a close above the descending trendline (long) or below the ascending trendline (short). The close through the trendline is the only thing that puts you in — nothing before it counts.
         </Block>
         <Block title="LOCATION — THE GATEKEEPER (between trend and trigger)" color="violet" icon="shield" span>
-          <p className="mb-2"><strong className="text-emerald2">LONG GATE — ALL required on the 2-min:</strong> price above VWAP · above the 9 EMA · above the 20 EMA with the 20 rising · above the 200 EMA. A+ = fully stacked (9 &gt; 20 &gt; 200, VWAP below price). Any single miss = gate closed = no long.</p>
-          <p className="mb-2"><strong className="text-coral">SHORT GATE — exact mirror:</strong> 15/5 LH/LL · below VWAP, the 9, the 20 (falling) and the 200. A+ = stacked 9 &lt; 20 &lt; 200.</p>
+          <p className="mb-2"><strong className="text-emerald2">LONG GATE — the only two, checked at the CLOSE of the 2-min entry candle:</strong> price above the 200 EMA on the 2-minute chart AND above session VWAP. Either miss = gate closed = no long. The gates are NOT checked throughout the pullback — a flag dipping below the fast EMAs is normal, never a disqualifier by itself.</p>
+          <p className="mb-2"><strong className="text-coral">SHORT GATE — exact mirror:</strong> 15-min AND 5-min downtrends (LH/LL) · a bear flag · at the entry close, price below BOTH the 200 EMA (2-min) and session VWAP · trigger = 2-min close below the flag trendline.</p>
+          <p className="mb-2"><strong className="text-cyan2">THE 20 EMA IS A GRADER, NOT A GATE:</strong> A-grade = flag low holds at/near the 2-min 20 → full size. B-grade = pokes below the 20 but holds above both gates → half size or pass. VOID = a 2-min CLOSE below the 200/VWAP during the flag, or &gt;50% of the pole given back → not a flag, no trade. The 9 EMA is reference only — part of no entry rule.</p>
           <p className="mb-2"><strong className="text-gold">CONFLICT = FLAT:</strong> 15/5 up but 2-min below VWAP/200 → no long AND no short (that short is a pullback inside an uptrend). Flat is a position.</p>
           <p className="mb-2"><strong>RUNWAY RULE:</strong> no wall (VWAP or the 200) between entry and T1 — wall in the way = skip. <strong>CHOP TELLS (any one = sit out):</strong> 9/20 braided flat · flat VWAP · repeated VWAP crosses (~30 min) · the squeeze · failed breaks both ways.</p>
-          <p className="m-0"><strong className="text-cyan2">RECLAIM SEQUENCE (red → green):</strong> decisive 2-min close above BOTH VWAP + 200 → HOLD from above on the retest → FIRST flag after the hold is valid, often the best trade of the move. Never anticipate it. <span className="text-textt">Chart setup: 2-min shows session VWAP + 9/20/200 EMA, all on 2-min data. Risk unchanged — the Gatekeeper changes WHICH trades qualify, never how they're managed.</span></p>
+          <p className="m-0"><strong className="text-cyan2">RECLAIM SEQUENCE (red → green):</strong> decisive 2-min close above BOTH VWAP + 200 → HOLD from above on the retest → FIRST flag after the hold is valid, often the best trade of the move. Never anticipate it. <span className="text-textt">Chart setup: 2-min shows session VWAP + the 200 EMA (the two gates), the 20 EMA (grader) and the 9 EMA (reference only), all on 2-min data. Risk unchanged — the Gatekeeper changes WHICH trades qualify, never how they're managed.</span></p>
         </Block>
 
         <Block title="The 4-step entry — trendline close ONLY" color="emerald" icon="target" span>
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min HH/HL confirmed. (Mandatory permission to be long.)</li>
-            <li>The Gatekeeper is OPEN: 2-min above VWAP + 9 + 20 (rising) + 200, runway clear to T1.</li>
+            <li>The Gatekeeper is OPEN at the entry candle's close: price above BOTH gates — the 2-min 200 EMA and session VWAP — runway clear to T1.</li>
             <li>Wait for a 2-min candle to <strong>CLOSE above the descending 2-min trendline</strong> — the diagonal connecting the lower highs of the pullback. That close is your ONE and ONLY trigger.</li>
             <li>Enter all 6 contracts at the open of the next candle. <span className="text-emerald2">Buy.</span></li>
           </ol>
@@ -88,11 +89,21 @@ export default function TradePlan() {
             <li><span className="text-gold">Strong</span> — morning star (rare). Take if seen.</li>
             <li><span className="text-coral">Weak / none</span> — smaller or skip.</li>
           </ul>
-          <p className="text-textt text-[12px] mt-2">Candle grades the trade; it does <em>not</em> set the size. Same {settings.contracts} contracts every trade.</p>
+          <p className="text-textt text-[12px] mt-2">Candle grades the trade; it does <em>not</em> set the size. The FLAG GRADE sets the ceiling — A-grade full size ({settings.contracts}), B-grade half or pass — and the candle can only talk you down to a skip.</p>
         </Block>
         <Block title="Daily guardrails" color="violet" icon="lock">
           Max <strong>{settings.maxTradesPerSession} trades</strong> per session.
           Max loss <strong>{settings.maxLossPerSession}R</strong>. When either trips — done for the day.
+          <strong> GIVE-BACK RULE:</strong> open day P&amp;L falls to 50% of its intraday peak → done for the day. No exceptions.
+        </Block>
+
+        <Block title="FLAG GRADE &amp; THE PULLBACK COUNT" color="cyan" icon="chart" span>
+          <p className="mb-2"><strong>The 5-point grade:</strong> 1) STRONG POLE — 3+ candles, mostly one color, big bodies, small wicks, steep (weak pole = no trade). 2) SHALLOW — less than half the pole given back; the best flags give back about a third or less. 3) TIGHT — small overlapping bars in a narrow, orderly channel. 4) SHORT — roughly 3–10 two-minute bars. 5) QUIET THEN LOUD — volume contracts in the flag, expands on the break. <em>A tight flag is a staircase pausing on a landing; a loose flag is the staircase collapsing into a ball of yarn.</em></p>
+          <p className="m-0"><strong>The pullback count:</strong> Flag #1 after the gates turn green = full size. Flag #2 = A-grade only. <strong className="text-coral">Flag #3 = NO TRADE, ever</strong> — three pushes form a wedge, and the third flag is where reversal traders enter. Count resets when price tags VWAP or the 2-min 200 EMA and a fresh setup forms, or at a new session.</p>
+        </Block>
+
+        <Block title="ORB — METHOD 3 (a SEPARATE playbook)" color="gold" icon="clock" span>
+          Range <strong>9:30–9:45 AM ET</strong> (15 minutes — not 5, not 30). Entry: the <strong>FIRST 2-min candle CLOSE</strong> above the range high (long) / below the range low (short). Direction comes from the break itself — <strong>no 15/5 trend alignment required</strong>. Confirmation: price on the matching side of VWAP at entry. Skip if the logical stop (other side of the range, or the midpoint) exceeds the 32-tick budget, or the range is noise. Exit pre-committed <strong>IN WRITING before 9:45</strong> (default: the standard 2/2/2 scale-out). Size <strong>smaller than flag trades</strong>. Expect <strong>25–45% win rates by design</strong>; losing streaks of 3–5 are normal; judge on 20+ logged trades. Never blended with the flag rules.
         </Block>
 
         <Block title="M2K tick / point / $" color="violet" icon="shield" span>
@@ -115,8 +126,8 @@ export default function TradePlan() {
           <ol className="list-decimal pl-5 space-y-1 marker:text-violet2">
             <li>15-min trending my way (HH/HL · LH/LL)? <span className="text-coral">[Hard gate — if no, sit out.]</span></li>
             <li>With-trend pullback / bounce (flag), not a counter-trend reversal attempt?</li>
-            <li>5-min pullback (long) / bounce (short) healthy — holds the prior swing low (long) / prior swing high (short), rides the 20 EMA?</li>
-            <li>LOCATION — the Gatekeeper OPEN on the 2-min? Long: above VWAP + 9 + 20 (rising) + 200; short: mirror; runway clear. <span className="text-gold">[Hard gate — conflict = FLAT, no long AND no short.]</span></li>
+            <li>Flag graded — holds the prior swing low (long) / prior swing high (short); A-grade (holds the 20) = full size, B-grade (pokes below) = half or pass, VOID (2-min close below 200/VWAP, or &gt;50% pole retrace) = no trade; not flag #3 of the leg?</li>
+            <li>LOCATION — the Gatekeeper OPEN at the entry candle's close? Long: above BOTH gates — the 2-min 200 EMA and session VWAP; short: below both; runway clear. <span className="text-gold">[Hard gate — conflict = FLAT, no long AND no short.]</span></li>
             <li>Confirming candle at the trendline close? (A+ / Strong / weak → smaller or skip)</li>
             <li>FIRST 2-min candle has CLOSED above the descending trendline (long) / below the ascending trendline (short)? <em>The trendline close is the ONLY trigger.</em></li>
             <li>Stop placed at the STRUCTURE (swing low at the bottom of the pullback for longs; swing high at the top of the bounce for shorts) — tentative 4-6 ticks past broken trendline, then final at the structure?</li>
@@ -131,7 +142,7 @@ export default function TradePlan() {
             <li>Any pullback or bounce shape as an entry on its own — only the trendline close gets you in.</li>
             <li>Wicks. Wait for the trendline CLOSE.</li>
             <li>Chasing when there's no pullback.</li>
-            <li>Trap flags — any flag on the wrong side of the stack (bull flag below VWAP/9/20/200, bear flag above).</li>
+            <li>Trap flags — any flag on the wrong side of the Location Gates (bull flag below VWAP and the 2-min 200 EMA, bear flag above them). And never flag #3 of a leg.</li>
             <li>Mean-reversion longs below the 200 "because it's a magnet" — rejected on purpose. And never anticipate a reclaim.</li>
           </ul>
         </Block>

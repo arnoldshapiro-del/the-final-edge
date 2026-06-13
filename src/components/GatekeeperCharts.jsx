@@ -1,4 +1,5 @@
-// Gatekeeper diagrams — the four canonical pictures for the VWAP + EMA Location Filter.
+// Gatekeeper diagrams — the four canonical pictures for the Two Location Gates (session VWAP + the 200 EMA on the 2-minute chart).
+// The 20 EMA is a grader (A/B), not a gate; the 9 EMA is drawn as a visual reference only.
 // Built on SetupChart primitives, same design vocabulary as GalleryCharts.jsx:
 //   emerald = with-trend / go        (#1FE0A0)
 //   coral   = 200 EMA / walls / no   (#FF5C72)
@@ -23,12 +24,12 @@ export function GateGreenLightChart() {
       triggerY={57}
       triggerLabel="flag trendline (trigger)"
       markers={[
-        { idx: 5, kind: 'dip1', label: 'Flag rides the 9/20 — healthy' },
+        { idx: 5, kind: 'dip1', label: 'Flag low holds the 20 — A-grade' },
         { idx: 6, kind: 'enter', label: 'Close through the flag line — GO' },
       ]}
-      contextLabel="A+ · fully stacked"
+      contextLabel="Gates open · A-grade flag"
       contextColor="emerald"
-      caption="The green light. On the 2-minute: price above the 9 EMA, the 9 above the 20, the 20 above the 200, and VWAP below price. Fully stacked — buyers own the session. The flag pulls back to the 9/20 without closing below the 20 or VWAP, and the 2-min close through the flag trendline is the trigger. This is the only neighborhood where the long trigger means anything."
+      caption="The green light. On the 2-minute, at the entry candle's close, price is above BOTH Location Gates — the 200 EMA on the 2-minute chart and session VWAP. Buyers own the session. The flag low holds at the 20 EMA (the grader: A-grade, full size permitted; the 9 is drawn for reference only), no 2-min candle CLOSES below the 200 or VWAP during the flag, and the 2-min close through the flag trendline is the trigger. This is the only neighborhood where the long trigger means anything."
     />
   )
 }
@@ -59,7 +60,7 @@ export function GateTrapChart() {
       <div className="relative">
         <div className="flex items-center gap-2 mb-1">
           <span className="pill pill-coral text-[10px]">2-min</span>
-          <span className="text-texts text-[12px] font-display tracking-wide">Same moment — price below VWAP, 9, 20 AND 200</span>
+          <span className="text-texts text-[12px] font-display tracking-wide">Same moment — price below BOTH Location Gates (VWAP and the 200)</span>
         </div>
         <SetupChart
           values={[44, 38, 30, 25, 29, 26, 31, 28, 33, 30]}
@@ -69,7 +70,7 @@ export function GateTrapChart() {
           ema200={[62, 62, 61, 61, 60, 60, 59, 59, 58, 58]}
           labelLines
           markers={[
-            { idx: 7, kind: 'dot', label: 'Trap flag — wrong side of the stack', color: '#FF5C72' },
+            { idx: 7, kind: 'dot', label: 'Trap flag — wrong side of the gates', color: '#FF5C72' },
           ]}
           axisLabels={false}
           height={230}
@@ -96,10 +97,10 @@ export function GateTrapChart() {
 
       <p className="text-texts text-[13px] font-body leading-relaxed m-0">
         The 15 and 5 print higher highs and higher lows — structure says "uptrend." But the 2-minute trades below
-        VWAP, the 9, the 20 and the 200: sellers own right now. That is a deep pullback or an early reversal — not a
-        buy zone. And the "bull flag" forming down there is the same shape with opposite context — viewed from the
-        other side it is often the bear flag. No long (gate closed). No short either (you'd be shorting a pullback
-        inside an uptrend). Flat is a position.
+        BOTH Location Gates — session VWAP and the 200 EMA: sellers own right now. That is a deep pullback or an
+        early reversal — not a buy zone. And the "bull flag" forming down there is the same shape with opposite
+        context — viewed from the other side it is often the bear flag. No long (gate closed). No short either
+        (you'd be shorting a pullback inside an uptrend). Flat is a position.
       </p>
     </div>
   )
@@ -142,7 +143,7 @@ export function GateDecisionFlow() {
   const xs = [22, 209, 396, 583]
   const STAGES = [
     { title: 'TREND', sub: '15/5 structure', line: 'directional permission only', color: C.emerald },
-    { title: 'LOCATION', sub: 'the Gatekeeper', line: 'VWAP + 9/20/200 · now or not now', color: C.violet },
+    { title: 'LOCATION', sub: 'the Gatekeeper', line: 'VWAP + 200 EMA · now or not now', color: C.violet },
     { title: 'PATTERN', sub: 'bull / bear flag', line: 'the only pattern we trade', color: C.cyan },
     { title: 'TRIGGER', sub: '2-min CLOSE', line: 'through the flag trendline', color: C.gold },
   ]
@@ -251,34 +252,34 @@ export function GateCheatSheet() {
       </div>
 
       <div className="rounded-lg border border-emerald2/40 bg-emerald2/5 p-3 mb-2">
-        <p className="font-display font-semibold text-emerald2 text-[12px] tracking-wide uppercase m-0">Long gate — ALL required</p>
+        <p className="font-display font-semibold text-emerald2 text-[12px] tracking-wide uppercase m-0">Long gate — the only two, at the entry candle's CLOSE</p>
         <ul className="m-0 mt-1 pl-4 space-y-0.5 text-[12.5px] text-textp list-disc marker:text-emerald2">
           <li>15/5: higher highs &amp; higher lows</li>
-          <li>Price above VWAP</li>
-          <li>Above the 9 EMA</li>
-          <li>Above the 20 EMA — and the 20 rising</li>
-          <li>Above the 200 EMA</li>
+          <li>Price above the 200 EMA (2-min chart)</li>
+          <li>Price above session VWAP</li>
           <li>Runway clear — no VWAP/200 wall before T1</li>
         </ul>
-        <p className="font-mono text-emerald2 text-[10.5px] m-0 mt-1">A+ = fully stacked: 9 &gt; 20 &gt; 200, VWAP below price</p>
+        <p className="font-mono text-emerald2 text-[10.5px] m-0 mt-1">20 EMA = grader, not a gate: A = flag low holds the 20 → full size · B = pokes below, holds the gates → half/pass · 9 EMA = reference only</p>
       </div>
 
       <div className="rounded-lg border border-coral/40 bg-coral/5 p-3 mb-2">
         <p className="font-display font-semibold text-coral text-[12px] tracking-wide uppercase m-0">Short gate — exact mirror</p>
         <ul className="m-0 mt-1 pl-4 space-y-0.5 text-[12.5px] text-textp list-disc marker:text-coral">
-          <li>15/5: lower highs &amp; lower lows</li>
-          <li>Below VWAP · below the 9</li>
-          <li>Below the 20 — and the 20 falling</li>
-          <li>Below the 200 · runway clear below</li>
+          <li>15-min AND 5-min downtrends (LH/LL)</li>
+          <li>Bear flag · 2-min close below its trendline</li>
+          <li>At the entry close: below the 200 EMA · below VWAP</li>
+          <li>Runway clear below</li>
         </ul>
-        <p className="font-mono text-coral text-[10.5px] m-0 mt-1">A+ = stacked 9 &lt; 20 &lt; 200</p>
+        <p className="font-mono text-coral text-[10.5px] m-0 mt-1">Grade mirrors: bounce holds the 20 from below = A · pokes above = B</p>
       </div>
 
       <div className="rounded-lg border border-gold/40 bg-gold/5 p-3 mb-2">
         <p className="font-display font-semibold text-gold text-[12px] tracking-wide uppercase m-0">Flat when (any one)</p>
         <ul className="m-0 mt-1 pl-4 space-y-0.5 text-[12.5px] text-textp list-disc marker:text-gold">
-          <li>Any single gate item misses — gate closed</li>
+          <li>Either gate misses — gate closed</li>
           <li>Conflict: 15/5 up but 2-min below VWAP/200 — no long, no short</li>
+          <li>VOID flag: a 2-min CLOSE below the 200/VWAP during the flag, or &gt;50% of the pole given back</li>
+          <li>Flag #3 of the leg — never (count resets on a VWAP/200 tag or new session)</li>
           <li>Chop tells: 9/20 braided flat · flat VWAP · price crossing VWAP repeatedly (~30 min) · the squeeze · failed breaks both ways</li>
           <li>Wall between entry and T1 (Runway Rule)</li>
         </ul>
