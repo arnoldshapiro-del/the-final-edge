@@ -35,7 +35,7 @@ export function GateGreenLightChart() {
 }
 
 // ───────────────────────────────────────────────────────────────────────────────
-// 2 · The trap — 15-min inset says HH/HL while the 2-min sits below all four lines
+// 2 · The trap — 15-min inset says HH/HL while the 2-min sits below both Location Gates
 // ───────────────────────────────────────────────────────────────────────────────
 export function GateTrapChart() {
   return (
